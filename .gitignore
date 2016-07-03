@@ -20,3 +20,8 @@ Paulscode SoundSystem CodecIBXM License.txt
 README.txt
 forge-1.10.2-12.18.0.2007-1.10.0-changelog.txt
 CREDITS-fml.txt
+eclipse/**
+gradle/**
+build.gradle
+gradlew
+gradlew.bat
