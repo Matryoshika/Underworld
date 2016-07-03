@@ -29,3 +29,4 @@ gradlew.bat
 .project
 *.launch
 .settings
+/bin/
