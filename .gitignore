@@ -25,3 +25,7 @@ gradle/**
 build.gradle
 gradlew
 gradlew.bat
+.classpath
+.project
+*.launch
+.settings
