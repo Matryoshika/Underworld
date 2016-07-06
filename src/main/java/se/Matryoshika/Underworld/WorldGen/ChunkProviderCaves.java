@@ -20,12 +20,15 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCavesHell;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
+import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraft.world.gen.feature.WorldGenBush;
 import net.minecraft.world.gen.feature.WorldGenFire;
 import net.minecraft.world.gen.feature.WorldGenGlowStone1;
 import net.minecraft.world.gen.feature.WorldGenGlowStone2;
 import net.minecraft.world.gen.feature.WorldGenHellLava;
+import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
 
@@ -48,12 +51,14 @@ public class ChunkProviderCaves implements IChunkGenerator
     private NoiseGeneratorOctaves lperlinNoise1;
     private NoiseGeneratorOctaves lperlinNoise2;
     private NoiseGeneratorOctaves perlinNoise1;
+    private NoiseGeneratorPerlin surfaceNoise;
     /** Determines whether slowsand or gravel can be generated at a location */
     private NoiseGeneratorOctaves slowsandGravelNoiseGen;
     /** Determines whether something other than nettherack can be generated at a location */
     private NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
     public NoiseGeneratorOctaves scaleNoise;
     public NoiseGeneratorOctaves depthNoise;
+    private Biome[] biomesForGeneration;
     //private final WorldGenFire fireFeature = new WorldGenFire();
     //private final WorldGenGlowStone1 lightGemGen = new WorldGenGlowStone1();
     //private final WorldGenGlowStone2 hellPortalGen = new WorldGenGlowStone2();
@@ -95,18 +100,20 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.netherrackExculsivityNoiseGen = ctx.getPerlin3();
         this.scaleNoise = ctx.getScale();
         this.depthNoise = ctx.getDepth();
+        this.surfaceNoise = new NoiseGeneratorPerlin(this.rand, 4);
         //this.genNetherBridge = (MapGenNetherBridge)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(genNetherBridge, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE);
         this.genNetherCaves = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(genNetherCaves, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE);
     }
 
-    public void prepareHeights(int p_185936_1_, int p_185936_2_, ChunkPrimer primer)
+    public void prepareHeights(int x, int z, ChunkPrimer primer)
     {
+    	this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 99, 10);
         int i = 4;
         int j = this.world.getSeaLevel() / 2 + 1;
         int k = 5;
         int l = 17;
         int i1 = 5;
-        this.buffer = this.getHeights(this.buffer, p_185936_1_ * 4, 0, p_185936_2_ * 4, 5, 17, 5);
+        this.buffer = this.getHeights(this.buffer, x * 4, 0, z * 4, 5, 17, 5);
 
         for (int j1 = 0; j1 < 4; ++j1)
         {
@@ -265,26 +272,22 @@ public class ChunkProviderCaves implements IChunkGenerator
         }
     }
 
+    
     public Chunk provideChunk(int x, int z)
     {
         this.rand.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
+        this.biomesForGeneration = this.world.getBiomeProvider().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.prepareHeights(x, z, chunkprimer);
         this.buildSurfaces(x, z, chunkprimer);
-        this.genNetherCaves.generate(this.world, x, z, chunkprimer);
 
-        if (this.generateStructures)
-        {
-            //this.genNetherBridge.generate(this.world, x, z, chunkprimer);
-        }
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
-        Biome[] abiome = this.world.getBiomeProvider().loadBlockGeneratorData((Biome[])null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i = 0; i < abyte.length; ++i)
         {
-            abyte[i] = (byte)Biome.getIdForBiome(abiome[i]);
+            abyte[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
         }
 
         chunk.resetRelightChecks();
@@ -394,8 +397,9 @@ public class ChunkProviderCaves implements IChunkGenerator
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, false);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(this.world, this.rand, blockpos));
 
-        if (net.minecraftforge.event.terraingen.TerrainGen.decorate(this.world, this.rand, blockpos, net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SHROOM))
-        {}
+        if (net.minecraftforge.event.terraingen.TerrainGen.decorate(this.world, this.rand, blockpos, net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE)){
+        	
+        }
 
         
 

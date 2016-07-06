@@ -8,7 +8,10 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.init.Biomes;
+import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -37,15 +40,6 @@ public class BiomeProviderCaves extends BiomeProvider{
     {
         this.biomeCache = new BiomeCache(this);
         this.biomesToSpawnIn = Lists.newArrayList(allowedBiomes);
-        allowedBiomes.add(Biomes.DESERT);
-        allowedBiomes.add(Biomes.FOREST);
-        allowedBiomes.add(Biomes.BIRCH_FOREST);
-        allowedBiomes.add(Biomes.DESERT_HILLS);
-        allowedBiomes.add(Biomes.TAIGA);
-        allowedBiomes.add(Biomes.COLD_TAIGA);
-        allowedBiomes.add(Biomes.ICE_PLAINS);
-        allowedBiomes.add(Biomes.JUNGLE);
-        allowedBiomes.add(Biomes.SWAMPLAND);
     }
 
     private BiomeProviderCaves(long seed, WorldType worldTypeIn, String options)
@@ -80,15 +74,39 @@ public class BiomeProviderCaves extends BiomeProvider{
      * Returns an array of biomes for the location input.
      */
     @Override
-    public Biome[] getBiomesForGeneration(Biome[] p_76937_1_, int p_76937_2_, int p_76937_3_, int p_76937_4_, int p_76937_5_)
+    public Biome[] getBiomesForGeneration(Biome[] biomes, int x, int z, int width, int height)
     {
-        if (p_76937_1_ == null || p_76937_1_.length < p_76937_4_ * p_76937_5_)
+        IntCache.resetIntCache();
+
+        if (biomes == null || biomes.length < width * height)
         {
-            p_76937_1_ = new Biome[p_76937_4_ * p_76937_5_];
+            biomes = new Biome[width * height];
         }
 
-        Arrays.fill(p_76937_1_, 0, p_76937_4_ * p_76937_5_, this.biomeGenerator);
-        return p_76937_1_;
+        int[] aint = this.genBiomes.getInts(x, z, width, height);
+
+        try
+        {
+            for (int i = 1; i < width * height; ++i)
+            {
+                biomes[i] = Biome.getBiome(aint[i], Biomes.DEFAULT);
+            }
+            
+            //System.out.println("Biomes enabled are: "+biomes.toString());
+            
+            return biomes;
+        }
+        catch (Throwable throwable)
+        {
+            CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Invalid Biome id");
+            CrashReportCategory crashreportcategory = crashreport.makeCategory("RawBiomeBlock");
+            crashreportcategory.addCrashSection("biomes[] size", Integer.valueOf(biomes.length));
+            crashreportcategory.addCrashSection("x", Integer.valueOf(x));
+            crashreportcategory.addCrashSection("z", Integer.valueOf(z));
+            crashreportcategory.addCrashSection("w", Integer.valueOf(width));
+            crashreportcategory.addCrashSection("h", Integer.valueOf(height));
+            throw new ReportedException(crashreport);
+        }
     }
 
     /**
@@ -161,7 +179,6 @@ public class BiomeProviderCaves extends BiomeProvider{
 
         return blockpos;
     }
-
     /**
      * checks given Chunk's Biomes against List of allowed ones
      */
