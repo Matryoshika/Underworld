@@ -107,7 +107,7 @@ public class ChunkProviderCaves implements IChunkGenerator
 
     public void prepareHeights(int x, int z, ChunkPrimer primer)
     {
-    	this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 4 - 2, z * 4 - 2, 99, 10);
+    	this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         int i = 4;
         int j = this.world.getSeaLevel() / 2 + 1;
         int k = 5;

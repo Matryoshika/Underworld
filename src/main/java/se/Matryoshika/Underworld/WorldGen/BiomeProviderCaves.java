@@ -34,7 +34,6 @@ public class BiomeProviderCaves extends BiomeProvider{
     private final List<Biome> biomesToSpawnIn;
     private GenLayer biomeIndexLayer;
     private GenLayer genBiomes;
-    private static final String __OBFID = "CL_00000169";
 
     protected BiomeProviderCaves()
     {
@@ -47,6 +46,7 @@ public class BiomeProviderCaves extends BiomeProvider{
         this();
         GenLayer[] agenlayer = GenLayer.initializeAllBiomeGenerators(seed, worldTypeIn, options);
         agenlayer = getModdedBiomeGenerators(worldTypeIn, seed, agenlayer);
+        
         this.genBiomes = agenlayer[0];
         this.biomeIndexLayer = agenlayer[1];
     }
