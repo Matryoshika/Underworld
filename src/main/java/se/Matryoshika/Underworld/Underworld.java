@@ -27,10 +27,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import se.Matryoshika.Underworld.Content.BlockRegistry;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
 
 @Mod(modid=Underworld.MODID, version=Underworld.VERSION, name="Underworld")
 public class Underworld {
@@ -54,22 +56,27 @@ public class Underworld {
 	@Instance("Underworld")
 	public static Underworld instance;
 	
-	@SidedProxy(clientSide="se.Matryoshika.Underworld.ClientProxy",serverSide="se.Matryoshika.Underworld.CommonProxy")
-	public static CommonProxy proxy;
+	@SidedProxy(clientSide = "se.Matryoshika.Underworld.ClientProxy", serverSide = "se.Matryoshika.Underworld.ServerProxy")
+	public static IProxy proxy;
 	
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){}
+	public void preInit(FMLPreInitializationEvent event){
+		proxy.preInit();
+	}
 	
 	@EventHandler
-	public void Init(FMLInitializationEvent event) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+	public void Init(FMLInitializationEvent event){
+		proxy.init();
 		
 		DimensionManager.unregisterDimension(0);
 		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsTHis", 0, WorldProviderCaves.class, true));
 		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
+		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
+		proxy.postInit();
 		
 		worldTypeCaves = new WorldTypeCaves();
 		

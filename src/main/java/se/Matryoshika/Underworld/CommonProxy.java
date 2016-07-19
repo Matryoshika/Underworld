@@ -1,31 +1,22 @@
 package se.Matryoshika.Underworld;
 
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import se.Matryoshika.Underworld.Content.BlockRegistry;
 
 public class CommonProxy {
 	
-	public void registerRenderers(){
-		
-	}
-	
-	public void registerEntities(){
-		
-	}
-	
-	public void initCommon() {
-	       
-	}
+	public void preInit(FMLPreInitializationEvent e) {
+		BlockRegistry.createBlocks();
+    }
 
-	
-	public void initClient() {
-		
-	}
+    public void init(FMLInitializationEvent e) {
 
-	public void initServer() {
+    }
 
-	}
-	
-	public void preInit(FMLPreInitializationEvent event){
-}
+    public void postInit(FMLPostInitializationEvent e) {
+
+    }
 
 }
