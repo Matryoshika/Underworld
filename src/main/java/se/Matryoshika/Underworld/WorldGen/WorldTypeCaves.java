@@ -9,7 +9,6 @@ import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import se.Matryoshika.Underworld.WorldGen.biomes.CaveChunks;
 
 public class WorldTypeCaves extends WorldType{
 	

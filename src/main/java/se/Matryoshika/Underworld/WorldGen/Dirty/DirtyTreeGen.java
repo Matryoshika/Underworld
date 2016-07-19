@@ -11,13 +11,21 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
+import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtyTreeGen implements IWorldGenerator{
+	
+	WorldTypeCaves type = new WorldTypeCaves();
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()){
 			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			return;
+		}
+		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+			System.out.println(world.getWorldType());
 			return;
 		}
 		
@@ -72,7 +80,7 @@ public class DirtyTreeGen implements IWorldGenerator{
 					}
 				}
 			}
-			System.out.println("spawned a tree in biome: " + world.getBiomeForCoordsBody(new BlockPos(x,y,z)));
+			//System.out.println("spawned a tree in biome: " + world.getBiomeForCoordsBody(new BlockPos(x,y,z)));
 			new WorldGenTrees(true).generate(world, rand, new BlockPos(x, y, z));
 		}
 	}

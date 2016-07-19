@@ -1,0 +1,6 @@
+
+//World-Type (World Selection)
+generator.CAVES=Underworld
+
+//Blocks
+tile.hangVine.name=Hang Vine
