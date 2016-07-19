@@ -5,10 +5,10 @@ This is the Overworld. Now Underworld.
 
 ------
 
-### Build 0.01
-Most basic of basic WorldGen.
+### Build 0.0.2
+Some added World-Gen.
 
-Sure, there is stone, water, dirt, no sun, but that's about it.
+Trees with small grassy platforms & Custom vines in "warm" biomes.
 
 Example of current WorldGen
-![Image of WorldGen](http://i.imgur.com/jZ05TK4.jpg "Logo Title Text 1") 
+![Image of WorldGen](http://i.imgur.com/t7sUMwF.jpg "Worldgen image with Trees & Vines") 
