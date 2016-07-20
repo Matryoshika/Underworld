@@ -1,7 +1,8 @@
 # License
 The cave-world World-Generator named "Underworld" and all of its code is property of Matryoshika, the "Mod-Author".
 
-Unknown is available as-is, without any guarantees. Issues may be reported on the public github. Usage of this mod means you, termed "player" 
+Underworld is available as-is, without any guarantees. Issues may be reported on the public github. Usage of this mod means you, termed 
+"player" 
 accept any and all of the following terms:
 
 ------
