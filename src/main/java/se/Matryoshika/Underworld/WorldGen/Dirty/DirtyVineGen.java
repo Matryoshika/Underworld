@@ -16,6 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenTrees;
@@ -30,31 +31,13 @@ public class DirtyVineGen implements IWorldGenerator{
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()){
-			System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
 			return;
 		}
 		if(!(world.getWorldType() instanceof WorldTypeCaves)){
-			System.out.println(world.getWorldType());
+			//System.out.println(world.getWorldType());
 			return;
 		}
-		
-		biomes.add(Biomes.OCEAN);
-		biomes.add(Biomes.COLD_BEACH);
-		biomes.add(Biomes.COLD_TAIGA);
-		biomes.add(Biomes.COLD_TAIGA_HILLS);
-		biomes.add(Biomes.DEEP_OCEAN);
-		biomes.add(Biomes.DEFAULT);
-		biomes.add(Biomes.FROZEN_OCEAN);
-		biomes.add(Biomes.FROZEN_RIVER);
-		biomes.add(Biomes.MUTATED_ICE_FLATS);
-		biomes.add(Biomes.MUTATED_TAIGA);
-		biomes.add(Biomes.MUTATED_TAIGA_COLD);
-		biomes.add(Biomes.REDWOOD_TAIGA);
-		biomes.add(Biomes.REDWOOD_TAIGA_HILLS);
-		biomes.add(Biomes.MUTATED_REDWOOD_TAIGA);
-		biomes.add(Biomes.MUTATED_REDWOOD_TAIGA_HILLS);
-		biomes.add(Biomes.TAIGA);
-		biomes.add(Biomes.TAIGA_HILLS);
 		
 		
 		int blockX = chunkX * 16 + random.nextInt(16);
@@ -83,8 +66,8 @@ private void generateStructure(World world, int x, int y, int z, Random rand) {
 		Random genRand = new Random();
 		Random shortCircuit = new Random();
 		
-		
-		if(biomes.contains(world.getChunkFromBlockCoords(new BlockPos(x,y,z)).getBiome(new BlockPos(x,y,z), world.getBiomeProvider()))){
+		//Only spawn in warm biomes
+		if(world.getChunkFromBlockCoords(new BlockPos(x,y,z)).getBiome(new BlockPos(x,y,z), world.getBiomeProvider()).getTempCategory() != Biome.TempCategory.WARM){
 			return;
 		}
 		
