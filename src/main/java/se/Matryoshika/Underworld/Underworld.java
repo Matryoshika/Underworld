@@ -27,7 +27,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
@@ -61,6 +63,8 @@ public class Underworld {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
+		BiomeType.init();
+		
 		proxy.preInit();
 	}
 	
@@ -68,10 +72,14 @@ public class Underworld {
 	public void Init(FMLInitializationEvent event){
 		proxy.init();
 		
+		
+		
 		DimensionManager.unregisterDimension(0);
 		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsTHis", 0, WorldProviderCaves.class, true));
 		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
 		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
+		
+		OreDictionary.registerOre("string", BlockRegistry.BlockHangVine);
 	}
 	
 	@EventHandler
