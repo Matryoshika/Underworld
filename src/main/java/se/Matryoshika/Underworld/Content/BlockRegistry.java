@@ -19,9 +19,11 @@ public class BlockRegistry {
 	public static final Set<Block> BLOCKS = new HashSet<>();
 
 	public static Block BlockHangVine;
+	public static Block BlockDirt;
 	
 	static{
 		BlockHangVine = registerBlock(new BlockHangVine());
+		BlockDirt = registerBlock(new BlockUnderworldDirt());
 	}
 	
 	

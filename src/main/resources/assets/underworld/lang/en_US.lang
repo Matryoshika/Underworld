@@ -4,3 +4,4 @@ generator.CAVES=Underworld
 
 //Blocks
 tile.hangVine.name=Hang Vine
+tile.blockDirt.name=Anomalous Dirt
