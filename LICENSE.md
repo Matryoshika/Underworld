@@ -17,7 +17,7 @@ Can be used in any and all modpacks, private, semi-private, public etc.
 Redistribution outside official repositories is illegal, and subject for legal actions.
 
 Sub-license for redistribution for **one** new repository is available, but requires Mod-Author's permission. If several Repositories are 
-aspired, then another Sub-Licese is required per Repository. If Sub-license is attained, the new repository will be acknowledged as an 
+aspired, then another Sub-License is required per Repository. If Sub-license is attained, the new repository will be acknowledged as an 
 official repository.
 
 If the player faces any issues, in a version of Underworld, which was attained outside official repositories, the player will **not** recieve 

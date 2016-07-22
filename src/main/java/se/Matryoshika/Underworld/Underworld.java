@@ -33,7 +33,6 @@ import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyGrassGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
