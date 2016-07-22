@@ -153,9 +153,9 @@ public class DirtyTreeGen implements IWorldGenerator{
 	}
 	
 	public void genGrass(int x, int y, int z, int radius, World world){
-		for (int dx = x - radius; dx < x + radius; dx++){
+		for(int dx = x - radius; dx < x + radius; dx++){
 			for(int dy = y - radius; dy < y + radius; dy++){
-				for(int dz = z - radius; dz < z + radius; dz++){
+					for(int dz = z - radius; dz < z + radius; dz++){
 					int sqrt = ((dx-x)*(dx-x)) + ((dy-y)*(dy-y)) + ((dz-z)*(dz-z));
 					if(sqrt <= (radius*radius)){
 						if(world.getBlockState(new BlockPos(dx, dy, dz)) == Blocks.STONE.getDefaultState()){
