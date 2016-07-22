@@ -31,6 +31,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import se.Matryoshika.Underworld.Content.BlockRegistry;
 
 public class ChunkProviderCaves implements IChunkGenerator
 {
@@ -39,7 +40,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
     protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
     protected static final IBlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
-    protected static final IBlockState DIRT = Blocks.DIRT.getDefaultState();
+    protected static final IBlockState DIRT = BlockRegistry.BlockDirt.getDefaultState();
     private final World world;
     private final boolean generateStructures;
     private final Random rand;

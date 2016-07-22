@@ -33,6 +33,8 @@ import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyGrassGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
 
@@ -78,6 +80,7 @@ public class Underworld {
 		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsTHis", 0, WorldProviderCaves.class, true));
 		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
 		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
+		GameRegistry.registerWorldGenerator(new DirtyHutGen(), 52);
 		
 		OreDictionary.registerOre("string", BlockRegistry.BlockHangVine);
 	}
