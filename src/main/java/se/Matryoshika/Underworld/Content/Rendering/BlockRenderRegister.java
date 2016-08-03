@@ -13,6 +13,9 @@ public class BlockRenderRegister {
 	public static void registerBlockRenderer(){
 		reg(BlockRegistry.BlockHangVine);
 		reg(BlockRegistry.BlockDirt);
+		reg(BlockRegistry.BlockBrazierOff);
+		reg(BlockRegistry.BlockBrazierOn);
+		reg(BlockRegistry.Light);
 	}
 	
 	
