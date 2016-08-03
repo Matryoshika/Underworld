@@ -5,3 +5,9 @@ generator.CAVES=Underworld
 //Blocks
 tile.hangVine.name=Hang Vine
 tile.blockDirt.name=Anomalous Dirt
+tile.BlockBrazier.name=Brazier
+
+
+//Items
+item.itemDebugger.name=Devilishly Divine Debugger
+item.itemLantern.name=Lantern
