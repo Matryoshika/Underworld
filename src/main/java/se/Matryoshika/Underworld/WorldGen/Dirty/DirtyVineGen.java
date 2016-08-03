@@ -67,7 +67,8 @@ private void generateStructure(World world, int x, int y, int z, Random rand) {
 		Random shortCircuit = new Random();
 		
 		//Only spawn in warm biomes
-		if(world.getChunkFromBlockCoords(new BlockPos(x,y,z)).getBiome(new BlockPos(x,y,z), world.getBiomeProvider()).getTempCategory() != Biome.TempCategory.WARM){
+		Biome biome = world.getChunkFromBlockCoords(new BlockPos(x,y,z)).getBiome(new BlockPos(x,y,z), world.getBiomeProvider());
+		if(biome.getTempCategory() != Biome.TempCategory.COLD || biome.getTempCategory() != Biome.TempCategory.OCEAN){
 			return;
 		}
 		

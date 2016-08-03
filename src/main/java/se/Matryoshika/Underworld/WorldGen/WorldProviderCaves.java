@@ -13,8 +13,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class WorldProviderCaves extends WorldProvider{
 	
 	public WorldProviderCaves(){
-		this.hasNoSky = true;
+		
 	}
+	
+	public boolean getHasNoSky(){
+		
+		return this.worldObj.getWorldType() instanceof WorldTypeCaves ? true : this.hasNoSky;
+    }
 
 	@Override
 	public DimensionType getDimensionType() {
@@ -42,6 +47,7 @@ public class WorldProviderCaves extends WorldProvider{
             float f1 = 1.0F - (float)i / 15.0F;
             this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
         }
+    	
     }
 
     /**
@@ -55,7 +61,7 @@ public class WorldProviderCaves extends WorldProvider{
     /**
      * Will check if the x, z position specified is alright to be set as the map spawn point
      */
-    public boolean canCoordinateBeSpawn(int p_76566_1_, int p_76566_2_)
+    public boolean canCoordinateBeSpawn(int x, int z)
     {
         return true;
     }
@@ -63,9 +69,25 @@ public class WorldProviderCaves extends WorldProvider{
     /**
      * Calculates the angle of sun and moon in the sky relative to a specified time (usually worldTime)
      */
-    public float calculateCelestialAngle(long p_76563_1_, float p_76563_3_)
+    public float calculateCelestialAngle(long worldTime, float partialTicks)
     {
-        return 0.50F;
+    	int i = (int)(worldTime % 24000L);
+        float f = ((float)i + partialTicks) / 24000.0F - 0.25F;
+
+        if (f < 0.0F)
+        {
+            ++f;
+        }
+
+        if (f > 1.0F)
+        {
+            --f;
+        }
+
+        float f1 = 1.0F - (float)((Math.cos((double)f * Math.PI) + 1.0D) / 2.0D);
+        f = f + (f1 - f) / 3.0F;
+    	
+    	return this.worldObj.getWorldType() instanceof WorldTypeCaves ? 0.50F : f;
     }
 
     /**
@@ -80,7 +102,7 @@ public class WorldProviderCaves extends WorldProvider{
      * Returns true if the given X,Z coordinate should show environmental fog.
      */
     @SideOnly(Side.CLIENT)
-    public boolean doesXZShowFog(int p_76568_1_, int p_76568_2_)
+    public boolean doesXZShowFog(int x, int z)
     {
         return false;
     }
@@ -95,13 +117,14 @@ public class WorldProviderCaves extends WorldProvider{
     @Override
     public int getHeight()
     {
-        return 128;
+    	return this.worldObj.getWorldType() instanceof WorldTypeCaves ? 128 : 256;
+
     }
     
     @Override
     public int getActualHeight()
     {
-        return 128;
+    	return hasNoSky ? 128 : 256;
     }
 
 

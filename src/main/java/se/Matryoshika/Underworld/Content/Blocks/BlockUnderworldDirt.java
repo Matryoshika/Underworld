@@ -78,7 +78,8 @@ public class BlockUnderworldDirt extends Block{
 						|| biome == Biomes.FROZEN_OCEAN || biome == Biomes.FROZEN_RIVER || biome == Biomes.ICE_MOUNTAINS || biome == Biomes.ICE_PLAINS ||
 						biome == Biomes.MUTATED_ICE_FLATS || biome == Biomes.MUTATED_TAIGA || biome == Biomes.MUTATED_TAIGA_COLD
 						){
-					world.setBlockState(otherPos.get(i), Blocks.SNOW_LAYER.getDefaultState());
+					world.setBlockState(otherPos.get(i), Blocks.GRASS.getDefaultState());
+					world.setBlockState(otherPos.get(i).up(), Blocks.SNOW_LAYER.getDefaultState());
 				}
 				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
 					//Prevents sand from falling and clogging up resources
@@ -94,8 +95,8 @@ public class BlockUnderworldDirt extends Block{
 				}
 			}
 			else if(!world.isAirBlock(thisPos.up()) && world.getBlockState(thisPos) == BlockRegistry.BlockDirt.getDefaultState()){
-				if(biome.getTempCategory() == Biome.TempCategory.COLD){
-					world.setBlockState(otherPos.get(i), Blocks.SNOW_LAYER.getDefaultState());
+				if(otherPos.get(i).up() == Blocks.WATER.getDefaultState()){
+					world.setBlockState(otherPos.get(i), Blocks.CLAY.getDefaultState());
 				}
 				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
 					//Prevents sand from falling and clogging up resources

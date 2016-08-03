@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -31,6 +32,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraftforge.common.DimensionManager;
 import se.Matryoshika.Underworld.Content.BlockRegistry;
 
 public class ChunkProviderCaves implements IChunkGenerator
@@ -79,6 +81,8 @@ public class ChunkProviderCaves implements IChunkGenerator
 
     public ChunkProviderCaves(World worldIn, boolean p_i45637_2_, long seed)
     {
+    	
+    	
         this.world = worldIn;
         this.generateStructures = p_i45637_2_;
         this.rand = new Random(seed);
@@ -291,7 +295,9 @@ public class ChunkProviderCaves implements IChunkGenerator
             abyte[i] = (byte)Biome.getIdForBiome(this.biomesForGeneration[i]);
         }
 
+        if(this.world.getWorldType() instanceof WorldTypeCaves)
         chunk.resetRelightChecks();
+        
         return chunk;
     }
 
