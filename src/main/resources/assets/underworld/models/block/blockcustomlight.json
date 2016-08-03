@@ -1,0 +1,33 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "Void]": "underworld:blocks/void"
+    },
+    "elements": [
+        {
+            "from": [7.9,7.8999996,7.9],
+            "to": [8.1,8.1,8.1],
+            "faces": {
+                "up": {
+                    "texture": "#Void]"
+                },
+                "down": {
+                    "texture": "#Void]"
+                },
+                "west": {
+                    "texture": "#Void]"
+                },
+                "east": {
+                    "texture": "#Void]"
+                },
+                "north": {
+                    "texture": "#Void]"
+                },
+                "south": {
+                    "texture": "#Void]"
+                }
+            }
+        }
+    ]
+}
