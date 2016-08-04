@@ -8,20 +8,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import se.Matryoshika.Underworld.Content.TileEntity.CustomTileClass;
 import se.Matryoshika.Underworld.Content.TileEntity.TileCustomLight;
+import se.Matryoshika.Underworld.Content.TileEntity.TileInvisMobSpawner;
 
 public class TileRegistry {
 	
 	public static CustomTileClass Light;
+	public static CustomTileClass Spawner;
 	
 	public static List<CustomTileClass>TileList=new ArrayList<CustomTileClass>();
 	
 	
 	public static void registerTiles(){
-		TileList.add(Light = new TileCustomLight());
-		
-		for(CustomTileClass tile:TileList){
-			GameRegistry.registerTileEntity(tile.getClass(), tile.getName());
-		}
+		GameRegistry.registerTileEntity(TileCustomLight.class, "underworld:TileCustomLight");
+		GameRegistry.registerTileEntity(TileInvisMobSpawner.class, "underworld:InvisMobSpawner");
 	}
 
 }

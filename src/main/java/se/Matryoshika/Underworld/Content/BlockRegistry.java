@@ -29,6 +29,7 @@ public class BlockRegistry {
 	public static Block BlockBrazierOff;
 	public static Block BlockBrazierOn;
 	public static Block Light;
+	public static Block Spawner;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -39,6 +40,7 @@ public class BlockRegistry {
 		BlockList.add(BlockBrazierOff = new BlockBrazierOff());
 		BlockList.add(BlockBrazierOn = new BlockBrazierOn().setLightLevel(1.0F));
 		BlockList.add(Light = new BlockCustomLight());
+		BlockList.add(Spawner = new BlockInvisMobSpawner());
 		
 		
 		for(Block block:BlockList){

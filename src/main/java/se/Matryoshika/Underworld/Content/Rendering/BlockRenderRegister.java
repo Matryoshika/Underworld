@@ -16,6 +16,7 @@ public class BlockRenderRegister {
 		reg(BlockRegistry.BlockBrazierOff);
 		reg(BlockRegistry.BlockBrazierOn);
 		reg(BlockRegistry.Light);
+		reg(BlockRegistry.Spawner);
 	}
 	
 	
