@@ -1,3 +1,13 @@
+### 0.0.6: Let There Be Life!
+- Added Chest with loot in each hut.
+- Added the Invisible Mob-Spawner. Makes use of Extremely Dark Voodoo to spawn each possible Animal, where it should, even in utter and 
+complete darkness.
+- Added Invisible Mob-Spawner to WorldGen.
+- Fixed doors in huts starting out as closed.
+- Fixed SpawnPoint of Underworld maps.
+- Fixed Forge yelling about Textures/Models missing.
+
+---
 ### 0.0.5 : Let There Be Light!
 - Added the DDD: Creative-Only item to help examine BlockStates.
 - Added the Brazier: A decorative lightsource akin to torches; Requires flint and steel to light.

@@ -17,12 +17,12 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ---
 
-### 0.0.5 : Let There Be Light!
-- Added the DDD: Creative-Only item to help examine BlockStates.
-- Added the Brazier: A decorative lightsource akin to torches; Requires flint and steel to light.
-- Added the Lantern: A held item that lights up your surroundings!
-- Added Clay to worldgen: Spawns in oblong spheres under y = 32.
-- Updated Huts to have 1 Brazier placed outside their door.
-- Updated Anomalous Dirt to place grass on itself, and a layer of snow over that.
-- Fixed Underworld's WorldProvider to replicate vanilla WorldProvider if the WorldType is not Underworld.
+### 0.0.6: Let There Be Life!
+- Added Chest with loot in each hut.
+- Added the Invisible Mob-Spawner. Makes use of Extremely Dark Voodoo to spawn each possible Animal, where it should, even in utter and 
+complete darkness.
+- Added Invisible Mob-Spawner to WorldGen.
+- Fixed doors in huts starting out as closed.
+- Fixed SpawnPoint of Underworld maps.
+- Fixed Forge yelling about Textures/Models missing.
 
