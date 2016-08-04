@@ -4,13 +4,19 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
+import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import scala.actors.threadpool.Arrays;
 import se.Matryoshika.Underworld.Content.BlockRegistry;
@@ -135,11 +141,12 @@ public class DirtyHutGen implements IWorldGenerator{
 				int dz = z + coords[2];
 				world.setBlockState(new BlockPos(dx, dy, dz), Blocks.GLASS_PANE.getDefaultState());
 			}
+			IBlockState mossyPillar = Blocks.COBBLESTONE_WALL.getDefaultState().withProperty(BlockWall.VARIANT, BlockWall.EnumType.MOSSY);
 			for(int[] coords : COBBLE_PILLARS){
 				int dx = x + coords[0];
 				int dy = y + coords[1];
 				int dz = z + coords[2];
-				world.setBlockState(new BlockPos(dx, dy, dz), Blocks.COBBLESTONE_WALL.getDefaultState());
+				world.setBlockState(new BlockPos(dx, dy, dz), mossyPillar);
 			}
 			for(int[] coords : WOODEN_SLABS){
 				int dx = x + coords[0];
@@ -154,8 +161,8 @@ public class DirtyHutGen implements IWorldGenerator{
 				int meta = coords[3];
 				world.setBlockState(new BlockPos(dx, dy, dz), Blocks.OAK_STAIRS.getStateFromMeta(meta));
 			} 
-			world.setBlockState(new BlockPos(x+2, y+1, z+1), Blocks.OAK_DOOR.getDefaultState());
-			world.setBlockState(new BlockPos(x+2, y+2, z+1), Blocks.OAK_DOOR.getStateFromMeta(8));
+			world.setBlockState(new BlockPos(x+2, y+1, z+1), Blocks.OAK_DOOR.getDefaultState().withProperty(BlockDoor.OPEN, true));
+			world.setBlockState(new BlockPos(x+2, y+2, z+1), Blocks.OAK_DOOR.getDefaultState().withProperty(BlockDoor.OPEN, true).withProperty(BlockDoor.HALF, BlockDoor.EnumDoorHalf.UPPER));
 			world.setBlockState(new BlockPos(x+3, y+1, z+2), BlockRegistry.BlockBrazierOn.getDefaultState());
 			world.setBlockState(new BlockPos(x-2, y+1, z-3), Blocks.BOOKSHELF.getDefaultState());
 			world.setBlockState(new BlockPos(x+1, y+1, z+3), Blocks.FURNACE.getDefaultState());
@@ -169,6 +176,15 @@ public class DirtyHutGen implements IWorldGenerator{
 			
 			world.setBlockState(new BlockPos(x+1, y+1, z-2), iblockstate1);
 			world.setBlockState(new BlockPos(x+1, y+1, z-3), iblockstate2);
+			
+			world.setBlockState(new BlockPos(x-2, y+1, z+3), Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.byName("north")));
+			TileEntity tileentity1 = world.getTileEntity(new BlockPos(x-2, y+1, z+3));
+
+            if (tileentity1 instanceof TileEntityChest){
+                ((TileEntityChest)tileentity1).setLootTable(LootTableList.CHESTS_SIMPLE_DUNGEON, rand.nextLong());
+            }
+			
+			
 			//System.out.print("Spawned a house at: "+ x + ", " + y + ", " + z);
 		}
 	}
