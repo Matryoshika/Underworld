@@ -1,5 +1,7 @@
 package se.Matryoshika.Underworld.WorldGen;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -13,8 +15,39 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class WorldProviderCaves extends WorldProvider{
 	
 	public WorldProviderCaves(){
-		
 	}
+	
+	@Override
+	public void setSpawnPoint(BlockPos pos){
+		if(this.worldObj.getWorldType() instanceof WorldTypeCaves){
+			worldObj.getWorldInfo().setSpawn(new BlockPos(0,50,0));
+		}
+		else{
+			worldObj.getWorldInfo().setSpawn(pos);
+		}
+    }
+	
+	@Override
+	public BlockPos getSpawnCoordinate(){
+		if(this.worldObj.getWorldType() instanceof WorldTypeCaves){
+			return new BlockPos(0,51,0);
+		}
+		else{
+			return null;
+		}
+	}
+	
+	@Override
+	public BlockPos getSpawnPoint(){
+        if(this.worldObj.getWorldType() instanceof WorldTypeCaves){
+        	return new BlockPos(0, 51, 0);
+		}
+		else{
+			net.minecraft.world.storage.WorldInfo info = worldObj.getWorldInfo();
+	        return new BlockPos(info.getSpawnX(), info.getSpawnY(), info.getSpawnZ());
+		}
+        
+    }
 	
 	public boolean getHasNoSky(){
 		
