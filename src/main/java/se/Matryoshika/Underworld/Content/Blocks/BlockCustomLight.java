@@ -23,7 +23,6 @@ public class BlockCustomLight extends BlockContainer{
 		this.setRegistryName(Underworld.MODID, "blockcustomlight");
 		this.setLightLevel(1F);
 		this.setUnlocalizedName("blockcustomlight");
-		this.setCreativeTab(Underworld.UnderworldTab);
 	}
 	
 	public static void setState(boolean active, World world, BlockPos pos){
