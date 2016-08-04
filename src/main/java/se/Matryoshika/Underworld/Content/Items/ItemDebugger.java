@@ -29,10 +29,10 @@ public class ItemDebugger extends Item{
 			float hitX, float hitY, float hitZ){
 		
 		
-		ITextComponent component = new TextComponentTranslation(player.worldObj.getBlockState(pos.up()).getActualState(world, pos.up()).toString());
+		ITextComponent component = new TextComponentTranslation(player.worldObj.getBlockState(pos.east()).getActualState(world, pos.east()).toString());
 		//ITextComponent component = new TextComponentTranslation(player.worldObj.getBlockState(pos.up()).getBlock().getRegistryName().toString());
 		//ITextComponent tile = new TextComponentTranslation(player.worldObj.getTileEntity(pos))
-		net.minecraft.tileentity.TileEntity hasTile = player.worldObj.getTileEntity(pos.up());
+		net.minecraft.tileentity.TileEntity hasTile = player.worldObj.getTileEntity(pos.east());
 		if(hasTile != null){
 			ITextComponent tile = new TextComponentTranslation("True");
 			if(player.worldObj.isRemote)
