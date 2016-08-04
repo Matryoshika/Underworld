@@ -42,6 +42,8 @@ import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyClayGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnPointGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnerGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
 
@@ -50,17 +52,14 @@ public class Underworld {
 	
 	public static final String MODID = "underworld";
 	public static final String LOCALIZING = "UW";
-	public static final String VERSION = "0.0.5";
-	
-	
-	public static WorldTypeCaves worldTypeCaves;
+	public static final String VERSION = "0.0.6";
 	
 	
 	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld"){
 		@Override
 		@SideOnly(Side.CLIENT)
 		public Item getTabIconItem(){
-			return new ItemStack(Blocks.MOSSY_COBBLESTONE).getItem();
+			return new ItemStack(ItemRegistry.Lantern).getItem();
 		}
 	};
 	
@@ -93,6 +92,9 @@ public class Underworld {
 		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
 		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
 		GameRegistry.registerWorldGenerator(new DirtyHutGen(), 52);
+		GameRegistry.registerWorldGenerator(new DirtySpawnPointGen(), Integer.MAX_VALUE-1);
+		GameRegistry.registerWorldGenerator(new DirtySpawnerGen(), Integer.MAX_VALUE);
+		
 		
 		OreDictionary.registerOre("string", BlockRegistry.BlockHangVine);
 		
@@ -101,9 +103,7 @@ public class Underworld {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
 		proxy.postInit(event);
-		
-		worldTypeCaves = new WorldTypeCaves();
-		
+
 	}
 
 }
