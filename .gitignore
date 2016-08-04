@@ -30,3 +30,4 @@ gradlew.bat
 *.launch
 .settings
 /bin/
+run/**
