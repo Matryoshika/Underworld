@@ -32,8 +32,13 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.event.terraingen.TerrainGen;
 import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
+
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
 
 public class ChunkProviderCaves implements IChunkGenerator
 {
@@ -62,16 +67,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     public NoiseGeneratorOctaves scaleNoise;
     public NoiseGeneratorOctaves depthNoise;
     private Biome[] biomesForGeneration;
-    //private final WorldGenFire fireFeature = new WorldGenFire();
-    //private final WorldGenGlowStone1 lightGemGen = new WorldGenGlowStone1();
-    //private final WorldGenGlowStone2 hellPortalGen = new WorldGenGlowStone2();
-    //private final WorldGenerator quartzGen = new WorldGenMinable(Blocks.QUARTZ_ORE.getDefaultState(), 14, BlockMatcher.forBlock(Blocks.NETHERRACK));
-    //private final WorldGenerator field_189888_D = new WorldGenMinable(Blocks.field_189877_df.getDefaultState(), 33, BlockMatcher.forBlock(Blocks.NETHERRACK));
-    //private final WorldGenHellLava lavaTrapGen = new WorldGenHellLava(Blocks.FLOWING_LAVA, true);
-    //private final WorldGenHellLava hellSpringGen = new WorldGenHellLava(Blocks.FLOWING_LAVA, false);
-    //private final WorldGenBush brownMushroomFeature = new WorldGenBush(Blocks.BROWN_MUSHROOM);
-    //private final WorldGenBush redMushroomFeature = new WorldGenBush(Blocks.RED_MUSHROOM);
-    //private MapGenNetherBridge genNetherBridge = new MapGenNetherBridge();
+    private final DirtyOceanMonument oceanMonumentGenerator;
     private MapGenBase genNetherCaves = new MapGenCavesHell();
     double[] pnr;
     double[] ar;
@@ -81,7 +77,9 @@ public class ChunkProviderCaves implements IChunkGenerator
 
     public ChunkProviderCaves(World worldIn, boolean p_i45637_2_, long seed)
     {
-    	
+    	{
+    		oceanMonumentGenerator = (DirtyOceanMonument) TerrainGen.getModdedMapGen(new DirtyOceanMonument(), OCEAN_MONUMENT);
+    	}
     	
         this.world = worldIn;
         this.generateStructures = p_i45637_2_;
@@ -93,7 +91,7 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(this.rand, 4);
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
-        worldIn.setSeaLevel(63);
+        worldIn.setSeaLevel(32);
 
         net.minecraftforge.event.terraingen.InitNoiseGensEvent.ContextHell ctx =
                 new net.minecraftforge.event.terraingen.InitNoiseGensEvent.ContextHell(lperlinNoise1, lperlinNoise2, perlinNoise1, slowsandGravelNoiseGen, netherrackExculsivityNoiseGen, scaleNoise, depthNoise);
@@ -114,7 +112,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     {
     	this.biomesForGeneration = this.world.getBiomeProvider().getBiomesForGeneration(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         int i = 4;
-        int j = this.world.getSeaLevel() / 2 + 1;
+        int j = this.world.getSeaLevel();
         int k = 5;
         int l = 17;
         int i1 = 5;
@@ -188,7 +186,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     public void buildSurfaces(int p_185937_1_, int p_185937_2_, ChunkPrimer primer)
     {
         if (!net.minecraftforge.event.ForgeEventFactory.onReplaceBiomeBlocks(this, p_185937_1_, p_185937_2_, primer, this.world)) return;
-        int i = this.world.getSeaLevel() + 1;
+        int i = this.world.getSeaLevel()*2;
         double d0 = 0.03125D;
         this.slowsandNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
         this.gravelNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
@@ -285,6 +283,8 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.biomesForGeneration = this.world.getBiomeProvider().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
         this.prepareHeights(x, z, chunkprimer);
         this.buildSurfaces(x, z, chunkprimer);
+        
+        //oceanMonumentGenerator.generate(this.world, x, z, chunkprimer);
 
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
@@ -404,13 +404,16 @@ public class ChunkProviderCaves implements IChunkGenerator
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, false);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(this.world, this.rand, blockpos));
 
+        //this.oceanMonumentGenerator.generateStructure(this.world, this.rand, chunkpos);
+        
+        
         if (net.minecraftforge.event.terraingen.TerrainGen.decorate(this.world, this.rand, blockpos, net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.TREE)){
         	
         }
 
         
 
-        int i2 = this.world.getSeaLevel() / 2 + 1;
+        int i2 = this.world.getSeaLevel();
 
         
 
