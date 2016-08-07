@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,6 +14,7 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -35,25 +37,29 @@ import se.Matryoshika.Underworld.Content.BlockRegistry;
 import se.Matryoshika.Underworld.Content.ItemRegistry;
 import se.Matryoshika.Underworld.Content.RecipeManager;
 import se.Matryoshika.Underworld.Content.TileRegistry;
-import se.Matryoshika.Underworld.Events.UnderworldEventHandler;
+import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
 import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyClayGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyDungeonGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
+import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnPointGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnerGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
+import se.Matryoshika.Underworld.WorldGen.Structures.OceanMonument.UnderworldStructureOceanMonumentPieces;
 
 @Mod(modid=Underworld.MODID, version=Underworld.VERSION, name="Underworld")
 public class Underworld {
 	
 	public static final String MODID = "underworld";
 	public static final String LOCALIZING = "UW";
-	public static final String VERSION = "0.0.6";
+	public static final String VERSION = "0.0.7";
 	
+	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	
 	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld"){
 		@Override
@@ -78,6 +84,9 @@ public class Underworld {
 		proxy.preInit(event);
 		
 		RecipeManager.registerRecipes();
+		
+		UnderworldStructureOceanMonumentPieces.registerOceanMonumentPieces();
+		MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
 	}
 	
 	@EventHandler
@@ -92,11 +101,9 @@ public class Underworld {
 		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
 		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
 		GameRegistry.registerWorldGenerator(new DirtyHutGen(), 52);
+		GameRegistry.registerWorldGenerator(new DirtyDungeonGen(), 53);
 		GameRegistry.registerWorldGenerator(new DirtySpawnPointGen(), Integer.MAX_VALUE-1);
 		GameRegistry.registerWorldGenerator(new DirtySpawnerGen(), Integer.MAX_VALUE);
-		
-		
-		OreDictionary.registerOre("string", BlockRegistry.BlockHangVine);
 		
 	}
 	
