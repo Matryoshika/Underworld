@@ -1,4 +1,4 @@
-[logo]: http://i.imgur.com/z6wpnue.png "Underworld Logo"
+![Underworld Logo](http://i.imgur.com/z6wpnue.png)
 
 Darkness. Stone all around you. You will never be able to reach the sun.
 
