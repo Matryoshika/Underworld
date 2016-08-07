@@ -1,4 +1,5 @@
-# Underworld
+[logo]: http://i.imgur.com/z6wpnue.png "Underworld Logo"
+
 Darkness. Stone all around you. You will never be able to reach the sun.
 
 This is the Overworld. Now Underworld.
