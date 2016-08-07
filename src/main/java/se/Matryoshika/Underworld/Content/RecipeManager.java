@@ -10,7 +10,14 @@ public class RecipeManager {
 	public static void registerRecipes(){
 		
 		//Items----------------------------------------------
-		
+		ItemStack Lantern = new ItemStack(ItemRegistry.Lantern);
+		GameRegistry.addRecipe(Lantern, new Object[]{
+				"SSS",
+				" D ",
+				"SSS",
+				'S', Blocks.STONE_SLAB,
+				'D', Items.GLOWSTONE_DUST
+		});
 		
 		
 		//Blocks---------------------------------------------
