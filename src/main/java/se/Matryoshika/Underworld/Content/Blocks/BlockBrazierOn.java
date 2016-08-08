@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class BlockBrazierOn extends Block{
 	
@@ -57,7 +57,7 @@ public class BlockBrazierOn extends Block{
     @Nullable
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(BlockRegistry.BlockBrazierOff);
+        return Item.getItemFromBlock(ContentRegistry.BlockBrazierOff);
     }
     
 }

@@ -15,8 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
-import se.Matryoshika.Underworld.Content.ItemRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class ItemLantern extends Item{
 	
@@ -66,13 +65,13 @@ public class ItemLantern extends Item{
 						BlockPos scannedBlock = new BlockPos(pos.getX()+x, pos.getY()+y, pos.getZ()+z); 
 						
 						//If the scan finds a single Light-block, stop this update.
-						if(world.getBlockState(scannedBlock) == BlockRegistry.Light.getDefaultState()){
+						if(world.getBlockState(scannedBlock) == ContentRegistry.Light.getDefaultState()){
 							return;
 						}
 						//Else place a new light.
 						else{
 							if(world.isAirBlock(pos))
-							world.setBlockState(pos, BlockRegistry.Light.getDefaultState());
+							world.setBlockState(pos, ContentRegistry.Light.getDefaultState());
 						}
 					}
 				}

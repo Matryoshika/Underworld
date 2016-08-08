@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class BlockBrazierOff extends Block{
 	
@@ -48,7 +48,7 @@ public class BlockBrazierOff extends Block{
     		heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
     	if(player.inventory.getCurrentItem() != null){
     		if(player.inventory.getCurrentItem().getItem() == Items.FLINT_AND_STEEL){
-    			world.setBlockState(pos, BlockRegistry.BlockBrazierOn.getDefaultState(), 3);
+    			world.setBlockState(pos, ContentRegistry.BlockBrazierOn.getDefaultState(), 3);
     			player.inventory.getCurrentItem().setItemDamage(player.inventory.getCurrentItem().getItemDamage()+1);
     		}
     	}

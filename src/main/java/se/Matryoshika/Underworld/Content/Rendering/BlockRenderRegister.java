@@ -6,22 +6,19 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class BlockRenderRegister {
 	
 	public static void registerBlockRenderer(){
-		reg(BlockRegistry.BlockHangVine);
-		reg(BlockRegistry.BlockDirt);
-		reg(BlockRegistry.BlockBrazierOff);
-		reg(BlockRegistry.BlockBrazierOn);
-		reg(BlockRegistry.Light);
-		reg(BlockRegistry.Spawner);
+		
+		for(Block block : ContentRegistry.BlockList){
+			reg(block);
+		}
 	}
 	
 	
 	public static void reg(Block block) {
-	    //Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0, new ModelResourceLocation(Underworld.MODID + ":" + "hangVine", "inventory"));
 	    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
 	}
 

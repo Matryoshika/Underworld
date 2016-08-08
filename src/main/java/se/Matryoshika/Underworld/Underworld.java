@@ -33,8 +33,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
-import se.Matryoshika.Underworld.Content.ItemRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.RecipeManager;
 import se.Matryoshika.Underworld.Content.TileRegistry;
 import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
@@ -42,6 +41,7 @@ import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
+import se.Matryoshika.Underworld.WorldGen.Dirty.CustomWorldGenerators;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyClayGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyDungeonGen;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
@@ -65,7 +65,7 @@ public class Underworld {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public Item getTabIconItem(){
-			return new ItemStack(ItemRegistry.Lantern).getItem();
+			return new ItemStack(ContentRegistry.Lantern).getItem();
 		}
 	};
 	
@@ -77,8 +77,8 @@ public class Underworld {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		BlockRegistry.registerBlocks();
-		ItemRegistry.registerItems();
+		ContentRegistry.registerBlocks();
+		ContentRegistry.registerItems();
 		TileRegistry.registerTiles();
 		BiomeType.init();
 		proxy.preInit(event);
@@ -97,13 +97,7 @@ public class Underworld {
 		DimensionManager.unregisterDimension(0);
 		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsThis", 0, WorldProviderCaves.class, true));
 		
-		GameRegistry.registerWorldGenerator(new DirtyClayGen(), 49);
-		GameRegistry.registerWorldGenerator(new DirtyTreeGen(), 50);
-		GameRegistry.registerWorldGenerator(new DirtyVineGen(), 51);
-		GameRegistry.registerWorldGenerator(new DirtyHutGen(), 52);
-		GameRegistry.registerWorldGenerator(new DirtyDungeonGen(), 53);
-		GameRegistry.registerWorldGenerator(new DirtySpawnPointGen(), Integer.MAX_VALUE-1);
-		GameRegistry.registerWorldGenerator(new DirtySpawnerGen(), Integer.MAX_VALUE);
+		CustomWorldGenerators.register();
 		
 	}
 	

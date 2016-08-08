@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
-import se.Matryoshika.Underworld.Content.ItemRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class TileCustomLight extends CustomTileClass implements ITickable{
 	
@@ -22,7 +22,7 @@ public class TileCustomLight extends CustomTileClass implements ITickable{
 		}
 		else{
 			if(player.inventory.getCurrentItem() != null){
-				if(player.inventory.getCurrentItem().getItem() != ItemRegistry.Lantern){
+				if(player.inventory.getCurrentItem().getItem() != ContentRegistry.Lantern){
 					world.setBlockToAir(pos);
 				}
 			}

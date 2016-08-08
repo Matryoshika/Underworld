@@ -2,6 +2,8 @@ package se.Matryoshika.Underworld.Content;
 
 import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.Blocks.*;
+import se.Matryoshika.Underworld.Content.Items.ItemDebugger;
+import se.Matryoshika.Underworld.Content.Items.ItemLantern;
 import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
 
 import java.util.ArrayList;
@@ -14,15 +16,16 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 
-public class BlockRegistry {
+public class ContentRegistry {
 	
-	public static final Set<Block> BLOCKS = new HashSet<>();
+	//Blocks-------------------------------------------------------------------------------------------
 
 	public static Block BlockHangVine;
 	public static Block BlockDirt;
@@ -30,6 +33,7 @@ public class BlockRegistry {
 	public static Block BlockBrazierOn;
 	public static Block Light;
 	public static Block Spawner;
+	public static Block Gravel;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -49,6 +53,24 @@ public class BlockRegistry {
 			ItemBlock iblock = new ItemBlock(block);
 			iblock.setRegistryName(block.getRegistryName());
 			GameRegistry.register(iblock);
+		}
+	}
+	
+	//Items--------------------------------------------------------------------------------------------
+	
+	public static Item Debugger;
+	public static Item Lantern;
+	
+	
+	public static List<Item>ItemList=new ArrayList<Item>();
+	
+	public static void registerItems() {
+		ItemList.add(Debugger = new ItemDebugger());
+		ItemList.add(Lantern = new ItemLantern());
+		
+		
+		for(Item Item:ItemList){
+			GameRegistry.register(Item);
 		}
 	}
 }

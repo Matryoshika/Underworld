@@ -3,8 +3,6 @@ package se.Matryoshika.Underworld;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
-import se.Matryoshika.Underworld.Content.ItemRegistry;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class CommonProxy {

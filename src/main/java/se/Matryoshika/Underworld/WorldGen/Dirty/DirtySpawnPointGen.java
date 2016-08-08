@@ -11,7 +11,7 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class DirtySpawnPointGen implements IWorldGenerator{
 
@@ -51,13 +51,13 @@ public class DirtySpawnPointGen implements IWorldGenerator{
 			new WorldGenTrees(true).generate(world, random, finished);
 			for(BlockPos pos:positions){
 				if(pos != finished){
-					world.setBlockState(pos, BlockRegistry.BlockBrazierOn.getDefaultState());
+					world.setBlockState(pos, ContentRegistry.BlockBrazierOn.getDefaultState());
 				}
 			}
-			world.setBlockState(new BlockPos(0, 51, 10), BlockRegistry.BlockBrazierOn.getDefaultState());
-			world.setBlockState(new BlockPos(0, 51, -10), BlockRegistry.BlockBrazierOn.getDefaultState());
-			world.setBlockState(new BlockPos(10, 51, 0), BlockRegistry.BlockBrazierOn.getDefaultState());
-			world.setBlockState(new BlockPos(-10, 51, 0), BlockRegistry.BlockBrazierOn.getDefaultState());
+			world.setBlockState(new BlockPos(0, 51, 10), ContentRegistry.BlockBrazierOn.getDefaultState());
+			world.setBlockState(new BlockPos(0, 51, -10), ContentRegistry.BlockBrazierOn.getDefaultState());
+			world.setBlockState(new BlockPos(10, 51, 0), ContentRegistry.BlockBrazierOn.getDefaultState());
+			world.setBlockState(new BlockPos(-10, 51, 0), ContentRegistry.BlockBrazierOn.getDefaultState());
 		}
 	}
 

@@ -22,7 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class BlockUnderworldDirt extends Block{
 	
@@ -41,7 +41,6 @@ public class BlockUnderworldDirt extends Block{
 		this.setCreativeTab(Underworld.UnderworldTab);
         this.setUnlocalizedName("blockDirt");
         this.setRegistryName(Underworld.MODID, "blockDirt");
-        //this.setDefaultState(blockState.getBaseState().withProperty(BlockLiquid.LEVEL, 15));
 	}
 	
 	@Override
@@ -52,7 +51,6 @@ public class BlockUnderworldDirt extends Block{
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand){
 		grow(world, pos, state, rand);
-		//update(world, pos, state, rand);
     }
 	
 	public void update(World world, BlockPos pos, IBlockState state, Random rand){
@@ -68,16 +66,18 @@ public class BlockUnderworldDirt extends Block{
 			}
 		}
 		
-		Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+		
 		
 		for(int i = 1; i<otherPos.size(); i++){
 			BlockPos thisPos = otherPos.get(i);
-			if(world.isAirBlock(thisPos.up()) && world.getBlockState(thisPos) == BlockRegistry.BlockDirt.getDefaultState()){
+			if(world.isAirBlock(thisPos.up()) && world.getBlockState(thisPos) == ContentRegistry.BlockDirt.getDefaultState()){
 				//For some reason, Biome.TempCategory.COLD does not see these biomes as cold at all...
+				Biome biome = world.getChunkFromBlockCoords(pos).getBiome(otherPos.get(i), world.getBiomeProvider());
 				if(biome == Biomes.COLD_TAIGA || biome == Biomes.TAIGA || biome == Biomes.TAIGA_HILLS || biome == Biomes.COLD_BEACH || biome == Biomes.COLD_TAIGA_HILLS
 						|| biome == Biomes.FROZEN_OCEAN || biome == Biomes.FROZEN_RIVER || biome == Biomes.ICE_MOUNTAINS || biome == Biomes.ICE_PLAINS ||
 						biome == Biomes.MUTATED_ICE_FLATS || biome == Biomes.MUTATED_TAIGA || biome == Biomes.MUTATED_TAIGA_COLD
 						){
+					
 					world.setBlockState(otherPos.get(i), Blocks.GRASS.getDefaultState());
 					world.setBlockState(otherPos.get(i).up(), Blocks.SNOW_LAYER.getDefaultState());
 				}
@@ -94,7 +94,8 @@ public class BlockUnderworldDirt extends Block{
 					world.setBlockState(otherPos.get(i), Blocks.GRASS.getDefaultState());
 				}
 			}
-			else if(!world.isAirBlock(thisPos.up()) && world.getBlockState(thisPos) == BlockRegistry.BlockDirt.getDefaultState()){
+			else if(!world.isAirBlock(thisPos.up()) && world.getBlockState(thisPos) == ContentRegistry.BlockDirt.getDefaultState()){
+				Biome biome = world.getChunkFromBlockCoords(pos).getBiome(otherPos.get(i), world.getBiomeProvider());
 				if(otherPos.get(i).up() == Blocks.WATER.getDefaultState()){
 					world.setBlockState(otherPos.get(i), Blocks.CLAY.getDefaultState());
 				}
@@ -118,7 +119,7 @@ public class BlockUnderworldDirt extends Block{
 		for(int x = pos.getX()-3; x < pos.getX()+4; x++){
 			for(int z = pos.getZ()-3; z < pos.getZ()+4; z++){
 				for(int y = pos.getY()-3; y < pos.getY()+4; y++){
-					if(world.getBlockState(new BlockPos(x,y,z)) == BlockRegistry.BlockDirt.getDefaultState()){
+					if(world.getBlockState(new BlockPos(x,y,z)) == ContentRegistry.BlockDirt.getDefaultState()){
 						update(world, new BlockPos(x,y,z), state, rand);
 					}
 				}

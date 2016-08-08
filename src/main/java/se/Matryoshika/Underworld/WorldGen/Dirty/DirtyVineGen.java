@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraftforge.fml.common.IWorldGenerator;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.Blocks.BlockHangVine;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import net.minecraft.block.Block;
@@ -31,11 +31,9 @@ public class DirtyVineGen implements IWorldGenerator{
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()){
-			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
 			return;
 		}
 		if(!(world.getWorldType() instanceof WorldTypeCaves)){
-			//System.out.println(world.getWorldType());
 			return;
 		}
 		
@@ -43,10 +41,8 @@ public class DirtyVineGen implements IWorldGenerator{
 		int blockX = chunkX * 16 + random.nextInt(16);
 		int blockZ = chunkZ * 16 + random.nextInt(16);
 		
-		//System.out.println("Scanned a block, Boss");
 		int target = canGenerate(world, blockX, 100, blockZ);
 		if (target != 0)
-			//System.out.println("Placing a block at: " + blockX + ", " + blockY + ", " + blockZ);
 			generateStructure(world, blockX, target, blockZ, random);
 		
 	}
@@ -56,7 +52,6 @@ public class DirtyVineGen implements IWorldGenerator{
 				return y+dy;
 			}
 		}
-		//System.out.println("Cannot Spawn");
 		return 0;
 	}
 	
@@ -71,7 +66,7 @@ private void generateStructure(World world, int x, int y, int z, Random rand) {
 			
 			for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings())
             {
-				IBlockState iblockstate = BlockRegistry.BlockHangVine.getDefaultState().withProperty(BlockHangVine.NORTH, Boolean.valueOf(enumfacing == EnumFacing.NORTH)).withProperty(BlockHangVine.EAST, Boolean.valueOf(enumfacing == EnumFacing.EAST)).withProperty(BlockHangVine.SOUTH, Boolean.valueOf(enumfacing == EnumFacing.SOUTH)).withProperty(BlockHangVine.WEST, Boolean.valueOf(enumfacing == EnumFacing.WEST));
+				IBlockState iblockstate = ContentRegistry.BlockHangVine.getDefaultState().withProperty(BlockHangVine.NORTH, Boolean.valueOf(enumfacing == EnumFacing.NORTH)).withProperty(BlockHangVine.EAST, Boolean.valueOf(enumfacing == EnumFacing.EAST)).withProperty(BlockHangVine.SOUTH, Boolean.valueOf(enumfacing == EnumFacing.SOUTH)).withProperty(BlockHangVine.WEST, Boolean.valueOf(enumfacing == EnumFacing.WEST));
 				if(!world.isAirBlock(new BlockPos(x, y, z))){
 					return;
 				}

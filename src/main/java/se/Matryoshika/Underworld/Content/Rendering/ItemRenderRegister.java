@@ -4,13 +4,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
-import se.Matryoshika.Underworld.Content.ItemRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class ItemRenderRegister {
 	
 	public static void registerItemRenderer(){
-		reg(ItemRegistry.Debugger);
-		reg(ItemRegistry.Lantern);
+		for(Item item : ContentRegistry.ItemList){
+			reg(item);
+		}
 	}
 	
 	public static void reg(Item item){

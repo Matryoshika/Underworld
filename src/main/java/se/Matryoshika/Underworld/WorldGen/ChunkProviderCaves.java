@@ -32,10 +32,11 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import se.Matryoshika.Underworld.Content.BlockRegistry;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
@@ -47,7 +48,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
     protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
     protected static final IBlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
-    protected static final IBlockState DIRT = BlockRegistry.BlockDirt.getDefaultState();
+    protected static final IBlockState DIRT = ContentRegistry.BlockDirt.getDefaultState();
     private final World world;
     private final boolean generateStructures;
     private final Random rand;
@@ -68,6 +69,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     public NoiseGeneratorOctaves depthNoise;
     private Biome[] biomesForGeneration;
     private final DirtyOceanMonument oceanMonumentGenerator;
+    private MapGenVillage villageGenerator = new MapGenVillage();
     private MapGenBase genNetherCaves = new MapGenCavesHell();
     double[] pnr;
     double[] ar;
@@ -78,6 +80,7 @@ public class ChunkProviderCaves implements IChunkGenerator
     public ChunkProviderCaves(World worldIn, boolean p_i45637_2_, long seed)
     {
     	{
+    		villageGenerator = (MapGenVillage)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
     		oceanMonumentGenerator = (DirtyOceanMonument) TerrainGen.getModdedMapGen(new DirtyOceanMonument(), OCEAN_MONUMENT);
     	}
     	
@@ -285,6 +288,7 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.buildSurfaces(x, z, chunkprimer);
         
         //oceanMonumentGenerator.generate(this.world, x, z, chunkprimer);
+        this.villageGenerator.generate(this.world, x, z, chunkprimer);
 
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
@@ -399,9 +403,14 @@ public class ChunkProviderCaves implements IChunkGenerator
         BlockPos blockpos = new BlockPos(i, 0, j);
         Biome biome = this.world.getBiomeGenForCoords(blockpos.add(16, 0, 16));
         ChunkPos chunkpos = new ChunkPos(x, z);
+        boolean flag = false;
         //this.genNetherBridge.generateStructure(this.world, this.rand, chunkpos);
 
         net.minecraftforge.event.ForgeEventFactory.onChunkPopulate(false, this, this.world, this.rand, x, z, false);
+        
+        this.villageGenerator.generateStructure(this.world, this.rand, chunkpos);
+        
+        
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.terraingen.DecorateBiomeEvent.Pre(this.world, this.rand, blockpos));
 
         //this.oceanMonumentGenerator.generateStructure(this.world, this.rand, chunkpos);

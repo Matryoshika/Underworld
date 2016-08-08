@@ -10,7 +10,7 @@ public class RecipeManager {
 	public static void registerRecipes(){
 		
 		//Items----------------------------------------------
-		ItemStack Lantern = new ItemStack(ItemRegistry.Lantern);
+		ItemStack Lantern = new ItemStack(ContentRegistry.Lantern);
 		GameRegistry.addRecipe(Lantern, new Object[]{
 				"SSS",
 				" D ",
@@ -21,7 +21,7 @@ public class RecipeManager {
 		
 		
 		//Blocks---------------------------------------------
-		ItemStack Brazier = new ItemStack(BlockRegistry.BlockBrazierOff, 4);
+		ItemStack Brazier = new ItemStack(ContentRegistry.BlockBrazierOff, 4);
 		GameRegistry.addRecipe(Brazier, new Object[]{
 				" S ",
 				"SCS",

@@ -14,6 +14,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent.TileEntity;
 import se.Matryoshika.Underworld.Underworld;
+import se.Matryoshika.Underworld.Utils.Print;
 
 public class ItemDebugger extends Item{
 	
@@ -32,6 +33,7 @@ public class ItemDebugger extends Item{
 		ITextComponent component = new TextComponentTranslation(player.worldObj.getBlockState(pos.east()).getActualState(world, pos.east()).toString());
 		//ITextComponent component = new TextComponentTranslation(player.worldObj.getBlockState(pos.up()).getBlock().getRegistryName().toString());
 		//ITextComponent tile = new TextComponentTranslation(player.worldObj.getTileEntity(pos))
+		//ITextComponent component = new TextComponentTranslation(Print.print(pos));
 		net.minecraft.tileentity.TileEntity hasTile = player.worldObj.getTileEntity(pos.east());
 		if(hasTile != null){
 			ITextComponent tile = new TextComponentTranslation("True");
