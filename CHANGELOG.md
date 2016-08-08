@@ -1,3 +1,13 @@
+### 0.0.7: Treasures ahoy!
+
+- Fixed Lantern recipe.
+- Added Dungeons (Rooms size 7 to 11 blocks wide, deep & tall.) Spawns high and low.
+- Added complimentary lootchests to Dungeons.
+- Made Animals spawn a bit more frequently.
+- Added Lilypads to worldgen, spawns in group of 8 to 16.
+- Added base for spawning in Ocean Monuments & Villages in worldgen. Not currently implemented!
+
+---
 ### 0.0.6: Let There Be Life!
 - Added Chest with loot in each hut.
 - Added the Invisible Mob-Spawner. Makes use of Extremely Dark Voodoo to spawn each possible Animal, where it should, even in utter and 
