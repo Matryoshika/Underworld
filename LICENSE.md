@@ -23,6 +23,9 @@ official repository.
 If the player faces any issues, in a version of Underworld, which was attained outside official repositories, the player will **not** recieve 
 any support.
 
+Current official repositories:
+- https://minecraft.curseforge.com/projects/underworld
+
 ---
 
 ### Support
