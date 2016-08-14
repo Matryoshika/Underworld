@@ -57,7 +57,7 @@ public class Underworld {
 	
 	public static final String MODID = "underworld";
 	public static final String LOCALIZING = "UW";
-	public static final String VERSION = "0.0.7";
+	public static final String VERSION = "0.0.8";
 	
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	
