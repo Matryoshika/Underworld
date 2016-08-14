@@ -106,9 +106,11 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 		        world.playEvent(2004, pos, 0);
 			}
 	        
-		} catch ( NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 
 			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			//e.printStackTrace();
 		}
 	}
 }
