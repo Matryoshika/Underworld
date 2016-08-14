@@ -14,7 +14,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderCaves extends WorldProvider{
 	
+	public static World worldObject;
+	
 	public WorldProviderCaves(){
+		this.worldObject = this.worldObj;
 	}
 	
 	@Override
