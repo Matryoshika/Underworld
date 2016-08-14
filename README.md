@@ -18,12 +18,10 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ---
 
-### 0.0.7: Treasures ahoy!
+### 0.0.8: Bug Off!
 
-- Fixed Lantern recipe.
-- Added Dungeons (Rooms size 7 to 11 blocks wide, deep & tall.) Spawns high and low.
-- Added complimentary lootchests to Dungeons.
-- Made Animals spawn a bit more frequently.
-- Added Lilypads to worldgen, spawns in group of 8 to 16.
-- Added base for spawning in Ocean Monuments & Villages in worldgen. Not currently implemented!
+- Should have fixed an issue where hundreds of Guardians would spawn in matter of minutes.
+- Fixed the spawn-platform, dungeons & lilypad worldgen bleeding into other dimensions & worldtypes.
+- Added Sugarcane to worldgen: Still quite rare. Might switch to custom sugar-cane variant instead. Any more often and sugarcane will plummet 
+WorldGen to a standstill.
 

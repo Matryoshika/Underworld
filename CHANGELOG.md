@@ -1,3 +1,11 @@
+### 0.0.8: Bug Off!
+
+- Should have fixed an issue where hundreds of Guardians would spawn in matter of minutes.
+- Fixed the spawn-platform, dungeons & lilypad worldgen bleeding into other dimensions & worldtypes.
+- Added Sugarcane to worldgen: Still quite rare. Might switch to custom sugar-cane variant instead. Any more often and sugarcane will plummet 
+WorldGen to a standstill.
+
+---
 ### 0.0.7: Treasures ahoy!
 
 - Fixed Lantern recipe.
