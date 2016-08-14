@@ -18,6 +18,7 @@ public class CustomWorldGenerators {
 		GameRegistry.registerWorldGenerator(new DirtySpawnPointGen(), Integer.MAX_VALUE-1);
 		GameRegistry.registerWorldGenerator(new DirtySpawnerGen(), Integer.MAX_VALUE);
 		GameRegistry.registerWorldGenerator(new DirtyLilypadGen(), 54);
+		GameRegistry.registerWorldGenerator(new DirtySugarcaneGen(), 55);
 		
 		
 	}
