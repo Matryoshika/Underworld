@@ -18,10 +18,8 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ---
 
-### 0.0.8: Bug Off!
+### 0.0.9: Quiet!
 
-- Should have fixed an issue where hundreds of Guardians would spawn in matter of minutes.
-- Fixed the spawn-platform, dungeons & lilypad worldgen bleeding into other dimensions & worldtypes.
-- Added Sugarcane to worldgen: Still quite rare. Might switch to custom sugar-cane variant instead. Any more often and sugarcane will plummet 
-WorldGen to a standstill.
+- Hotfix: Fixed an issue where console would be spammed if Underworld's mob-spawning system would try to spawn a non-standard Animal.
+- Removed a few debugging prints.
 

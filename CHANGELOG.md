@@ -1,3 +1,9 @@
+### 0.0.9: Quiet!
+
+- Hotfix: Fixed an issue where console would be spammed if Underworld's mob-spawning system would try to spawn a non-standard Animal.
+- Removed a few debugging prints.
+
+---
 ### 0.0.8: Bug Off!
 
 - Should have fixed an issue where hundreds of Guardians would spawn in matter of minutes.
