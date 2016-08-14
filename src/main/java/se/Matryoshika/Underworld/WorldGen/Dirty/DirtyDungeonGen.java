@@ -14,6 +14,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Utils.Print;
+import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtyDungeonGen implements IWorldGenerator{
 	
@@ -30,6 +31,15 @@ public class DirtyDungeonGen implements IWorldGenerator{
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+		if (!world.provider.isSurfaceWorld()){
+			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			return;
+		}
+		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+			//System.out.println(world.getWorldType());
+			return;
+		}
+		
 		if(rand.nextInt(50) != 0){
 			return;
 		}

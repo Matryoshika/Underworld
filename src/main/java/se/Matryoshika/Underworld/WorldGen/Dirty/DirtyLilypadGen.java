@@ -8,12 +8,22 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtyLilypadGen implements IWorldGenerator{
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-		if(rand.nextInt(10) == 0){
+		if (!world.provider.isSurfaceWorld()){
+			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			return;
+		}
+		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+			//System.out.println(world.getWorldType());
+			return;
+		}
+		
+		if(rand.nextInt(25) == 0){
 			int x = (chunkX*16)+8;
 			int y = 32; 
 			int z = (chunkZ*16)+8;

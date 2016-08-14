@@ -12,11 +12,21 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
+import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtySpawnPointGen implements IWorldGenerator{
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+		if (!world.provider.isSurfaceWorld()){
+			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			return;
+		}
+		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+			//System.out.println(world.getWorldType());
+			return;
+		}
+		
 		if(chunkX == 0 && chunkZ == 0){
 			
 			int radius = 16;
