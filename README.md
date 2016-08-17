@@ -18,8 +18,11 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ---
 
-### 0.0.9: Quiet!
+### 0.0.10: Sugar and... coal?
 
-- Hotfix: Fixed an issue where console would be spammed if Underworld's mob-spawning system would try to spawn a non-standard Animal.
-- Removed a few debugging prints.
+- Added Sugarbeets: Custom sugarcane-copycat that can be planted on dirt, grass & sand.
+- Added grass-drop for Sugarbeets! Go hit them grass.
+- Added wildcard value to the Brazier's recipe: Now allows charcoal to be used as well.
+- Removed the horrid Sugarcane worldgen implemented in 0.0.8.
+
 
