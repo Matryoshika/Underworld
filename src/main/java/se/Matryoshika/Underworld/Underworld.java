@@ -1,27 +1,10 @@
 package se.Matryoshika.Underworld;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
-import net.minecraft.world.WorldProviderSurface;
-import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.BiomeManager.BiomeEntry;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -29,7 +12,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -40,16 +22,7 @@ import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
 import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
-import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.CustomWorldGenerators;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyClayGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyDungeonGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyHutGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnPointGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtySpawnerGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyTreeGen;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyVineGen;
 import se.Matryoshika.Underworld.WorldGen.Structures.OceanMonument.UnderworldStructureOceanMonumentPieces;
 
 @Mod(modid=Underworld.MODID, version=Underworld.VERSION, name="Underworld")
