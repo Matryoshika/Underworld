@@ -46,7 +46,7 @@ public class ContentRegistry {
 		BlockList.add(BlockBrazierOn = new BlockBrazierOn().setLightLevel(1.0F));
 		BlockList.add(Light = new BlockCustomLight());
 		BlockList.add(Spawner = new BlockInvisMobSpawner());
-		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet"));
+		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet").setUnlocalizedName("underworld:blocksugarbeet"));
 		
 		
 		for(Block block:BlockList){

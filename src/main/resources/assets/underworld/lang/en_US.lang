@@ -6,8 +6,10 @@ generator.CAVES=Underworld
 tile.hangVine.name=Hang Vine
 tile.blockDirt.name=Anomalous Dirt
 tile.BlockBrazier.name=Brazier
+tile.underworld:blocksugarbeet.name=Sugarbeets
 
 
 //Items
 item.itemDebugger.name=Devilishly Divine Debugger
 item.itemLantern.name=Lantern
+item.underworld:sugarbeets.name=Sugarbeet
