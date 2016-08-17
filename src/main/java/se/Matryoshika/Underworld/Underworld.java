@@ -57,7 +57,7 @@ public class Underworld {
 	
 	public static final String MODID = "underworld";
 	public static final String LOCALIZING = "UW";
-	public static final String VERSION = "0.0.9";
+	public static final String VERSION = "0.0.10";
 	
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	
@@ -98,6 +98,10 @@ public class Underworld {
 		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsThis", 0, WorldProviderCaves.class, true));
 		
 		CustomWorldGenerators.register();
+		
+		OreDictionary.registerOre("string", ContentRegistry.BlockHangVine);
+		OreDictionary.registerOre("sugarcane", ContentRegistry.Sugarbeets);
+		MinecraftForge.addGrassSeed(new ItemStack(ContentRegistry.Sugarbeets), 3);
 		
 	}
 	

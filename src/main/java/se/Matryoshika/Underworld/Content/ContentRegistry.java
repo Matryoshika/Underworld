@@ -4,6 +4,7 @@ import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.Blocks.*;
 import se.Matryoshika.Underworld.Content.Items.ItemDebugger;
 import se.Matryoshika.Underworld.Content.Items.ItemLantern;
+import se.Matryoshika.Underworld.Content.Items.ItemSugarbeet;
 import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ContentRegistry {
 	public static Block BlockBrazierOn;
 	public static Block Light;
 	public static Block Spawner;
-	public static Block Gravel;
+	public static Block BlockSugarBeets;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -45,6 +46,7 @@ public class ContentRegistry {
 		BlockList.add(BlockBrazierOn = new BlockBrazierOn().setLightLevel(1.0F));
 		BlockList.add(Light = new BlockCustomLight());
 		BlockList.add(Spawner = new BlockInvisMobSpawner());
+		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet"));
 		
 		
 		for(Block block:BlockList){
@@ -60,6 +62,7 @@ public class ContentRegistry {
 	
 	public static Item Debugger;
 	public static Item Lantern;
+	public static Item Sugarbeets;
 	
 	
 	public static List<Item>ItemList=new ArrayList<Item>();
@@ -67,6 +70,7 @@ public class ContentRegistry {
 	public static void registerItems() {
 		ItemList.add(Debugger = new ItemDebugger());
 		ItemList.add(Lantern = new ItemLantern());
+		ItemList.add(Sugarbeets = new ItemSugarbeet());
 		
 		
 		for(Item Item:ItemList){

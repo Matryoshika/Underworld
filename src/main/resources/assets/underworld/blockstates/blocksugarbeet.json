@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "age=0": { "model": "underworld:sugarbeet_0" },
+        "age=1": { "model": "underworld:sugarbeet_0" },
+        "age=2": { "model": "underworld:sugarbeet_1" },
+        "age=3": { "model": "underworld:sugarbeet_1" },
+        "age=4": { "model": "underworld:sugarbeet_2" },
+        "age=5": { "model": "underworld:sugarbeet_2" },
+        "age=6": { "model": "underworld:sugarbeet_2" },
+        "age=7": { "model": "underworld:sugarbeet_3" }
+    }
+} 
