@@ -20,7 +20,7 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ### 0.0.11: Bug-spray 2K!
 
-- Fixed duplicate listing of Underworld when selecting worlds.
+- Fixed duplicate listings of Underworld when selecting world-types.
 - Fixed the Lantern flickering when held in the offhand or when moving at high speeds.
 
 
