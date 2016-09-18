@@ -18,11 +18,9 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
 
 ---
 
-### 0.0.10: Sugar and... coal?
+### 0.0.11: Bug-spray 2K!
 
-- Added Sugarbeets: Custom sugarcane-copycat that can be planted on dirt, grass & sand.
-- Added grass-drop for Sugarbeets! Go hit them grass.
-- Added wildcard value to the Brazier's recipe: Now allows charcoal to be used as well.
-- Removed the horrid Sugarcane worldgen implemented in 0.0.8.
+- Fixed duplicate listing of Underworld when selecting worlds.
+- Fixed the Lantern flickering when held in the offhand or when moving at high speeds.
 
 
