@@ -3,6 +3,7 @@ package se.Matryoshika.Underworld;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -18,10 +19,12 @@ import net.minecraftforge.oredict.OreDictionary;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.RecipeManager;
 import se.Matryoshika.Underworld.Content.TileRegistry;
+import se.Matryoshika.Underworld.Events.PlayerTicker;
 import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
 import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
+import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.CustomWorldGenerators;
 import se.Matryoshika.Underworld.WorldGen.Structures.OceanMonument.UnderworldStructureOceanMonumentPieces;
 
@@ -32,7 +35,10 @@ public class Underworld {
 	public static final String LOCALIZING = "UW";
 	public static final String VERSION = "0.0.10";
 	
+	static WorldType CAVES;
+	
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
+	private final PlayerTicker PLAYER_TICKER = new PlayerTicker();
 	
 	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld"){
 		@Override
@@ -60,6 +66,7 @@ public class Underworld {
 		
 		UnderworldStructureOceanMonumentPieces.registerOceanMonumentPieces();
 		MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
+		MinecraftForge.EVENT_BUS.register(PLAYER_TICKER);
 	}
 	
 	@EventHandler
@@ -81,7 +88,12 @@ public class Underworld {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
 		proxy.postInit(event);
+		CAVES = new WorldTypeCaves("CAVES");
 
 	}
+	
+	public static WorldType getCaves(){
+    	return CAVES;
+    }
 
 }

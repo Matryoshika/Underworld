@@ -16,19 +16,22 @@ public class TileCustomLight extends CustomTileClass implements ITickable{
 	@Override
 	public void update() {
 		World world = this.worldObj;
-		EntityPlayer player = world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 2D, false);
+		EntityPlayer player = world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 3D, false);
 		if(player == null){
 			world.setBlockToAir(pos);
 		}
 		else{
-			if(player.inventory.getCurrentItem() != null){
-				if(player.inventory.getCurrentItem().getItem() != ContentRegistry.Lantern){
-					world.setBlockToAir(pos);
-				}
-			}
-			else{
+			if(player.getHeldItemMainhand() != null)
+				if(player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern)
+					return;
+			
+			else if(player.getHeldItemOffhand() != null)
+				if(player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern)
+					return;
+			
+			else
 				world.setBlockToAir(pos);
-			}
+			
 		}
 	}
 }

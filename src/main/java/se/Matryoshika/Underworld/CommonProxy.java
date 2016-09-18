@@ -1,5 +1,6 @@
 package se.Matryoshika.Underworld;
 
+import net.minecraft.world.WorldType;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -7,7 +8,6 @@ import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class CommonProxy {
 	
-	public static WorldTypeCaves worldTypeCaves;
 	
 	public void preInit(FMLPreInitializationEvent event){
 		
@@ -19,7 +19,7 @@ public class CommonProxy {
 	
 
     public void postInit(FMLPostInitializationEvent event) {
-    	worldTypeCaves = new WorldTypeCaves();
+    	
     }
 
 }
