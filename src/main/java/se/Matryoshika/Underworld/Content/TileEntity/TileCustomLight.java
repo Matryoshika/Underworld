@@ -1,8 +1,6 @@
 package se.Matryoshika.Underworld.Content.TileEntity;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
@@ -22,12 +20,16 @@ public class TileCustomLight extends CustomTileClass implements ITickable{
 		}
 		else{
 			if(player.getHeldItemMainhand() != null)
-				if(player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern)
+				if(player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern){
 					return;
+				}
+					
 			
-			else if(player.getHeldItemOffhand() != null)
-				if(player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern)
+			if(player.getHeldItemOffhand() != null)
+				if(player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern){
 					return;
+				}
+					
 			
 			world.setBlockToAir(pos);
 			
