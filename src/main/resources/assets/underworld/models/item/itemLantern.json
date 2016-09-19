@@ -1,6 +1,6 @@
 {
     "__createdwith": "opl's Model Creator",
-    "parent": "block/cube_all",
+    "parent": "underworld:item/lanternRotation",
     "ambientocclusion": false,
     "textures": {
         "glass": "underworld:items/glass",
