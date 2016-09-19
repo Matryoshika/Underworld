@@ -29,8 +29,7 @@ public class TileCustomLight extends CustomTileClass implements ITickable{
 				if(player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern)
 					return;
 			
-			else
-				world.setBlockToAir(pos);
+			world.setBlockToAir(pos);
 			
 		}
 	}
