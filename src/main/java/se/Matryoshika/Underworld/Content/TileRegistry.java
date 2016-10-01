@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import se.Matryoshika.Underworld.Content.TileEntity.CustomTileClass;
 import se.Matryoshika.Underworld.Content.TileEntity.TileCustomLight;
 import se.Matryoshika.Underworld.Content.TileEntity.TileInvisMobSpawner;
+import se.Matryoshika.Underworld.Content.TileEntity.TileMetamorphicTable;
 
 public class TileRegistry {
 	
@@ -21,6 +22,7 @@ public class TileRegistry {
 	public static void registerTiles(){
 		GameRegistry.registerTileEntity(TileCustomLight.class, "underworld:TileCustomLight");
 		GameRegistry.registerTileEntity(TileInvisMobSpawner.class, "underworld:InvisMobSpawner");
+		GameRegistry.registerTileEntity(TileMetamorphicTable.class, "underworld:Metamorphic_Table");
 	}
 
 }

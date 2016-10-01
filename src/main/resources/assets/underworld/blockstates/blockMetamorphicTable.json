@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "underworld:blockMetamorphicTable" },
+        "inventory": { "model": "underworld:blockMetamorphicTable" }
+    }
+} 
