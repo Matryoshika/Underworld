@@ -1,5 +1,9 @@
 package se.Matryoshika.Underworld;
 
+import java.util.Random;
+
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -19,6 +23,14 @@ public class CommonProxy {
 	
 
     public void postInit(FMLPostInitializationEvent event) {
+    	
+    }
+    
+    public void trailParticles(World world, BlockPos pos, Random rand){
+    	
+    }
+    
+    public void boomParticles(World world, BlockPos pos, Random rand){
     	
     }
 
