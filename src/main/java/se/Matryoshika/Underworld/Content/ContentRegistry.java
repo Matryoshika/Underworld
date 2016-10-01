@@ -2,10 +2,9 @@ package se.Matryoshika.Underworld.Content;
 
 import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.Blocks.*;
-import se.Matryoshika.Underworld.Content.Items.ItemDebugger;
-import se.Matryoshika.Underworld.Content.Items.ItemLantern;
-import se.Matryoshika.Underworld.Content.Items.ItemSugarbeet;
+import se.Matryoshika.Underworld.Content.Items.*;
 import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,11 +34,12 @@ public class ContentRegistry {
 	public static Block Light;
 	public static Block Spawner;
 	public static Block BlockSugarBeets;
+	public static Block BlockMetamorphicTable;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
 	
-	public static void registerBlocks(){
+	public static void prepareBlocks(){
 		BlockList.add(BlockHangVine = new BlockHangVine());
 		BlockList.add(BlockDirt = new BlockUnderworldDirt());
 		BlockList.add(BlockBrazierOff = new BlockBrazierOff());
@@ -47,9 +47,15 @@ public class ContentRegistry {
 		BlockList.add(Light = new BlockCustomLight());
 		BlockList.add(Spawner = new BlockInvisMobSpawner());
 		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet").setUnlocalizedName("underworld:blocksugarbeet"));
-		
-		
-		for(Block block:BlockList){
+		BlockList.add(BlockMetamorphicTable = new BlockMetamorphicTable());
+
+	}
+	
+	public static void registerBlocks(){
+		for(Block block : BlockList){
+			if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString()))){
+				continue;
+			}
 			GameRegistry.register(block);
 			System.out.println("Registered : " + block.getUnlocalizedName());
 			ItemBlock iblock = new ItemBlock(block);
@@ -67,14 +73,20 @@ public class ContentRegistry {
 	
 	public static List<Item>ItemList=new ArrayList<Item>();
 	
-	public static void registerItems() {
+	public static void prepareItems() {
+		
 		ItemList.add(Debugger = new ItemDebugger());
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
 		
-		
-		for(Item Item:ItemList){
-			GameRegistry.register(Item);
+	}
+	
+	public static void registerItems(){
+		for(Item item:ItemList){
+			if(!((Boolean) ConfigHandler.isItemEnabledMap.get(item.getRegistryName().toString()))){
+				continue;
+			}
+			GameRegistry.register(item);
 		}
 	}
 }
