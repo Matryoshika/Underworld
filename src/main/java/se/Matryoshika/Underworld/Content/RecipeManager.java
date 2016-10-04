@@ -14,7 +14,7 @@ public class RecipeManager {
 	public static void registerRecipes(){
 		
 		//Items----------------------------------------------
-		if(!((Boolean) ConfigHandler.isItemEnabledMap.get(ContentRegistry.Lantern.getRegistryName().toString()))){
+		if(((Boolean) ConfigHandler.isItemEnabledMap.get(ContentRegistry.Lantern.getRegistryName().toString()))){
 			ItemStack Lantern = new ItemStack(ContentRegistry.Lantern);
 			GameRegistry.addRecipe(Lantern, new Object[]{
 					"SSS",
@@ -28,7 +28,7 @@ public class RecipeManager {
 		
 		//Blocks---------------------------------------------
 		
-		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(ContentRegistry.BlockBrazierOff.getRegistryName().toString()))){
+		if(((Boolean) ConfigHandler.isBlockEnabledMap.get(ContentRegistry.BlockBrazierOff.getRegistryName().toString()))){
 			ItemStack Brazier = new ItemStack(ContentRegistry.BlockBrazierOff, 4);
 			GameRegistry.addRecipe(Brazier, new Object[]{
 					" S ",
@@ -40,7 +40,7 @@ public class RecipeManager {
 			});
 		}
 		
-		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(ContentRegistry.BlockMetamorphicTable.getRegistryName().toString()))){
+		if(((Boolean) ConfigHandler.isBlockEnabledMap.get(ContentRegistry.BlockMetamorphicTable.getRegistryName().toString()))){
 			ItemStack Table = new ItemStack(ContentRegistry.BlockMetamorphicTable, 1);
 			GameRegistry.addRecipe(Table, new Object[]{
 					"SES",
