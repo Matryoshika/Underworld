@@ -7,6 +7,7 @@ import java.util.Random;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.Blocks.BlockHangVine;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
@@ -33,7 +34,7 @@ public class DirtyVineGen implements IWorldGenerator{
 		if (!world.provider.isSurfaceWorld()){
 			return;
 		}
-		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+		if(!(world.getWorldType() instanceof WorldTypeCaves) && !ConfigHandler.forceUnderworld){
 			return;
 		}
 		

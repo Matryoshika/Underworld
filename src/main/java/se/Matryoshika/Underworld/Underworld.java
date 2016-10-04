@@ -99,7 +99,7 @@ public class Underworld {
 		
 		//See WorldProviderCaves on how this doesn't mess up vanilla WorldTypes
 		DimensionManager.unregisterDimension(0);
-		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "WhatIsThis", 0, WorldProviderCaves.class, true));
+		DimensionManager.registerDimension(0, DimensionType.register("CAVES", "_caves", 0, WorldProviderCaves.class, true));
 		
 		CustomWorldGenerators.register();
 		

@@ -1,5 +1,7 @@
 package se.Matryoshika.Underworld.WorldGen;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -8,9 +10,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import se.Matryoshika.Underworld.Underworld;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 
 public class WorldProviderCaves extends WorldProvider{
 	
@@ -23,16 +28,33 @@ public class WorldProviderCaves extends WorldProvider{
 	@Override
 	public BlockPos getSpawnPoint(){
 		net.minecraft.world.storage.WorldInfo info = worldObj.getWorldInfo();
-		BlockPos spawn = this.worldObj.getWorldType() instanceof WorldTypeCaves ? new BlockPos(0, 51, 0) : new BlockPos(info.getSpawnX(), info.getSpawnY(), info.getSpawnZ());
+		BlockPos spawn = this.worldObj.getWorldType() instanceof WorldTypeCaves ? new BlockPos(0, 51, 0) : ConfigHandler.forceUnderworld ? new BlockPos(0,51,0) : new BlockPos(info.getSpawnX(), info.getSpawnY(), info.getSpawnZ());
 		
 		return spawn;
         
     }
 	
 	@Override
+	protected void createBiomeProvider(){
+		super.createBiomeProvider();
+		
+		//If config says true, override what we just did, otherwise, this'll be skipped
+		if(ConfigHandler.forceUnderworld)
+			this.biomeProvider = Underworld.getCaves().getBiomeProvider(worldObj);
+    }
+	
+	@Override
+	public IChunkGenerator createChunkGenerator(){
+		if(ConfigHandler.forceUnderworld)
+			return new ChunkProviderCaves(worldObj, worldObj.getWorldInfo().isMapFeaturesEnabled(), worldObj.getSeed());
+
+		return worldObj.getWorldInfo().getTerrainType().getChunkGenerator(worldObj, worldObj.getWorldInfo().getGeneratorOptions());
+    }
+	
+	@Override
 	public boolean getHasNoSky(){
 		
-		return this.worldObj.getWorldType() instanceof WorldTypeCaves ? true : this.hasNoSky;
+		return this.worldObj.getWorldType() instanceof WorldTypeCaves ? true : ConfigHandler.forceUnderworld ? true : this.hasNoSky;
     }
 
 	@Override
@@ -98,7 +120,7 @@ public class WorldProviderCaves extends WorldProvider{
         float f1 = 1.0F - (float)((Math.cos((double)f * Math.PI) + 1.0D) / 2.0D);
         f += (f1 - f) / 3.0F;
     	
-    	return this.worldObj.getWorldType() instanceof WorldTypeCaves ? 0.50F : f;
+    	return this.worldObj.getWorldType() instanceof WorldTypeCaves ? 0.50F : ConfigHandler.forceUnderworld ? 0.50F : f;
     }
 
     /**
@@ -130,7 +152,7 @@ public class WorldProviderCaves extends WorldProvider{
     
     @Override
     public int getActualHeight(){
-    	return hasNoSky ? 128 : 256;
+    	return hasNoSky ? 128 : ConfigHandler.forceUnderworld ? 128 : 256;
     }
 
 

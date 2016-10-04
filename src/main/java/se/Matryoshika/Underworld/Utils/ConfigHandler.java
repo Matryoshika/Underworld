@@ -31,6 +31,7 @@ public class ConfigHandler {
     public static boolean spawnPointGen;
     public static boolean spawnerGen;
     public static boolean lilyPadGen;
+    public static boolean forceUnderworld;
 	
 	public static void readMain(){
 		
@@ -53,6 +54,9 @@ public class ConfigHandler {
 		spawnPointGen = configGen.getBoolean("SpawnPointGen", "WorldGen configs", true, "Wether or not Underworld will create a spawn-area. WARNING: May spawn in stone or above bedrock if disabled");
 		spawnerGen = configGen.getBoolean("SpawnerGen", "WorldGen configs", true, "Wether or not Underworld will stand for mob-spawns. WARNING may get quite empty on passive mobs if disabled");
 		lilyPadGen = configGen.getBoolean("LilypadGen", "WorldGen configs", true, "Wether or not Underworld will spawn Lilypads on water.");
+		
+		configGen.addCustomCategoryComment("Pack Settings", "Configs for pack-makers");
+		forceUnderworld = configGen.getBoolean("forceUnderworld", "Pack Settings", false, "WARNING: Will force Underworld to generate no matter what WorldType you chose. Underworld is not responsible for clashing worldgen if enabled!");
 		
 		
 		if(configMain.hasChanged())

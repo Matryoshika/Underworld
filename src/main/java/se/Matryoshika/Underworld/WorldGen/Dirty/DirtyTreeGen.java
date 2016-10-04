@@ -23,6 +23,7 @@ import net.minecraft.world.gen.feature.WorldGenHugeTrees;
 import net.minecraft.world.gen.feature.WorldGenSavannaTree;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
@@ -34,7 +35,7 @@ public class DirtyTreeGen implements IWorldGenerator{
 			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
 			return;
 		}
-		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+		if(!(world.getWorldType() instanceof WorldTypeCaves) && !ConfigHandler.forceUnderworld){
 			//System.out.println(world.getWorldType());
 			return;
 		}

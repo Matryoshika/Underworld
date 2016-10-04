@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtyLilypadGen implements IWorldGenerator{
@@ -16,9 +17,10 @@ public class DirtyLilypadGen implements IWorldGenerator{
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()){
 			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
+			System.out.println("Returning");
 			return;
 		}
-		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+		if(!(world.getWorldType() instanceof WorldTypeCaves) && !ConfigHandler.forceUnderworld){
 			//System.out.println(world.getWorldType());
 			return;
 		}

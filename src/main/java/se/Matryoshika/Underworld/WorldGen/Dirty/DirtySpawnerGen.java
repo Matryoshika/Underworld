@@ -8,6 +8,7 @@ import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
+import se.Matryoshika.Underworld.Utils.ConfigHandler;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtySpawnerGen implements IWorldGenerator{
@@ -18,7 +19,7 @@ public class DirtySpawnerGen implements IWorldGenerator{
 			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
 			return;
 		}
-		if(!(world.getWorldType() instanceof WorldTypeCaves)){
+		if(!(world.getWorldType() instanceof WorldTypeCaves) && !ConfigHandler.forceUnderworld){
 			//System.out.println(world.getWorldType());
 			return;
 		}
