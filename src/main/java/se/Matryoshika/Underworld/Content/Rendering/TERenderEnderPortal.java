@@ -30,6 +30,9 @@ import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
 
 public class TERenderEnderPortal extends TileEntitySpecialRenderer<TileUnderworldEnderPortal>{
 	
+	private static float timer = 0;
+	private static boolean goUp = false;
+	
     private IModel modelBall;
     private IBakedModel bakedModelBall;
     private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation("textures/environment/end_sky.png");
@@ -50,14 +53,30 @@ public class TERenderEnderPortal extends TileEntitySpecialRenderer<TileUnderworl
     }
 
     public void renderTileEntityAt(TileUnderworldEnderPortal te, double x, double y, double z, float partialTicks, int destroyStage){
-    	
     	GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
     	GlStateManager.translate(x, y, z);
+    	
+    	if(goUp)
+    		timer++;
+    	else
+    		timer--;
+    	if(timer >= 100)
+    		goUp = false;
+    	if(timer <= -100)
+    		goUp = true;
+    	
+    	
+    	GlStateManager.translate(0, timer/1000, 0);
+    	
+    	
     	long angle = (System.currentTimeMillis() / 40) % 360;
     	GlStateManager.rotate(angle, 1, 1, 1);
     	renderBody(te, x, y, z, partialTicks, destroyStage);
     	GlStateManager.rotate(-angle, 1, 1, 1);
+    	
+    	GlStateManager.translate(0, -timer/1000, 0);
+    	
     	GlStateManager.translate(-x, -y, -z);
     	GlStateManager.popMatrix();
         GlStateManager.popAttrib();
