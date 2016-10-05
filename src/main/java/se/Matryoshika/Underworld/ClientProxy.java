@@ -18,7 +18,9 @@ import se.Matryoshika.Underworld.Content.Blocks.BlockMetamorphicTable;
 import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
 import se.Matryoshika.Underworld.Content.Rendering.ItemRenderRegister;
 import se.Matryoshika.Underworld.Content.Rendering.TEMetamorphicTableRenderer;
+import se.Matryoshika.Underworld.Content.Rendering.TERenderEnderPortal;
 import se.Matryoshika.Underworld.Content.TileEntity.TileMetamorphicTable;
+import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
 
 public class ClientProxy extends CommonProxy{
 	
@@ -27,6 +29,7 @@ public class ClientProxy extends CommonProxy{
 		BlockRenderRegister.registerBlockRenderer();
 		ItemRenderRegister.registerItemRenderer();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMetamorphicTable.class, new TEMetamorphicTableRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileUnderworldEnderPortal.class, new TERenderEnderPortal());
 	}
 	
 	@Override
