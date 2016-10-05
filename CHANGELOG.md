@@ -1,3 +1,11 @@
+### 0.1.12: Two-way ticket, please
+
+- Added the Ender Porter
+   - Takes one to and from The End, at the cost of Eye of Ender's.
+- Added config-option for Pack-creators to force Underworld generation, no matter what WorldType was chosen
+- Fixed broken (missing) crafting recipes.
+
+---
 ### 0.1.11: A little to the left... A little to the right...
 
 - Added the Metamorphic Table.
