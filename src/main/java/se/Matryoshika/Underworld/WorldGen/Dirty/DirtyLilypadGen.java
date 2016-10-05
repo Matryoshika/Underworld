@@ -17,7 +17,6 @@ public class DirtyLilypadGen implements IWorldGenerator{
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()){
 			//System.out.println("NOT 0! IT IS "+world.provider.getDimension());
-			System.out.println("Returning");
 			return;
 		}
 		if(!(world.getWorldType() instanceof WorldTypeCaves) && !ConfigHandler.forceUnderworld){
