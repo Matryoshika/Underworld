@@ -52,7 +52,7 @@ public class ConfigHandler {
 		hutGen = configGen.getBoolean("HutGen", "WorldGen configs", true, "Wether or not Underworld should spawn huts");
 		dungeonGen = configGen.getBoolean("DungeonGen", "WorldGen configs", true, "Wether or not Underworld should spawn dungeons");
 		spawnPointGen = configGen.getBoolean("SpawnPointGen", "WorldGen configs", true, "Wether or not Underworld will create a spawn-area. WARNING: May spawn in stone or above bedrock if disabled");
-		spawnerGen = configGen.getBoolean("SpawnerGen", "WorldGen configs", true, "Wether or not Underworld will stand for mob-spawns. WARNING may get quite empty on passive mobs if disabled");
+		spawnerGen = configGen.getBoolean("SpawnerGen", "WorldGen configs", true, "Wether or not Underworld will stand for mob-spawns. WARNING: May get quite empty on passive mobs if disabled");
 		lilyPadGen = configGen.getBoolean("LilypadGen", "WorldGen configs", true, "Wether or not Underworld will spawn Lilypads on water.");
 		
 		configGen.addCustomCategoryComment("Pack Settings", "Configs for pack-makers");
