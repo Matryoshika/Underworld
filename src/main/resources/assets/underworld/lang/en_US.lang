@@ -8,6 +8,7 @@ tile.blockDirt.name=Anomalous Dirt
 tile.BlockBrazier.name=Brazier
 tile.underworld:blocksugarbeet.name=Sugarbeets
 tile.underworld:blockMetamorphicTable.name=Metamorphic Table
+tile.underworld:BlockEndPortal.name=Ender Porter
 
 
 #Items

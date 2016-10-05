@@ -35,6 +35,7 @@ public class ContentRegistry {
 	public static Block Spawner;
 	public static Block BlockSugarBeets;
 	public static Block BlockMetamorphicTable;
+	public static Block BlockCustomEndPortal;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -48,6 +49,7 @@ public class ContentRegistry {
 		BlockList.add(Spawner = new BlockInvisMobSpawner());
 		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet").setUnlocalizedName("underworld:blocksugarbeet"));
 		BlockList.add(BlockMetamorphicTable = new BlockMetamorphicTable());
+		BlockList.add(BlockCustomEndPortal = new BlockCustomEndPortal());
 
 	}
 	
@@ -57,8 +59,11 @@ public class ContentRegistry {
 				continue;
 			}
 			GameRegistry.register(block);
-			System.out.println("Registered : " + block.getUnlocalizedName());
-			ItemBlock iblock = new ItemBlock(block);
+			ItemBlock iblock;
+			if(block == ContentRegistry.BlockCustomEndPortal)
+				iblock = new ItemBlockShiny(block);
+			else
+				iblock= new ItemBlock(block);
 			iblock.setRegistryName(block.getRegistryName());
 			GameRegistry.register(iblock);
 		}

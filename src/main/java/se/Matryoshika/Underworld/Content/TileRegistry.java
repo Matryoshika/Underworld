@@ -10,6 +10,7 @@ import se.Matryoshika.Underworld.Content.TileEntity.CustomTileClass;
 import se.Matryoshika.Underworld.Content.TileEntity.TileCustomLight;
 import se.Matryoshika.Underworld.Content.TileEntity.TileInvisMobSpawner;
 import se.Matryoshika.Underworld.Content.TileEntity.TileMetamorphicTable;
+import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
 
 public class TileRegistry {
 	
@@ -23,6 +24,7 @@ public class TileRegistry {
 		GameRegistry.registerTileEntity(TileCustomLight.class, "underworld:TileCustomLight");
 		GameRegistry.registerTileEntity(TileInvisMobSpawner.class, "underworld:InvisMobSpawner");
 		GameRegistry.registerTileEntity(TileMetamorphicTable.class, "underworld:Metamorphic_Table");
+		GameRegistry.registerTileEntity(TileUnderworldEnderPortal.class, "underworld:TileUnderworldEnderPortal");
 	}
 
 }

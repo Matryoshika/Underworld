@@ -3,6 +3,7 @@ package se.Matryoshika.Underworld.API;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import se.Matryoshika.Underworld.Content.ContentRegistry;
 
 public class UnderworldMetamorphicTableRecipes {
 
@@ -52,6 +53,8 @@ public class UnderworldMetamorphicTableRecipes {
 	private static TableRecipes recipeDisc11;
 	private static TableRecipes recipeDiscWait;
 	
+	private static TableRecipes recipeEnderPorter;
+	
 	
 	
 	static ItemStack OAKSAP = new ItemStack(Blocks.SAPLING, 1, 0);
@@ -96,6 +99,9 @@ public class UnderworldMetamorphicTableRecipes {
 	static ItemStack DISC11 = new ItemStack(Items.RECORD_11, 1,0);
 	static ItemStack DISCWAIT = new ItemStack(Items.RECORD_WAIT, 1,0);
 	
+	static ItemStack ENDCRYSTAL = new ItemStack(Items.END_CRYSTAL);
+	static ItemStack ENDERPORTER = new ItemStack(ContentRegistry.BlockCustomEndPortal);
+	
 	public static void init(){
 		
 		recipeOakSapling = MetamorphicTableRecipes.registerTableRecipes(DARKOAKSAP, OAKSAP, 0);
@@ -139,5 +145,7 @@ public class UnderworldMetamorphicTableRecipes {
 		recipeDiscWard = MetamorphicTableRecipes.registerTableRecipes(DISCSTRAD, DISCWARD, 0);
 		recipeDisc11 = MetamorphicTableRecipes.registerTableRecipes(DISCWARD, DISC11, 0);
 		recipeDiscWait = MetamorphicTableRecipes.registerTableRecipes(DISC11, DISCWAIT, 0);
+		
+		recipeEnderPorter = MetamorphicTableRecipes.registerTableRecipes(ENDCRYSTAL, ENDERPORTER, 0);
 	}
 }
