@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -21,6 +22,7 @@ import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
 import se.Matryoshika.Underworld.Utils.Print;
@@ -31,6 +33,8 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 	List<String> allEntities;
 	int counter = 0;
 	int i = 0;
+	
+	long sysTime = 0;
 	
 	public TileInvisMobSpawner(){
 		this.setName("InvisMobSpawner");
@@ -97,20 +101,23 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 				return;
 			}
 			List<EntityAnimal> list = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(this.pos.getX()-32, 0, this.pos.getZ()-32, this.pos.getX()+32, 128, this.pos.getZ()+32));
-			if(list.size() > 10){
+			if(list.size() > 7){
 				return;
 			}
 			if(world.getBiomeForCoordsBody(pos).getSpawnableList(EnumCreatureType.CREATURE).toString().contains(entity.getClass().getSimpleName())){
 				entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
+				entity.setUniqueId(UUID.randomUUID());
 				world.spawnEntityInWorld(entity);
 		        world.playEvent(2004, pos, 0);
 			}
 	        
-		} catch (SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
 
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			//e.printStackTrace();
+			if(System.currentTimeMillis() - sysTime > (1000 * 20)){
+				FMLLog.getLogger().error("Something went wrong when Underworld tried to spawn an Entity; This error should only appear max once every 20 seconds.");
+				e.printStackTrace();
+				sysTime = System.currentTimeMillis();
+			}
 		}
 	}
 }
