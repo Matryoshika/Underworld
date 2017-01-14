@@ -155,7 +155,6 @@ public class BlockMetamorphicTable extends Block implements ITileEntityProvider{
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
 		
-		
 		if(!world.isRemote && !isBlocked(world, pos)) {
 			final TileMetamorphicTable table = (TileMetamorphicTable) getTileEntity(world, pos);
 			
