@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
 
 public class UnderworldMapEventHandler {
 	
