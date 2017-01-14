@@ -2,15 +2,25 @@ package se.Matryoshika.Underworld;
 
 import java.io.File;
 
-import com.typesafe.config.Config;
-
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldType;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -18,6 +28,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,6 +38,8 @@ import se.Matryoshika.Underworld.API.UnderworldMetamorphicTableRecipes;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.RecipeManager;
 import se.Matryoshika.Underworld.Content.TileRegistry;
+import se.Matryoshika.Underworld.Content.Items.ItemBlockShiny;
+import se.Matryoshika.Underworld.Content.Rendering.ParticleRenderer;
 import se.Matryoshika.Underworld.Events.PlayerTicker;
 import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
 import se.Matryoshika.Underworld.Utils.BiomeType;
@@ -33,9 +48,15 @@ import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
 import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 import se.Matryoshika.Underworld.WorldGen.Dirty.CustomWorldGenerators;
-import se.Matryoshika.Underworld.WorldGen.Structures.OceanMonument.UnderworldStructureOceanMonumentPieces;
 
-@Mod(modid=Underworld.MODID, version=Underworld.VERSION, name="Underworld")
+@Mod(
+		modid=Underworld.MODID, 
+		version=Underworld.VERSION, 
+		name="Underworld",
+		clientSideOnly = false,
+		serverSideOnly = false
+)
+@Mod.EventBusSubscriber
 public class Underworld {
 	
 	public static final String MODID = "underworld";
@@ -46,10 +67,15 @@ public class Underworld {
 	public static Configuration blockConfig;
 	public static Configuration genConfig;
 	
+	public static final ResourceLocation firefly = new ResourceLocation(MODID,"textures/particles/firefly.png");
+	
+	public static String pathName;
+	
 	static WorldType CAVES;
 	
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	private final PlayerTicker PLAYER_TICKER = new PlayerTicker();
+	private final ContentRegistry REGISTRY = new ContentRegistry();
 	
 	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld"){
 		@Override
@@ -59,34 +85,32 @@ public class Underworld {
 		}
 	};
 	
+	@EventHandler
+	public void serverStarting(FMLServerAboutToStartEvent event) {
+		MinecraftForge.EVENT_BUS.register(REGISTRY);
+	}
+
+	
 	@Instance("Underworld")
 	public static Underworld instance;
 	
 	@SidedProxy(clientSide = "se.Matryoshika.Underworld.ClientProxy", serverSide = "se.Matryoshika.Underworld.CommonProxy")
 	public static CommonProxy proxy;
 	
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		mainConfig = new Configuration(new File(event.getModConfigurationDirectory().getAbsolutePath() +"/"+ Underworld.MODID+"/main.cfg"));
-		itemConfig = new Configuration(new File(event.getModConfigurationDirectory().getAbsolutePath() +"/"+ Underworld.MODID+"/items.cfg"));
-		blockConfig = new Configuration(new File(event.getModConfigurationDirectory().getAbsolutePath() +"/"+ Underworld.MODID+"/blocks.cfg"));
-		genConfig = new Configuration(new File(event.getModConfigurationDirectory().getAbsolutePath() +"/"+ Underworld.MODID+"/worldGen.cfg"));
 		
 		ConfigHandler.readMain();
-		
-		ContentRegistry.prepareBlocks();
-		ContentRegistry.prepareItems();
+
 		TileRegistry.registerTiles();
 		
 		ConfigHandler.setItemAndBlockConfigs();
-		ContentRegistry.registerBlocks();
-		ContentRegistry.registerItems();
 		
 		BiomeType.init();
 		proxy.preInit(event);
 		RecipeManager.registerRecipes();
 		
-		UnderworldStructureOceanMonumentPieces.registerOceanMonumentPieces();
 		MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
 		MinecraftForge.EVENT_BUS.register(PLAYER_TICKER);
 		
@@ -107,6 +131,7 @@ public class Underworld {
 		OreDictionary.registerOre("sugarcane", ContentRegistry.Sugarbeets);
 		MinecraftForge.addGrassSeed(new ItemStack(ContentRegistry.Sugarbeets), 3);
 		
+		
 	}
 	
 	@EventHandler
@@ -124,5 +149,34 @@ public class Underworld {
 	public static Underworld getMod(){
     	return instance;
     }
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onTextureStitch(TextureStitchEvent event){
+		event.getMap().registerSprite(firefly);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void onRenderWorldLast(RenderWorldLastEvent event){
+		ParticleRenderer.dispatch();
+	}
+	
+	@SubscribeEvent
+	public static void onUse(RightClickBlock event){
+		
+		if(event.getItemStack() != null && event.getItemStack().getItem() == Items.SUGAR){
+			for(BlockPos pos : BlockPos.getAllInBox(event.getPos().add(-1, -1, -1), event.getPos().add(1, 1, 1))){
+				if(event.getEntityPlayer().worldObj.getBlockState(pos).getBlock() == ContentRegistry.BlockSugarPile){
+					System.out.println("Found sugar");
+					return;
+				}
+			}
+			if(event.getEntityPlayer().worldObj.isAirBlock(event.getPos())){
+				event.getEntityPlayer().worldObj.setBlockState(event.getPos().up(), ContentRegistry.BlockSugarPile.getDefaultState());
+				event.getItemStack().stackSize--;
+			}
+		}
+	}
 
 }
