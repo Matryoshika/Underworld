@@ -1,6 +1,7 @@
 package se.Matryoshika.Underworld.WorldGen;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.block.BlockFalling;
@@ -18,6 +19,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkGenerator;
+import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.MapGenCavesHell;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
@@ -32,12 +34,14 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
+import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureOceanMonument;
+import net.minecraft.world.gen.structure.StructureStart;
+import net.minecraft.world.gen.structure.StructureStrongholdPieces;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
-import se.Matryoshika.Underworld.WorldGen.Dirty.DirtyOceanMonument;
 
 import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.OCEAN_MONUMENT;
 
@@ -49,6 +53,8 @@ public class ChunkProviderCaves implements IChunkGenerator
     protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
     protected static final IBlockState GRAVEL = Blocks.GRAVEL.getDefaultState();
     protected static final IBlockState DIRT = ContentRegistry.BlockDirt.getDefaultState();
+    protected static final IBlockState GLOWMOSS = ContentRegistry.BlockGlowMossStone.getDefaultState();
+    protected static final IBlockState MOSS = ContentRegistry.BlockMossStone.getDefaultState();
     private final World world;
     private final boolean generateStructures;
     private final Random rand;
@@ -68,24 +74,27 @@ public class ChunkProviderCaves implements IChunkGenerator
     public NoiseGeneratorOctaves scaleNoise;
     public NoiseGeneratorOctaves depthNoise;
     private Biome[] biomesForGeneration;
-    private final DirtyOceanMonument oceanMonumentGenerator;
     private MapGenVillage villageGenerator = new MapGenVillage();
+    private MapGenStronghold strongholdGenerator = new MapGenStronghold();
     private MapGenBase genNetherCaves = new MapGenCavesHell();
     double[] pnr;
     double[] ar;
     double[] br;
     double[] noiseData4;
     double[] dr;
+    private final boolean mapFeaturesEnabled;
+    private ChunkProviderSettings settings;
 
-    public ChunkProviderCaves(World worldIn, boolean p_i45637_2_, long seed)
-    {
+    public ChunkProviderCaves(World worldIn, long seed, boolean mapFeaturesEnabledIn, String jsonSettings){
+    	
     	{
     		villageGenerator = (MapGenVillage)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(villageGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE);
-    		oceanMonumentGenerator = (DirtyOceanMonument) TerrainGen.getModdedMapGen(new DirtyOceanMonument(), OCEAN_MONUMENT);
-    	}
+    		strongholdGenerator = (MapGenStronghold)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(strongholdGenerator, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD);
+    		}
     	
+    	this.mapFeaturesEnabled = mapFeaturesEnabledIn;
         this.world = worldIn;
-        this.generateStructures = p_i45637_2_;
+        this.generateStructures = mapFeaturesEnabledIn;
         this.rand = new Random(seed);
         this.lperlinNoise1 = new NoiseGeneratorOctaves(this.rand, 16);
         this.lperlinNoise2 = new NoiseGeneratorOctaves(this.rand, 16);
@@ -109,6 +118,12 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.surfaceNoise = new NoiseGeneratorPerlin(this.rand, 4);
         //this.genNetherBridge = (MapGenNetherBridge)net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(genNetherBridge, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE);
         this.genNetherCaves = net.minecraftforge.event.terraingen.TerrainGen.getModdedMapGen(genNetherCaves, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE);
+        if (jsonSettings != null)
+        {
+            this.settings = ChunkProviderSettings.Factory.jsonToFactory(jsonSettings).build();
+            //worldIn.setSeaLevel(this.settings.seaLevel);
+        }
+    
     }
 
     public void prepareHeights(int x, int z, ChunkPrimer primer)
@@ -162,7 +177,12 @@ public class ChunkProviderCaves implements IChunkGenerator
 
                                 if (d15 > 0.0D)
                                 {
-                                    iblockstate = STONE;
+                                	Random rand = new Random();
+                                	int s = rand.nextInt(500);
+                                	if(s < 25)
+                                		iblockstate = MOSS;
+                                	else
+                                		iblockstate = STONE;
                                 }
 
                                 int l2 = j2 + j1 * 4;
@@ -288,6 +308,7 @@ public class ChunkProviderCaves implements IChunkGenerator
         this.buildSurfaces(x, z, chunkprimer);
         
         //oceanMonumentGenerator.generate(this.world, x, z, chunkprimer);
+        
         this.villageGenerator.generate(this.world, x, z, chunkprimer);
 
 
@@ -300,7 +321,7 @@ public class ChunkProviderCaves implements IChunkGenerator
         }
 
         if(this.world.getWorldType() instanceof WorldTypeCaves)
-        chunk.resetRelightChecks();
+        	chunk.resetRelightChecks();
         
         return chunk;
     }
@@ -435,7 +456,7 @@ public class ChunkProviderCaves implements IChunkGenerator
 
     public boolean generateStructures(Chunk chunkIn, int x, int z)
     {
-        return false;
+        return true;
     }
 
     public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
@@ -455,9 +476,26 @@ public class ChunkProviderCaves implements IChunkGenerator
         return null;
     }
 
-    public void recreateStructures(Chunk chunkIn, int x, int z)
-    {
-        //this.genNetherBridge.generate(this.world, x, z, (ChunkPrimer)null);
+    public void recreateStructures(Chunk chunkIn, int x, int z){
+        
+    	if (this.mapFeaturesEnabled){
+
+            if (this.settings.useVillages){
+                this.villageGenerator.generate(this.world, x, z, (ChunkPrimer)null);
+            }
+
+            if (this.settings.useStrongholds){
+                this.strongholdGenerator.generate(this.world, x, z, (ChunkPrimer)null);
+            }
+
+            if (this.settings.useTemples){
+                //this.scatteredFeatureGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+            }
+
+            if (this.settings.useMonuments){
+                //this.oceanMonumentGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+            }
+        }
     }
 }
 
