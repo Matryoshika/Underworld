@@ -1,0 +1,170 @@
+package se.Matryoshika.Underworld.Content.Rendering;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import se.Matryoshika.Underworld.Underworld;
+
+public class FireflyFX extends Particle{
+	
+	public static ResourceLocation texture = Underworld.firefly;
+	private static final Queue<FireflyFX> queuedRenders = new ArrayDeque<>();
+	private static final Queue<FireflyFX> queuedDepthIgnoringRenders = new ArrayDeque<>();
+	
+	private float f;
+	private float f1;
+	private float f2;
+	private float f3;
+	private float f4;
+	private float f5;
+	
+	private boolean depthTest = true;
+	public boolean distanceLimit = true;
+	private final float moteParticleScale;
+	private final int moteHalfLife;
+	public boolean tinkle = false;
+	public int blendmode = 1;
+	
+	public FireflyFX(World world, double x, double y, double z, float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
+		
+		super(world, x, y, z, 0, 0, 0);
+		particleRed = red;
+		particleGreen = green;
+		particleBlue = blue;
+		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
+		particleGravity = 0;
+		motionX *= 0.1;
+		motionY *= 0.1;
+		motionZ *= 0.1;
+		if(particleAge % 20 == 0){
+			
+		}
+		particleScale *= size/size;
+		moteParticleScale = particleScale;
+		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
+		this.depthTest = depthTest;
+
+		moteHalfLife = particleMaxAge / 2;
+		setSize(size/size, size/size);
+		Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
+
+		if(distanceLimit) {
+			int visibleDistance = 50;
+			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics)
+				visibleDistance = 25;
+
+			if (renderentity == null || renderentity.getDistance(posX, posY, posZ) > visibleDistance)
+				particleMaxAge = 0;
+		}
+
+		prevPosX = posX;
+		prevPosY = posY;
+		prevPosZ = posZ;
+    	
+    	//System.out.println(texture.toString());
+    }
+	
+	@Override
+	public void onUpdate(){
+        super.onUpdate();
+        if(particleAge % 20 == 0){
+        	Random rand = new Random();
+        	motionX = rand.nextGaussian();
+        	motionY = rand.nextGaussian();
+        	motionZ = rand.nextGaussian();
+        	motionX *= 0.01;
+    		motionY *= 0.01;
+    		motionZ *= 0.01;
+        }
+        
+        if(worldObj.getLight(new BlockPos(this.posX, this.posY, this.posZ)) < 3){
+        	this.particleAge += 5;
+        }
+    }
+	
+	@Override
+    public int getFXLayer(){
+        return 1;
+    }
+	
+	@Override
+	public void renderParticle(VertexBuffer wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+		this.f = f;
+		this.f1 = f1;
+		this.f2 = f2;
+		this.f3 = f3;
+		this.f4 = f4;
+		this.f5 = f5;
+
+		if(depthTest)
+			queuedRenders.add(this);
+		else queuedDepthIgnoringRenders.add(this);
+	}
+	
+	public static void dispatchQueuedRenders(Tessellator tessellator) {
+		ParticleRenderer.fireflyFXCount = 0;
+		ParticleRenderer.fireflyDICount = 0;
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
+		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+
+		if(!queuedRenders.isEmpty()) {
+			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+			for(FireflyFX firefly : queuedRenders)
+				firefly.renderQueued(tessellator, true);
+			tessellator.draw();
+		}
+
+		if(!queuedDepthIgnoringRenders.isEmpty()) {
+			GlStateManager.disableDepth();
+			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+			for(FireflyFX firefly : queuedDepthIgnoringRenders)
+				firefly.renderQueued(tessellator, false);
+			tessellator.draw();
+			GlStateManager.enableDepth();
+		}
+
+		queuedRenders.clear();
+		queuedDepthIgnoringRenders.clear();
+	}
+	
+	private void renderQueued(Tessellator tessellator, boolean depthEnabled) {
+		if(depthEnabled)
+			ParticleRenderer.fireflyFXCount++;
+		else ParticleRenderer.fireflyDICount++;
+
+		float agescale = (float)particleAge / (float) moteHalfLife;
+		if (agescale > 1F)
+			agescale = 2 - agescale;
+
+		particleScale = moteParticleScale * (agescale*agescale);
+
+		float f10 = 0.03F * particleScale;
+		float f11 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
+		float f12 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
+		float f13 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
+		int combined = 15 << 20 | 15 << 4;
+		int k3 = combined >> 16 & 0xFFFF;
+		int l3 = combined & 0xFFFF;
+		tessellator.getBuffer().pos(f11 - f1 * f10 - f4 * f10, f12 - f2 * f10, f13 - f3 * f10 - f5 * f10).tex(0, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 - f1 * f10 + f4 * f10, f12 + f2 * f10, f13 - f3 * f10 + f5 * f10).tex(1, 1).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 + f1 * f10 + f4 * f10, f12 + f2 * f10, f13 + f3 * f10 + f5 * f10).tex(1, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+		tessellator.getBuffer().pos(f11 + f1 * f10 - f4 * f10, f12 - f2 * f10, f13 + f3 * f10 - f5 * f10).tex(0, 0).lightmap(k3, l3).color(particleRed, particleGreen, particleBlue, 0.5F).endVertex();
+	}
+}

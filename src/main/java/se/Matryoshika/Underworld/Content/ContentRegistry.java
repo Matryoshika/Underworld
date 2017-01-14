@@ -6,6 +6,7 @@ import se.Matryoshika.Underworld.Content.Items.*;
 import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
 import se.Matryoshika.Underworld.Utils.ConfigHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +41,9 @@ public class ContentRegistry {
 	public static Block BlockSugarBeets;
 	public static Block BlockMetamorphicTable;
 	public static Block BlockCustomEndPortal;
+	public static Block BlockMossStone;
+	public static Block BlockGlowMossStone;
+	public static Block BlockSugarPile;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -44,29 +52,67 @@ public class ContentRegistry {
 		BlockList.add(BlockHangVine = new BlockHangVine());
 		BlockList.add(BlockDirt = new BlockUnderworldDirt());
 		BlockList.add(BlockBrazierOff = new BlockBrazierOff());
-		BlockList.add(BlockBrazierOn = new BlockBrazierOn().setLightLevel(1.0F));
+		BlockList.add(BlockBrazierOn = new BlockBrazierOn().setLightLevel(15F));
 		BlockList.add(Light = new BlockCustomLight());
 		BlockList.add(Spawner = new BlockInvisMobSpawner());
 		BlockList.add(BlockSugarBeets = new BlockSugarbeet().setRegistryName("blocksugarbeet").setUnlocalizedName("underworld:blocksugarbeet"));
 		BlockList.add(BlockMetamorphicTable = new BlockMetamorphicTable());
 		BlockList.add(BlockCustomEndPortal = new BlockCustomEndPortal());
+		BlockList.add(BlockMossStone = new BlockMossStone());
+		BlockList.add(BlockGlowMossStone = new BlockGlowingMossStone().setLightLevel(5F));
+		BlockList.add(BlockSugarPile = new BlockSugarPile().setLightLevel(5F));
 
 	}
 	
-	public static void registerBlocks(){
-		for(Block block : BlockList){
-			if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString()))){
-				continue;
-			}
-			GameRegistry.register(block);
-			ItemBlock iblock;
-			if(block == ContentRegistry.BlockCustomEndPortal)
-				iblock = new ItemBlockShiny(block);
-			else
-				iblock= new ItemBlock(block);
-			iblock.setRegistryName(block.getRegistryName());
-			GameRegistry.register(iblock);
-		}
+	
+	
+	@Mod.EventBusSubscriber
+    public static class register{
+        @SubscribeEvent
+        public static void addBlocks(RegistryEvent.Register<Block> evt){
+        	Underworld.mainConfig = new Configuration(new File("config/"+ Underworld.MODID+"/main.cfg"));
+        	Underworld.itemConfig = new Configuration(new File("config/"+ Underworld.MODID+"/items.cfg"));
+        	Underworld.blockConfig = new Configuration(new File("config/"+ Underworld.MODID+"/blocks.cfg"));
+        	Underworld.genConfig = new Configuration(new File("config/"+ Underworld.MODID+"/worldGen.cfg"));
+        	ConfigHandler.readMain();
+        	prepareBlocks();
+        	prepareItems();
+        	ConfigHandler.setItemAndBlockConfigs();
+        	for(Block block : BlockList){
+        		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString())))
+    				continue;
+    			
+        		evt.getRegistry().register(
+            		block
+            	);
+        	}
+        }
+
+        @SubscribeEvent
+        public static void addItems(RegistryEvent.Register<Item> evt){
+        	for(Item item : ItemList){
+        		if(!((Boolean) ConfigHandler.isItemEnabledMap.get(item.getRegistryName().toString())))
+        			continue;
+        	
+	            evt.getRegistry().registerAll(
+	            	item
+	            );
+        	}
+        	
+        	for(Block block : BlockList){
+        		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString())))
+        			continue;
+        		ItemBlock iblock;
+    			if(block == ContentRegistry.BlockCustomEndPortal)
+    				iblock = new ItemBlockShiny(block);
+    			else
+    				iblock= new ItemBlock(block);
+    			
+	            evt.getRegistry().registerAll(
+	            	iblock.setRegistryName(block.getRegistryName())
+	            );
+        	}
+        }
 	}
 	
 	//Items--------------------------------------------------------------------------------------------
@@ -84,14 +130,5 @@ public class ContentRegistry {
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
 		
-	}
-	
-	public static void registerItems(){
-		for(Item item:ItemList){
-			if(!((Boolean) ConfigHandler.isItemEnabledMap.get(item.getRegistryName().toString()))){
-				continue;
-			}
-			GameRegistry.register(item);
-		}
 	}
 }

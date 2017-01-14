@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "underworld:blocks/moss_stone"
+    }
+} 

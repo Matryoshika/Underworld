@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "underworld:sugar_pile" },
+        "inventory": { "model": "underworld:sugar_pile" }
+    }
+} 

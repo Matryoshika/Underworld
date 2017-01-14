@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "underworld:moss_stone" },
+        "inventory": { "model": "underworld:moss_stone" }
+    }
+} 

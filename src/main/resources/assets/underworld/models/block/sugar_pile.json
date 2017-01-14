@@ -1,0 +1,199 @@
+{
+    "__createdwith": "opl's Model Creator",
+    "ambientocclusion": false,
+    "textures": {
+        "Sugar": "blocks/snow",
+        "particle": "blocks/snow"
+    },
+    "elements": [
+        {
+            "from": [6,0,6],
+            "to": [10,1,10],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "down": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [6,0,5],
+            "to": [10,1,6],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "down": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [6,0,10],
+            "to": [10,1,11],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "down": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [5,0,6],
+            "to": [6,1,10],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "down": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [10,0,6],
+            "to": [11,1,10],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "down": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [7,1,6],
+            "to": [9,2,7],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [7,1,9],
+            "to": [9,2,10],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [9,1,7],
+            "to": [10,2,9],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [6,1,7],
+            "to": [7,2,9],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        },
+        {
+            "from": [7,2,7],
+            "to": [9,3,9],
+            "faces": {
+                "up": {
+                    "texture": "#Sugar"
+                },
+                "west": {
+                    "texture": "#Sugar"
+                },
+                "east": {
+                    "texture": "#Sugar"
+                },
+                "north": {
+                    "texture": "#Sugar"
+                },
+                "south": {
+                    "texture": "#Sugar"
+                }
+            }
+        }
+    ]
+}
