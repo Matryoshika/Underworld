@@ -10,6 +10,10 @@ tile.underworld:blocksugarbeet.name=Sugarbeets
 tile.underworld:blockMetamorphicTable.name=Metamorphic Table
 tile.underworld:BlockEndPortal.name=Ender Porter
 
+#Overriding vanilla Moss Stone to reflect it actually being a cobblestone variant, and free up the name for Underworld's actual stone variant
+tile.stoneMoss.name=Moss Cobblestone
+tile.underworld:moss_stone.name=Moss Stone
+tile.underworld:glowing_moss_stone.name=Firefly Moss Stone
 
 #Items
 item.itemDebugger.name=Devilishly Divine Debugger
@@ -20,3 +24,4 @@ item.underworld:sugarbeets.name=Sugarbeet
 #GUI
 underworld.jei.metamorphictable=Metamorphic Table
 underworld.lore.metamorphictable=When you cannot decide on what you want
+underworld.lore.anomalousdirt=The dirty Chameleon
