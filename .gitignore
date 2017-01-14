@@ -31,3 +31,4 @@ gradlew.bat
 .settings
 /bin/
 run/**
+.metadata
