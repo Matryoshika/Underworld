@@ -46,7 +46,7 @@ public class WorldProviderCaves extends WorldProvider{
 	@Override
 	public IChunkGenerator createChunkGenerator(){
 		if(ConfigHandler.forceUnderworld)
-			return new ChunkProviderCaves(worldObj, worldObj.getWorldInfo().isMapFeaturesEnabled(), worldObj.getSeed());
+			return new ChunkProviderCaves(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), worldObj.getWorldInfo().getGeneratorOptions());
 
 		return worldObj.getWorldInfo().getTerrainType().getChunkGenerator(worldObj, worldObj.getWorldInfo().getGeneratorOptions());
     }
@@ -76,12 +76,14 @@ public class WorldProviderCaves extends WorldProvider{
      */
 	@Override
     protected void generateLightBrightnessTable(){
-    	float f = 0.0F;
+		float f = 0.0F;
+		if(ConfigHandler.gloomyLight)
+	    f += 0.1F;
 
-        for (int i = 0; i <= 15; ++i){
-            float f1 = 1.0F - (float)i / 15.0F;
-            this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
-        }
+	    for (int i = 0; i <= 15; ++i){
+	    	float f1 = 1.0F - (float)i / 15.0F;
+	        this.lightBrightnessTable[i] = (1.0F - f1) / (f1 * 3.0F + 1.0F) * (1.0F - f) + f;
+	    }
     	
     }
 
@@ -119,8 +121,17 @@ public class WorldProviderCaves extends WorldProvider{
 
         float f1 = 1.0F - (float)((Math.cos((double)f * Math.PI) + 1.0D) / 2.0D);
         f += (f1 - f) / 3.0F;
+        
+        
+        
+        if(ConfigHandler.allowTime == 0)
+        	return 0.50F;
+        
+        if(ConfigHandler.allowTime == 2)
+        	return 1;
+        
     	
-    	return this.worldObj.getWorldType() instanceof WorldTypeCaves ? 0.50F : ConfigHandler.forceUnderworld ? 0.50F : f;
+    	return f;
     }
 
     /**
