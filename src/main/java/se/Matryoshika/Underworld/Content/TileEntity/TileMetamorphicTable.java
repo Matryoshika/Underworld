@@ -149,6 +149,7 @@ public class TileMetamorphicTable extends TEInventoryHandler implements IContain
 		if(table.isBlocked(worldObj, pos))
 			return;
 		
+		//System.out.println("Ticking");
 		if(this.inventory.getStackInSlot(0) != null){
 			tryCraft();
 		}
@@ -173,6 +174,7 @@ public class TileMetamorphicTable extends TEInventoryHandler implements IContain
 					}
 				}
 				//System.out.println("has valid recipe");
+				@SuppressWarnings("null")
 				ItemStack output = recipe.result().copy();
 				this.inventory.extractItem(0, this.inventory.getStackInSlot(0).stackSize, false);
 				
