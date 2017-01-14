@@ -33,5 +33,9 @@ public class CommonProxy {
     public void boomParticles(World world, BlockPos pos, Random rand){
     	
     }
+    
+    public void spawnCustomParticle(String name,World world, double x, double y, double z, int age, float red, float green, float blue){
+    	
+    }
 
 }
