@@ -24,7 +24,7 @@ public class WorldTypeCaves extends WorldType{
     
     @Override
     public IChunkGenerator getChunkGenerator(World world, String generatorOptions){
-        return new ChunkProviderCaves(world, world.getWorldInfo().isMapFeaturesEnabled(), world.getSeed());
+        return new ChunkProviderCaves(world, world.getSeed(), world.getWorldInfo().isMapFeaturesEnabled(), world.getWorldInfo().getGeneratorOptions());
     }
     
     @Override
