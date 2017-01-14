@@ -32,6 +32,8 @@ public class ConfigHandler {
     public static boolean spawnerGen;
     public static boolean lilyPadGen;
     public static boolean forceUnderworld;
+    public static int allowTime;
+    public static boolean gloomyLight;
 	
 	public static void readMain(){
 		
@@ -44,6 +46,9 @@ public class ConfigHandler {
 		configMain.addCustomCategoryComment("Balance Configs", "Configs to make things easier or harder");
 		metamorphicTableActivationBlocks = configMain.getString("MetamorphicTableActivationBlocks","Balance Configs", "minecraft:enchanting_table", "Defines what block is required to activate the Metamorphic table. ModID : BlockName");
 		metamorphicTableActivationMeta = configMain.getInt("MetamorphicTableActivationMeta","Balance Configs", 0, 0, 15, "The meta for the activation blocks");
+		allowTime = configMain.getInt("AllowTime", "Balance Configs", 0, 0, 2, "0: Time is frozen at midnight. 1: Time moves normally. 2: Time is frozen at noon");
+		gloomyLight = configMain.getBoolean("GloomyLight", "Balance Configs", false, "If true, Underworld will have a slightly larger default light-level");
+		
 		
 		configGen.addCustomCategoryComment("WorldGen configs", "Configs to enable or disable Underworld's WorldGen. Will not undo already generated terrain, just hinder more from generating.");
 		clayGen = configGen.getBoolean("ClayGen", "WorldGen configs", true, "Wether or not Underworld should spawn clay");
