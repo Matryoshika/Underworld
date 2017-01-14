@@ -13,14 +13,19 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 
@@ -42,6 +47,11 @@ public class BlockUnderworldDirt extends Block{
         this.setUnlocalizedName("blockDirt");
         this.setRegistryName(Underworld.MODID, "blockDirt");
 	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
+		tooltip.add(I18n.format(Underworld.MODID+".lore.anomalousdirt"));
+    }
 	
 	@Override
 	public int tickRate(World world){
@@ -127,4 +137,56 @@ public class BlockUnderworldDirt extends Block{
 		}
 		update(world, pos, state, rand);
 	}
+	
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
+		if(placer instanceof EntityPlayer){
+			
+			
+			if(world.isAirBlock(pos.up()) && world.getBlockState(pos) == ContentRegistry.BlockDirt.getDefaultState()){
+				//For some reason, Biome.TempCategory.COLD does not see these biomes as cold at all...
+				Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+				if(biome == Biomes.COLD_TAIGA || biome == Biomes.TAIGA || biome == Biomes.TAIGA_HILLS || biome == Biomes.COLD_BEACH || biome == Biomes.COLD_TAIGA_HILLS
+						|| biome == Biomes.FROZEN_OCEAN || biome == Biomes.FROZEN_RIVER || biome == Biomes.ICE_MOUNTAINS || biome == Biomes.ICE_PLAINS ||
+						biome == Biomes.MUTATED_ICE_FLATS || biome == Biomes.MUTATED_TAIGA || biome == Biomes.MUTATED_TAIGA_COLD
+						){
+					
+					world.setBlockState(pos, Blocks.GRASS.getDefaultState());
+					world.setBlockState(pos.up(), Blocks.SNOW_LAYER.getDefaultState());
+				}
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+					//Prevents sand from falling and clogging up resources
+					if(world.isAirBlock(pos.down())){
+						world.setBlockState(pos, Blocks.SANDSTONE.getDefaultState());
+					}
+					else{
+						world.setBlockState(pos, Blocks.SAND.getDefaultState());
+					}
+				}
+				else{
+					world.setBlockState(pos, Blocks.GRASS.getDefaultState());
+				}
+			}
+			else if(!world.isAirBlock(pos.up()) && world.getBlockState(pos) == ContentRegistry.BlockDirt.getDefaultState()){
+				Biome biome = world.getChunkFromBlockCoords(pos).getBiome(pos, world.getBiomeProvider());
+				if(world.getBlockState(pos.up()) == Blocks.WATER.getDefaultState()){
+					world.setBlockState(pos, Blocks.CLAY.getDefaultState());
+				}
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+					//Prevents sand from falling and clogging up resources
+					if(world.isAirBlock(pos.down())){
+						world.setBlockState(pos, Blocks.SANDSTONE.getDefaultState());
+					}
+					else{
+						world.setBlockState(pos, Blocks.SAND.getDefaultState());
+					}
+				}
+				else{
+					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
+				}
+			}
+			
+			
+			
+		}
+    }
 }
