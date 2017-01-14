@@ -31,7 +31,7 @@ public class BlockBrazierOn extends Block{
 	}
 	
 	public Block setLightLevel(float value){
-        this.lightValue = (int)(15.0F * value);
+        this.lightValue = (int)(value);
         return this;
     }
 	
@@ -55,8 +55,7 @@ public class BlockBrazierOn extends Block{
     }
     
     @Nullable
-    public Item getItemDropped(IBlockState state, Random rand, int fortune)
-    {
+    public Item getItemDropped(IBlockState state, Random rand, int fortune){
         return Item.getItemFromBlock(ContentRegistry.BlockBrazierOff);
     }
     
