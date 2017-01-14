@@ -55,6 +55,8 @@ public class UnderworldMetamorphicTableRecipes {
 	
 	private static TableRecipes recipeEnderPorter;
 	
+	private static TableRecipes recipeAnomalousDirt;
+	
 	
 	
 	static ItemStack OAKSAP = new ItemStack(Blocks.SAPLING, 1, 0);
@@ -101,6 +103,8 @@ public class UnderworldMetamorphicTableRecipes {
 	
 	static ItemStack ENDCRYSTAL = new ItemStack(Items.END_CRYSTAL);
 	static ItemStack ENDERPORTER = new ItemStack(ContentRegistry.BlockCustomEndPortal);
+	static ItemStack GRASS = new ItemStack(Blocks.GRASS);
+	static ItemStack ANOMALOUS = new ItemStack(ContentRegistry.BlockDirt);
 	
 	public static void init(){
 		
@@ -147,5 +151,7 @@ public class UnderworldMetamorphicTableRecipes {
 		recipeDiscWait = MetamorphicTableRecipes.registerTableRecipes(DISC11, DISCWAIT, 0);
 		
 		recipeEnderPorter = MetamorphicTableRecipes.registerTableRecipes(ENDCRYSTAL, ENDERPORTER, 0);
+		
+		recipeAnomalousDirt = MetamorphicTableRecipes.registerTableRecipes(GRASS, ANOMALOUS, 0);
 	}
 }
