@@ -11,12 +11,12 @@ public class TileUnderworldEnderPortal extends TileEntity implements ITickable{
 	@Override
 	public void update() {
 		if(goUp)
-    		timer+=2;
+    		timer++;
     	else
-    		timer-=2;
-    	if(timer >= 100)
+    		timer--;
+    	if(timer >= 66)
     		goUp = false;
-    	if(timer <= -100)
+    	if(timer <= -66)
     		goUp = true;
 		
 	}
