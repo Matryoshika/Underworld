@@ -14,6 +14,7 @@ tile.underworld:BlockEndPortal.name=Ender Porter
 tile.stoneMoss.name=Moss Cobblestone
 tile.underworld:moss_stone.name=Moss Stone
 tile.underworld:glowing_moss_stone.name=Firefly Moss Stone
+tile.underworld:sugar_pile.name=Sugar Pile
 
 #Items
 item.itemDebugger.name=Devilishly Divine Debugger
