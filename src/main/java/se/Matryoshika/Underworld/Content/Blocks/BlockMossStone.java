@@ -26,6 +26,8 @@ public class BlockMossStone extends Block{
 		this.setUnlocalizedName(getRegistryName().toString());
 		this.setCreativeTab(Underworld.UnderworldTab);
 		this.setTickRandomly(true);
+		this.setHardness(1.5F);
+		this.setResistance(10.0F);
 	}
 	
 	@Nullable

@@ -28,6 +28,8 @@ public class BlockGlowingMossStone extends Block{
 		this.setRegistryName("glowing_moss_stone");
 		this.setUnlocalizedName(getRegistryName().toString());
 		this.setCreativeTab(Underworld.UnderworldTab);
+		this.setHardness(1.5F);
+		this.setResistance(10.0F);
 	}
 	
 	@Override
