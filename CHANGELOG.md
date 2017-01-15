@@ -13,6 +13,13 @@
 - Started working on infrastructure for porting migraine inducing buildings, like villages & ocean temples, to easier-to-understand-and-use collections of blockstates.
 
 ---
+### Addendum 0.2.12a
+
+- Moved Client-side events from Common code.
+- Added Stone resistance & hardness to Moss Stone and it's Firefly variant.
+- Fixed Sugar not placing Sugar Piles.
+
+---
 ### 0.1.12: Two-way ticket, please
 
 - Added the Ender Porter

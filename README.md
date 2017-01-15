@@ -32,4 +32,10 @@ The full changelog can be found [Here](https://github.com/Matryoshika/Underworld
    - Added Firefly Moss Stone. Slightly glowing moss stone that occasionally shows a Firefly. Will be used more later.
 - Started working on infrastructure for porting migraine inducing buildings, like villages & ocean temples, to easier-to-understand-and-use collections of blockstates.
 
+---
+### Addendum 0.2.12a
+
+- Moved Client-side events from Common code.
+- Added Stone resistance & hardness to Moss Stone and it's Firefly variant.
+- Fixed Sugar not placing Sugar Piles.
 
