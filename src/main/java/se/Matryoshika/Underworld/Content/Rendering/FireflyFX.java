@@ -19,11 +19,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import se.Matryoshika.Underworld.ClientProxy;
 import se.Matryoshika.Underworld.Underworld;
 
 public class FireflyFX extends Particle{
 	
-	public static ResourceLocation texture = Underworld.firefly;
+	/*
+	 * Credit for most of this class & ParticleRenderer.class goes to Vazkii.
+	 * I fricking hate particles =_=
+	 */
+	
+	public static ResourceLocation texture = ClientProxy.firefly;
 	private static final Queue<FireflyFX> queuedRenders = new ArrayDeque<>();
 	private static final Queue<FireflyFX> queuedDepthIgnoringRenders = new ArrayDeque<>();
 	
@@ -47,7 +53,7 @@ public class FireflyFX extends Particle{
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
-		particleAlpha = 0.5F; // So MC renders us on the alpha layer, value not actually used
+		particleAlpha = 0.5F;
 		particleGravity = 0;
 		motionX *= 0.1;
 		motionY *= 0.1;

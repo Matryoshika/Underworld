@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.profiler.Profiler;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ParticleRenderer {
 	
@@ -35,6 +37,11 @@ public class ParticleRenderer {
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
 		GL11.glPopAttrib();
+	}
+	
+	@SubscribeEvent
+	public static void onRenderWorldLast(RenderWorldLastEvent event){
+		ParticleRenderer.dispatch();
 	}
 
 }

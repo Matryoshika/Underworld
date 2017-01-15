@@ -79,7 +79,7 @@ public class BlockSugarPile extends Block{
 	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos){
 		boolean sugarNearby = false;
-		for(BlockPos opos : BlockPos.getAllInBox(pos.add(-3, -3, -3), pos.add(3, 3, 3))){
+		for(BlockPos opos : BlockPos.getAllInBox(pos.add(-5, -3, -5), pos.add(5, 3, 5))){
 			if(world.getBlockState(opos).getBlock() == ContentRegistry.BlockSugarPile)
 				sugarNearby = true;
 		}
