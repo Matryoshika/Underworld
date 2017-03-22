@@ -1,7 +1,9 @@
 package se.Matryoshika.Underworld.Integration.JEI;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -11,6 +13,7 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -83,6 +86,23 @@ public class MetamorphicTableCategory implements IRecipeCategory {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+		
+
+	}
+
+	@Override
+	public IDrawable getIcon() {
+		return null;
+	}
+
+	@Override
+	public List getTooltipStrings(int arg0, int arg1) {
+		return new ArrayList();
+	}
+
+	@Override
+	public void setRecipe(IRecipeLayout recipeLayout, IRecipeWrapper recipeWrapper, IIngredients ingredients) {
+		
 		if(!(recipeWrapper instanceof MetamorphicTableWrapper))
 			return;
 		
@@ -103,7 +123,6 @@ public class MetamorphicTableCategory implements IRecipeCategory {
 		recipeLayout.getItemStacks().set(TABLE_SLOT, new ItemStack(ContentRegistry.BlockMetamorphicTable));
 		
 		recipeLayout.getItemStacks().set(OUTPUT_SLOT, wrapper.getOutputs().get(0));
-
 	}
 
 }

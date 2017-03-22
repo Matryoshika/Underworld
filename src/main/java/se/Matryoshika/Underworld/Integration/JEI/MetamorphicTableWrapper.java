@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -66,6 +67,12 @@ public class MetamorphicTableWrapper implements IRecipeWrapper {
 	@Override
 	public boolean handleClick(Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
 		return false;
+	}
+
+	@Override
+	public void getIngredients(IIngredients arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

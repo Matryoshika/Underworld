@@ -6,7 +6,9 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.ingredients.IModIngredientRegistration;
 import net.minecraft.item.ItemStack;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
@@ -41,6 +43,18 @@ public class JEIMetamorphicTablePlugin implements IModPlugin{
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerIngredients(IModIngredientRegistration arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void registerItemSubtypes(ISubtypeRegistry arg0) {
 		// TODO Auto-generated method stub
 		
 	}

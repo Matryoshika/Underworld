@@ -19,5 +19,34 @@ public class MetamorphicTableRecipes {
 		metamorphicTableRecipes.add(recipe);
 		return recipe;
 	}
+	
+	public static void removeTableRecipes(ItemStack input, ItemStack output, int outputMeta){
+		System.out.println(input.getItem().getRegistryName() + " + " + output.getItem().getRegistryName() + " with meta of " + outputMeta);
+		TableRecipes wantedRecipe = null;
+		for(TableRecipes recipe : metamorphicTableRecipes){
+			if(ItemStack.areItemsEqual(input, recipe.input) &&
+				ItemStack.areItemsEqual(output, recipe.output) &&
+				recipe.outputMeta == outputMeta){
+				wantedRecipe = recipe;
+			}
+		}
+		if(wantedRecipe != null){
+			metamorphicTableRecipes.remove(wantedRecipe);
+			registry.remove(String.valueOf(input.getItem())+String.valueOf(input.getMetadata()));
+		}
+		
+	}
+	
+	public static boolean recipeExists(ItemStack input, ItemStack output, int outputMeta){
+		boolean exists = false;
+		for(TableRecipes recipe : metamorphicTableRecipes){
+			if(ItemStack.areItemsEqual(input, recipe.input) &&
+				ItemStack.areItemsEqual(output, recipe.output) &&
+				recipe.outputMeta == outputMeta){
+				exists = true;
+			}
+		}
+		return exists;
+	}
 
 }
