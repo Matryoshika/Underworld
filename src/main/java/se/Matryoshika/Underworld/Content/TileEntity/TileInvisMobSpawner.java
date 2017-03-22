@@ -115,7 +115,7 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 				return;
 			
 			List<EntityAnimal> list = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(this.pos.getX()-32, 0, this.pos.getZ()-32, this.pos.getX()+32, 128, this.pos.getZ()+32));
-			if(list.size() > 7)
+			if(list.size() > 16)
 				return;
 			
 			if(world.getBiomeForCoordsBody(pos).getSpawnableList(EnumCreatureType.CREATURE).toString().contains(entity.getClass().getSimpleName())){
