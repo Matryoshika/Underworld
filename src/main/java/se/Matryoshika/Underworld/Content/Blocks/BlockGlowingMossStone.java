@@ -45,7 +45,7 @@ public class BlockGlowingMossStone extends Block{
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.5D;
         double d2 = (double)pos.getZ() + 0.5D;
-        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 3, 1, 1, 1);
+        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 0, 0, 0, 3, 1, 1, 1);
     }
 	
 	@Nullable

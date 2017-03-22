@@ -61,9 +61,9 @@ public class ClientProxy extends CommonProxy{
 	}
 	
 	@Override
-	public void spawnCustomParticle(String name,World world, double x, double y, double z, int age, float red, float green, float blue){
+	public void spawnCustomParticle(String name,World world, double x, double y, double z, double motx, double moty, double motz, int age, float red, float green, float blue){
 		if(name.equals("firefly")){
-			Minecraft.getMinecraft().effectRenderer.addEffect(new FireflyFX(world,x, y, z, 1, red, green, blue, true, true, age));
+			Minecraft.getMinecraft().effectRenderer.addEffect(new FireflyFX(world,x, y, z, motx, moty, motz, 1, red, green, blue, true, true, age));
 		}
 	}
 

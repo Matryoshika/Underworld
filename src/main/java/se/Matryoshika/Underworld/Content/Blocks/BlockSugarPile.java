@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
@@ -21,6 +22,7 @@ import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.TileEntity.TileSugarPile;
 import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
+import se.Matryoshika.Underworld.Utils.SugarPileList;
 
 public class BlockSugarPile extends Block{
 	
@@ -40,7 +42,7 @@ public class BlockSugarPile extends Block{
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
-        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 5, 1, 1, 1);
+        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 0, 0, 0, 5, 1, 1, 1);
     }
 	
 	public Block setLightLevel(float value){
@@ -84,5 +86,11 @@ public class BlockSugarPile extends Block{
 				sugarNearby = true;
 		}
         return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && !sugarNearby;
+    }
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state){
+        
+		SugarPileList.removeSugarPile(world, pos);;
+		world.removeTileEntity(pos);
     }
 }

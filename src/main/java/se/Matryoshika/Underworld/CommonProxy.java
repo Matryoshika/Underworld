@@ -34,7 +34,7 @@ public class CommonProxy {
     	
     }
     
-    public void spawnCustomParticle(String name,World world, double x, double y, double z, int age, float red, float green, float blue){
+    public void spawnCustomParticle(String name,World world, double x, double y, double z, double motx, double moty, double motz, int age, float red, float green, float blue){
     	
     }
 

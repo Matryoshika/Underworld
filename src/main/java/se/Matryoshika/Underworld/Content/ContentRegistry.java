@@ -120,6 +120,7 @@ public class ContentRegistry {
 	public static Item Debugger;
 	public static Item Lantern;
 	public static Item Sugarbeets;
+	public static Item FireflyShield;
 	
 	
 	public static List<Item>ItemList=new ArrayList<Item>();
@@ -129,6 +130,7 @@ public class ContentRegistry {
 		ItemList.add(Debugger = new ItemDebugger());
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
+		//ItemList.add(FireflyShield = new ItemFireflyShield());
 		
 	}
 }

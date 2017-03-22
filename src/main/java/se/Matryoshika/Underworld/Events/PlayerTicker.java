@@ -2,14 +2,13 @@ package se.Matryoshika.Underworld.Events;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
-import se.Matryoshika.Underworld.Content.Rendering.FireflyFX;
 
 public class PlayerTicker {
 	
@@ -32,7 +31,7 @@ public class PlayerTicker {
 		Random rand = new Random();
 		if(rand.nextInt(10) == 0)
 			if((player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern) || (player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern))
-				Minecraft.getMinecraft().effectRenderer.addEffect(new FireflyFX(player.worldObj, player.posX-0.4, player.posY+0.6, player.posZ-0.4, 1, 1, 1, 1, true, true, 5));
+				Underworld.proxy.spawnCustomParticle("firefly", player.worldObj, player.posX, player.posY, player.posZ, 0, 0, 0, 1, 1, 1, 1);
 		
 	}
 	

@@ -47,9 +47,9 @@ public class FireflyFX extends Particle{
 	public boolean tinkle = false;
 	public int blendmode = 1;
 	
-	public FireflyFX(World world, double x, double y, double z, float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
+	public FireflyFX(World world, double x, double y, double z, double motx, double moty, double motz, float size, float red, float green, float blue, boolean distanceLimit, boolean depthTest, float maxAgeMul) {
 		
-		super(world, x, y, z, 0, 0, 0);
+		super(world, x, y, z, motx, moty, motz);
 		particleRed = red;
 		particleGreen = green;
 		particleBlue = blue;
