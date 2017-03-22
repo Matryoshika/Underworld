@@ -16,14 +16,13 @@ import se.Matryoshika.Underworld.Utils.ConfigHandler;
 
 @JEIPlugin
 public class JEIMetamorphicTablePlugin implements IModPlugin{
-
+	
 	@Override
 	public void register(@Nonnull IModRegistry registry) {
 		
 		if(((Boolean) ConfigHandler.isBlockEnabledMap.get(ContentRegistry.BlockMetamorphicTable.getRegistryName().toString()))){
 			
 			IJeiHelpers jeihelpers = registry.getJeiHelpers();
-			
 			
 			
 			registry.addRecipeCategories(
@@ -36,7 +35,6 @@ public class JEIMetamorphicTablePlugin implements IModPlugin{
 			
 			registry.addRecipes(MetamorphicTableRecipes.metamorphicTableRecipes);
 			registry.addRecipeCategoryCraftingItem(new ItemStack(ContentRegistry.BlockMetamorphicTable), MetamorphicTableCategory.UID);
-			
 		}
 		
 	}

@@ -21,7 +21,7 @@ public class MetamorphicTableRecipes {
 	}
 	
 	public static void removeTableRecipes(ItemStack input, ItemStack output, int outputMeta){
-		System.out.println(input.getItem().getRegistryName() + " + " + output.getItem().getRegistryName() + " with meta of " + outputMeta);
+		//System.out.println(input.getItem().getRegistryName() + " + " + output.getItem().getRegistryName() + " with meta of " + outputMeta);
 		TableRecipes wantedRecipe = null;
 		for(TableRecipes recipe : metamorphicTableRecipes){
 			if(ItemStack.areItemsEqual(input, recipe.input) &&
@@ -44,6 +44,18 @@ public class MetamorphicTableRecipes {
 				ItemStack.areItemsEqual(output, recipe.output) &&
 				recipe.outputMeta == outputMeta){
 				exists = true;
+			}
+		}
+		return exists;
+	}
+	
+	public static TableRecipes getRecipe(ItemStack input, ItemStack output, int outputMeta){
+		TableRecipes exists = null;
+		for(TableRecipes recipe : metamorphicTableRecipes){
+			if(ItemStack.areItemsEqual(input, recipe.input) &&
+				ItemStack.areItemsEqual(output, recipe.output) &&
+				recipe.outputMeta == outputMeta){
+				exists = recipe;
 			}
 		}
 		return exists;

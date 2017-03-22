@@ -1,13 +1,16 @@
 package se.Matryoshika.Underworld.Integration.CraftTweaker;
 
+import mezz.jei.JustEnoughItems;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
+import minetweaker.mods.jei.JEIRecipeRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
 import se.Matryoshika.Underworld.API.TableRecipes;
+import se.Matryoshika.Underworld.Integration.JEI.JEIMetamorphicTablePlugin;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -64,7 +67,10 @@ public class MTMetamorphicTableRecipes {
 		catch(IllegalArgumentException e){
 			MineTweakerAPI.logError("Invalid MetamorphicTable recipe: " + e.getMessage());
 		}
+		
 		MineTweakerAPI.apply(new MetamorphicTableAction(input, output, meta).action_add);
+		MineTweakerAPI.ijeiRecipeRegistry.addRecipe(MetamorphicTableRecipes.getRecipe(MineTweakerMC.getItemStack(_input), MineTweakerMC.getItemStack(_output), _meta));
+		
 	}
 	
 	@ZenMethod
@@ -73,6 +79,7 @@ public class MTMetamorphicTableRecipes {
 			MineTweakerAPI.logWarning("Metamorphic Table recipe not found: "+ MineTweakerMC.getItemStack(input).getItem().getRegistryName() + " -> " + MineTweakerMC.getItemStack(output).getItem().getRegistryName() + " with metadata of " + meta);
 			return;
 		}
+		MineTweakerAPI.ijeiRecipeRegistry.removeRecipe(MetamorphicTableRecipes.getRecipe(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output), meta));
 		MineTweakerAPI.apply(new MetamorphicTableAction(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output), meta).action_remove);
 	}
 
