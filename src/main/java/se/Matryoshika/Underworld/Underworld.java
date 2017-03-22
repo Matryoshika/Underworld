@@ -50,7 +50,7 @@ public class Underworld {
 	public static Configuration itemConfig;
 	public static Configuration blockConfig;
 	public static Configuration genConfig;
-
+	
 	public static String pathName;
 
 	static WorldType CAVES;
