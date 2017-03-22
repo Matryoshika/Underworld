@@ -1,16 +1,19 @@
 package se.Matryoshika.Underworld.Integration.CraftTweaker;
 
-import mezz.jei.JustEnoughItems;
+import java.lang.reflect.Field;
+import java.util.IdentityHashMap;
+
+import org.apache.commons.lang3.reflect.FieldUtils;
+
+import mezz.jei.Internal;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.util.RecipeTransferRegistry;
 import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import minetweaker.mods.jei.JEIRecipeRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
-import se.Matryoshika.Underworld.API.TableRecipes;
-import se.Matryoshika.Underworld.Integration.JEI.JEIMetamorphicTablePlugin;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -32,13 +35,27 @@ public class MTMetamorphicTableRecipes {
 		@Override
 		protected void add() {
 			MetamorphicTableRecipes.registerTableRecipes(input, output, meta);
-
+			MineTweakerAPI.ijeiRecipeRegistry.addRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
 		}
 
 		@Override
 		protected void remove() {
+			//MineTweakerAPI.ijeiRecipeRegistry.removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
+			
+			Internal.getRuntime().getRecipeRegistry().removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
+			
+			Field f = FieldUtils.getDeclaredField(Internal.getRuntime().getRecipeRegistry().getClass(), "wrapperMap", true);
+			IdentityHashMap<Object, IRecipeWrapper> map = null;
+			try {
+				map = (IdentityHashMap<Object, IRecipeWrapper>) f.get(Internal.getRuntime().getRecipeRegistry());
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			if(map != null){
+				map.remove(MetamorphicTableRecipes.getRecipe(input, output, meta));
+			}
+			
 			MetamorphicTableRecipes.removeTableRecipes(input, output, meta);
-
 		}
 
 		@Override
@@ -52,35 +69,36 @@ public class MTMetamorphicTableRecipes {
 		}
 
 	}
-	
+
 	@ZenMethod
-	static public void addRecipe(IItemStack _input, IItemStack _output, int _meta){
+	static public void addRecipe(IItemStack _input, IItemStack _output, int _meta) {
 		ItemStack input = null;
 		ItemStack output = null;
 		int meta = 0;
-		
-		try{
+
+		try {
 			output = MineTweakerMC.getItemStack(_output);
 			input = MineTweakerMC.getItemStack(_input);
 			meta = _meta;
-		}
-		catch(IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			MineTweakerAPI.logError("Invalid MetamorphicTable recipe: " + e.getMessage());
 		}
-		
+
 		MineTweakerAPI.apply(new MetamorphicTableAction(input, output, meta).action_add);
-		MineTweakerAPI.ijeiRecipeRegistry.addRecipe(MetamorphicTableRecipes.getRecipe(MineTweakerMC.getItemStack(_input), MineTweakerMC.getItemStack(_output), _meta));
-		
+
 	}
-	
+
 	@ZenMethod
-	static public void removeRecipe(IItemStack input, IItemStack output, int meta){
-		if(!MetamorphicTableRecipes.recipeExists(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output), meta)){
-			MineTweakerAPI.logWarning("Metamorphic Table recipe not found: "+ MineTweakerMC.getItemStack(input).getItem().getRegistryName() + " -> " + MineTweakerMC.getItemStack(output).getItem().getRegistryName() + " with metadata of " + meta);
+	static public void removeRecipe(IItemStack input, IItemStack output, int meta) {
+		if (!MetamorphicTableRecipes.recipeExists(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output),
+				meta)) {
+			MineTweakerAPI.logWarning("Metamorphic Table recipe not found: "
+					+ MineTweakerMC.getItemStack(input).getItem().getRegistryName() + " -> "
+					+ MineTweakerMC.getItemStack(output).getItem().getRegistryName() + " with metadata of " + meta);
 			return;
 		}
-		MineTweakerAPI.ijeiRecipeRegistry.removeRecipe(MetamorphicTableRecipes.getRecipe(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output), meta));
-		MineTweakerAPI.apply(new MetamorphicTableAction(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output), meta).action_remove);
+		MineTweakerAPI.apply(new MetamorphicTableAction(MineTweakerMC.getItemStack(input),
+				MineTweakerMC.getItemStack(output), meta).action_remove);
 	}
 
 	static public String getItemDescription(ItemStack stack) {
