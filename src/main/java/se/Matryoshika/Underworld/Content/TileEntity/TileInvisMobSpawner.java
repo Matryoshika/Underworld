@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,6 +24,7 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
 import se.Matryoshika.Underworld.Utils.Print;
@@ -42,6 +44,9 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 
 	@Override
 	public void update() {
+		if(worldObj.isRemote)
+			return;
+		
 		BlockPos pos = this.pos;
 		if(biome == null){
 			biome = this.worldObj.getBiomeForCoordsBody(pos);
@@ -95,15 +100,24 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 		Constructor<?> constructor;
 		Entity entity;
 		try {
+			if(Loader.isModLoaded("roots")){
+				Class pe = possEntity.getClass();
+				while (pe != null) {
+					if(pe.getName().contains("elucent.roots.entity"))
+						return;
+					
+					pe = pe.getSuperclass();
+				}
+			}
 			constructor = possEntity.getConstructor(World.class);
 			entity = (Entity) constructor.newInstance(new Object[] { world });
-			if(!(entity instanceof EntityAnimal) || world.isRemote){
+			if(!(entity instanceof EntityAnimal || entity instanceof EntityWaterMob) || world.isRemote)
 				return;
-			}
+			
 			List<EntityAnimal> list = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(this.pos.getX()-32, 0, this.pos.getZ()-32, this.pos.getX()+32, 128, this.pos.getZ()+32));
-			if(list.size() > 7){
+			if(list.size() > 7)
 				return;
-			}
+			
 			if(world.getBiomeForCoordsBody(pos).getSpawnableList(EnumCreatureType.CREATURE).toString().contains(entity.getClass().getSimpleName())){
 				entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
 				entity.setUniqueId(UUID.randomUUID());
