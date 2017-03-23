@@ -5,7 +5,10 @@ import java.util.IdentityHashMap;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
+import com.google.common.collect.ImmutableMap;
+
 import mezz.jei.Internal;
+import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.util.RecipeTransferRegistry;
 import minetweaker.MineTweakerAPI;
@@ -14,6 +17,7 @@ import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
+import se.Matryoshika.Underworld.Integration.JEI.MetamorphicTableCategory;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -40,21 +44,7 @@ public class MTMetamorphicTableRecipes {
 
 		@Override
 		protected void remove() {
-			//MineTweakerAPI.ijeiRecipeRegistry.removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
-			
-			Internal.getRuntime().getRecipeRegistry().removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
-			
-			Field f = FieldUtils.getDeclaredField(Internal.getRuntime().getRecipeRegistry().getClass(), "wrapperMap", true);
-			IdentityHashMap<Object, IRecipeWrapper> map = null;
-			try {
-				map = (IdentityHashMap<Object, IRecipeWrapper>) f.get(Internal.getRuntime().getRecipeRegistry());
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			if(map != null){
-				map.remove(MetamorphicTableRecipes.getRecipe(input, output, meta));
-			}
-			
+			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
 			MetamorphicTableRecipes.removeTableRecipes(input, output, meta);
 		}
 
