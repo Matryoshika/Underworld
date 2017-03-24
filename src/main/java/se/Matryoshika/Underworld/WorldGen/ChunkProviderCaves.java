@@ -179,7 +179,7 @@ public class ChunkProviderCaves implements IChunkGenerator
                                 {
                                 	Random rand = new Random();
                                 	int s = rand.nextInt(500);
-                                	if(s < 25)
+                                	if(s < 20)
                                 		iblockstate = MOSS;
                                 	else
                                 		iblockstate = STONE;
