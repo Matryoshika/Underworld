@@ -32,7 +32,6 @@ public class BlockSugarPile extends Block{
 		super(Material.CIRCUITS);
 		this.setRegistryName("sugar_pile");
 		this.setUnlocalizedName(getRegistryName().toString());
-		this.setCreativeTab(Underworld.UnderworldTab);
 	}
 
 	
