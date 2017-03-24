@@ -1,3 +1,20 @@
+### 0.3.12: Recipes by the Campfire
+
+- Updated Mob-Spawning mechanics.
+   - Squids are now being force-spawned manually.
+   - Disabling force-spawn for Roots entities.
+   - More than doubled amount of mobs allowed to co-exist in a 64x128x64 area (7-16).
+- Updated JEI support to 3.14.7.416.
+- Added MineTweaker Support for the Metamorphic Table.
+   - Read [here](https://github.com/Matryoshika/Underworld/wiki/MineTweaker-Support) to learn how to add and remove recipes.
+- Changed how the Sugar Pile's interact with hostile entities.
+   - Removed the "Fireflies push hostiles away" ability.
+   - Made Fireflies "daze" hostiles instead. Hostile entities will now freeze in place and watch the Fireflies.
+- Trimmed the chance for Moss-Stone to spawn, from 5% to 4%.
+- Removed the Sugar Pile from the creative tabs. Right-clicking sugar on the ground will still place them.
+   - Placing the *sugar* down is vital to the pile's interaction with hostiles. Placing the *pile* down, directly circumvented it.
+
+---
 ### 0.2.12: Summer winds, Fireflies, Bugspray 4k
 
 - Added Anomalous Dirt to Metamorphic Table recipes.
