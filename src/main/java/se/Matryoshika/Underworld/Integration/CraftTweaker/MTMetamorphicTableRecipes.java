@@ -1,23 +1,11 @@
 package se.Matryoshika.Underworld.Integration.CraftTweaker;
 
-import java.lang.reflect.Field;
-import java.util.IdentityHashMap;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
-
-import com.google.common.collect.ImmutableMap;
-
-import mezz.jei.Internal;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.util.RecipeTransferRegistry;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
-import se.Matryoshika.Underworld.Integration.JEI.MetamorphicTableCategory;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
