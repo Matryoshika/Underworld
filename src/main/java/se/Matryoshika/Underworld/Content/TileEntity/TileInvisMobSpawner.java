@@ -120,7 +120,7 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 			
 			if(world.getBiomeForCoordsBody(pos).getSpawnableList(EnumCreatureType.CREATURE).toString().contains(entity.getClass().getSimpleName())){
 				entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
-				entity.setUniqueId(UUID.randomUUID());
+				//entity.setUniqueId(UUID.randomUUID());
 				world.spawnEntityInWorld(entity);
 		        world.playEvent(2004, pos, 0);
 			}
