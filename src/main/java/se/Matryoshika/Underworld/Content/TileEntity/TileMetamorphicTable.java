@@ -219,6 +219,8 @@ public class TileMetamorphicTable extends TEInventoryHandler implements IContain
     }
 	
 	public static void dispatchTEToNearbyPlayers(World world, BlockPos pos) {
+		if(world.isRemote)
+			return;
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null)
 			dispatchTEToNearbyPlayers(tile);

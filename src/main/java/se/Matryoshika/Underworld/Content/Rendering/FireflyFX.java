@@ -41,7 +41,7 @@ public class FireflyFX extends Particle{
 	private float f5;
 	
 	private boolean depthTest = true;
-	public boolean distanceLimit = true;
+	public boolean distanceLimit = false;
 	private final float moteParticleScale;
 	private final int moteHalfLife;
 	public boolean tinkle = false;
@@ -55,9 +55,12 @@ public class FireflyFX extends Particle{
 		particleBlue = blue;
 		particleAlpha = 0.5F;
 		particleGravity = 0;
-		motionX *= 0.1;
-		motionY *= 0.1;
-		motionZ *= 0.1;
+		this.distanceLimit = distanceLimit;
+		if(distanceLimit){
+			motionX *= 0.1;
+			motionY *= 0.1;
+			motionZ *= 0.1;
+		}
 		if(particleAge % 20 == 0){
 			
 		}
@@ -89,7 +92,7 @@ public class FireflyFX extends Particle{
 	@Override
 	public void onUpdate(){
         super.onUpdate();
-        if(particleAge % 20 == 0){
+        if(particleAge % 20 == 0 && distanceLimit){
         	Random rand = new Random();
         	motionX = rand.nextGaussian();
         	motionY = rand.nextGaussian();
