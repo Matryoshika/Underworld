@@ -3,17 +3,18 @@ package se.Matryoshika.Underworld.Events;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import se.Matryoshika.Underworld.Utils.SugarPileList;
 
-public class UnderworldLivingUpdateEventHandler {
+public class UnderworldEventHandler {
 
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent event) {
 		if (event.getEntityLiving() instanceof EntityMob) {
 
 			EntityMob mob = (EntityMob) event.getEntityLiving();
-			if(mob.worldObj.isRemote)
+			if(mob.worldObj.isRemote || !mob.isNonBoss())
 				return;
 			
 			for (BlockPos pos : SugarPileList.getSugarPiles(mob.worldObj)) {
@@ -28,5 +29,11 @@ public class UnderworldLivingUpdateEventHandler {
 				}
 			}
 		}
+	}
+	
+	
+	@SubscribeEvent
+	public void onWorldLoad(WorldEvent.Load event){
+		event.getWorld().addEventListener(new UWEventListener(event.getWorld()));
 	}
 }

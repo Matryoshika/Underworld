@@ -37,7 +37,8 @@ public class TileSugarPile extends TileEntity implements ITickable {
 
 			if (entity instanceof EntityAnimal
 					|| (distance = entity.getDistance((double) x, (double) y, (double) z)) >= (double) 8
-					|| distance == 0.0)
+					|| distance == 0.0
+					|| !entity.isNonBoss())
 				continue;
 
 			if (distance < 1)
@@ -47,17 +48,20 @@ public class TileSugarPile extends TileEntity implements ITickable {
 				double pos1 = entity.posX - 0.4 + (Math.random() - Math.random());
 				double pos2 = (entity.posY + 1) + (Math.random() * 2 - 1);
 				double pos3 = entity.posZ - 0.4 + (Math.random() - Math.random());
-				Underworld.proxy.spawnCustomParticle("firefly", worldObj, pos1, pos2, pos3, 0.3, 0.3, 0.3, 3, 1, 0.1f, 0.2f);
+				//Underworld.proxy.spawnCustomParticle("firefly", worldObj, pos1, pos2, pos3, 0.3, 0.3, 0.3, 3, 1, 0.1f, 0.2f, true);
+				//Underworld.proxy.spawnCustomParticle("firefly", worldObj, pos1, pos2, pos3, 0.3, 0.3, 0.3, 5, 1, 0.1f, 0.2f, true);
+				Underworld.proxy.spawnCustomParticle("firefly", worldObj, pos1, pos2, pos3, 0, 0, 0, 3, 1, 0.1f, 0.2f, true);
 				
 				//System.out.println(Print.print(pos1, pos2, pos3));
 			}
 
 		}
-		if (age >= 6000) {
+		if (age >= 6000 && !worldObj.isRemote) {
 			worldObj.setBlockToAir(getPos());
 			if (worldObj.getBlockState(getPos().down()).getBlock() == ContentRegistry.BlockMossStone) {
-				if (new Random().nextInt(100) < 25)
+				if (new Random().nextInt(100) < 50){
 					worldObj.setBlockState(getPos().down(), ContentRegistry.BlockGlowMossStone.getDefaultState());
+				}
 			}
 		}
 	}
