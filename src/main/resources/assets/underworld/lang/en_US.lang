@@ -20,9 +20,16 @@ tile.underworld:sugar_pile.name=Sugar Pile
 item.itemDebugger.name=Devilishly Divine Debugger
 item.itemLantern.name=Lantern
 item.underworld:sugarbeets.name=Sugarbeet
+item.underworld:item_lumenite.name=Lumenite Nugget
 
 
 #GUI
 underworld.jei.metamorphictable=Metamorphic Table
 underworld.lore.metamorphictable=When you cannot decide on what you want
 underworld.lore.anomalousdirt=The dirty Chameleon
+
+#JEI Descriptions
+underworld.description.jei.lumenite1=An extremely durable alloy, found at the heart of Firefly nests.
+underworld.description.jei.lumenite2=If only one could smash the nests with something heavy...
+underworld.description.jei.sugar1=Placing down some sugar on the ground seems to attract a swarm of Fireflies, but once it is gone they disappear again...
+underworld.description.jei.sugar2=Perhaps if one found a suitable location for them to build a nest at, they would stay around...
