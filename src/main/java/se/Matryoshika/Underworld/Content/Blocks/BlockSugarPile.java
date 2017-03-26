@@ -6,8 +6,11 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +25,7 @@ import se.Matryoshika.Underworld.Underworld;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.TileEntity.TileSugarPile;
 import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
+import se.Matryoshika.Underworld.Utils.SugarPileDispenseBehaviour;
 import se.Matryoshika.Underworld.Utils.SugarPileList;
 
 public class BlockSugarPile extends Block{
@@ -32,6 +36,8 @@ public class BlockSugarPile extends Block{
 		super(Material.CIRCUITS);
 		this.setRegistryName("sugar_pile");
 		this.setUnlocalizedName(getRegistryName().toString());
+		
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.SUGAR, new SugarPileDispenseBehaviour());
 	}
 
 	
@@ -41,7 +47,7 @@ public class BlockSugarPile extends Block{
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
-        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 0, 0, 0, 5, 1, 1, 1);
+        Underworld.proxy.spawnCustomParticle("firefly", world, d0-0.4, d1, d2-0.4, 0, 0, 0, 5, 1, 1, 1, true);
     }
 	
 	public Block setLightLevel(float value){
