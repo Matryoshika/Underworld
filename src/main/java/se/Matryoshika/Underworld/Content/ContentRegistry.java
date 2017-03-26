@@ -87,16 +87,16 @@ public class ContentRegistry {
             	);
         	}
         }
-
+        
         @SubscribeEvent
         public static void addItems(RegistryEvent.Register<Item> evt){
         	for(Item item : ItemList){
         		if(!((Boolean) ConfigHandler.isItemEnabledMap.get(item.getRegistryName().toString())))
         			continue;
         	
-	            evt.getRegistry().registerAll(
-	            	item
-	            );
+                evt.getRegistry().registerAll(
+                	item
+                );
         	}
         	
         	for(Block block : BlockList){
@@ -108,9 +108,9 @@ public class ContentRegistry {
     			else
     				iblock= new ItemBlock(block);
     			
-	            evt.getRegistry().registerAll(
-	            	iblock.setRegistryName(block.getRegistryName())
-	            );
+                evt.getRegistry().registerAll(
+                	iblock.setRegistryName(block.getRegistryName())
+                );
         	}
         }
 	}
@@ -121,6 +121,7 @@ public class ContentRegistry {
 	public static Item Lantern;
 	public static Item Sugarbeets;
 	public static Item FireflyShield;
+	public static Item Lumenite;
 	
 	
 	public static List<Item>ItemList=new ArrayList<Item>();
@@ -131,6 +132,8 @@ public class ContentRegistry {
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
 		//ItemList.add(FireflyShield = new ItemFireflyShield());
+		ItemList.add(Lumenite = new ItemLumenite());
 		
 	}
+	
 }
