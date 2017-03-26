@@ -73,10 +73,22 @@ public class BlockMetamorphicTable extends Block implements ITileEntityProvider{
 		BlockPos south = new BlockPos(pos.getX()-3, pos.getY()+1, pos.getZ());
 		BlockPos west = new BlockPos(pos.getX(), pos.getY()+1, pos.getZ()-3);
 		
-		world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, north.getX()+0.5, north.getY()+0.15, north.getZ()+0.5, -0.125, -0.0075, 0, new int[0]);
-		world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, east.getX()+0.5, east.getY()+0.15, east.getZ()+0.5,         0, -0.0075, -0.125, new int[0]);
-		world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, south.getX()+0.5, south.getY()+0.15, south.getZ()+0.5, 0.125, -0.0075, 0, new int[0]);
-		world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, west.getX()+0.5, west.getY()+0.15, west.getZ()+0.5,         0, -0.0075, 0.125, new int[0]);
+		//world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, north.getX()+0.5, north.getY()+0.15, north.getZ()+0.5, -0.125, -0.0075, 0, new int[0]);
+		//world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, east.getX()+0.5, east.getY()+0.15, east.getZ()+0.5,         0, -0.0075, -0.125, new int[0]);
+		//world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, south.getX()+0.5, south.getY()+0.15, south.getZ()+0.5, 0.125, -0.0075, 0, new int[0]);
+		//world.spawnParticle(EnumParticleTypes.DRAGON_BREATH, west.getX()+0.5, west.getY()+0.15, west.getZ()+0.5,         0, -0.0075, 0.125, new int[0]);
+		
+		
+		for(int i = 0; i < 5; i++){
+			Underworld.proxy.spawnCustomParticle("firefly", world, north.getX(), north.getY()+0.15, north.getZ(), 
+					-25, -25, 0, 10, 0.5f, 0, 0.5f, false);
+			Underworld.proxy.spawnCustomParticle("firefly", world, east.getX(), east.getY()+0.15, east.getZ(), 
+					0, -25, -25, 10, 0.5f, 0, 0.5f, false);
+			Underworld.proxy.spawnCustomParticle("firefly", world, south.getX(), south.getY()+0.15, south.getZ(), 
+					25, -25, 0, 10, 0.5f, 0, 0.5f, false);
+			Underworld.proxy.spawnCustomParticle("firefly", world, west.getX(), west.getY()+0.15, west.getZ(), 
+					0, -25, 25, 10, 0.5f, 0, 0.5f, false);
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)
