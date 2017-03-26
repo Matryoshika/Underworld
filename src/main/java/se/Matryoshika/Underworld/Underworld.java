@@ -54,6 +54,7 @@ public class Underworld {
 	public static String pathName;
 
 	static WorldType CAVES;
+	private static int dimID = 0;
 
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	private final PlayerTicker PLAYER_TICKER = new PlayerTicker();
@@ -107,9 +108,8 @@ public class Underworld {
 		proxy.init(event);
 
 		// See WorldProviderCaves on how this doesn't mess up vanilla WorldTypes
-		DimensionManager.unregisterDimension(0);
-		DimensionManager.registerDimension(0,
-				DimensionType.register("CAVES", "_caves", 0, WorldProviderCaves.class, true));
+		DimensionManager.unregisterDimension(dimID);
+		DimensionManager.registerDimension(dimID, DimensionType.register("CAVES", "_caves", dimID, WorldProviderCaves.class, true));
 
 		CustomWorldGenerators.register();
 
