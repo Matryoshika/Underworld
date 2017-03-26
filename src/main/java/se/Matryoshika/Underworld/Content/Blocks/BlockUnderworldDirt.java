@@ -109,7 +109,7 @@ public class BlockUnderworldDirt extends Block{
 				if(otherPos.get(i).up() == Blocks.WATER.getDefaultState()){
 					world.setBlockState(otherPos.get(i), Blocks.CLAY.getDefaultState());
 				}
-				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM || biome == Biomes.BEACH){
 					//Prevents sand from falling and clogging up resources
 					if(world.isAirBlock(otherPos.get(i).down())){
 						world.setBlockState(otherPos.get(i), Blocks.SANDSTONE.getDefaultState());
@@ -153,7 +153,7 @@ public class BlockUnderworldDirt extends Block{
 					world.setBlockState(pos, Blocks.GRASS.getDefaultState());
 					world.setBlockState(pos.up(), Blocks.SNOW_LAYER.getDefaultState());
 				}
-				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM || biome == Biomes.BEACH){
 					//Prevents sand from falling and clogging up resources
 					if(world.isAirBlock(pos.down())){
 						world.setBlockState(pos, Blocks.SANDSTONE.getDefaultState());
@@ -171,7 +171,7 @@ public class BlockUnderworldDirt extends Block{
 				if(world.getBlockState(pos.up()) == Blocks.WATER.getDefaultState()){
 					world.setBlockState(pos, Blocks.CLAY.getDefaultState());
 				}
-				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM || biome == Biomes.BEACH){
 					//Prevents sand from falling and clogging up resources
 					if(world.isAirBlock(pos.down())){
 						world.setBlockState(pos, Blocks.SANDSTONE.getDefaultState());
