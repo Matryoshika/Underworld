@@ -35,6 +35,12 @@ public class JEIMetamorphicTablePlugin implements IModPlugin{
 			
 			registry.addRecipes(MetamorphicTableRecipes.metamorphicTableRecipes);
 			registry.addRecipeCategoryCraftingItem(new ItemStack(ContentRegistry.BlockMetamorphicTable), MetamorphicTableCategory.UID);
+			
+			JEIDescriptions.addDescriptions(registry);
+			
+			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ContentRegistry.BlockBrazierOn));
+			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ContentRegistry.Spawner));
+			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ContentRegistry.Light));
 		}
 		
 	}
