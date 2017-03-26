@@ -82,7 +82,6 @@ public class DirtyTreeGen implements IWorldGenerator{
 	}
 	
 	private void generateStructure(World world, int x, int y, int z, Random rand) {
-		Random genRand = new Random();
 		int radius = 5;
 		
 		
@@ -94,7 +93,7 @@ public class DirtyTreeGen implements IWorldGenerator{
 		
 		BlockPos[] states = {pos, tree1, tree2, tree3, tree4};
 		
-		if(genRand.nextInt(5) == 0){
+		if(rand.nextInt(3) == 0){
 			
 			for(int i = 0; i < states.length; i++){
 				if(canGenerate(world, states[i].getX(), states[i].getY(), states[i].getZ())){

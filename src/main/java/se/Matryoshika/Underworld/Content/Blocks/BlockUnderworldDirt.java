@@ -91,7 +91,7 @@ public class BlockUnderworldDirt extends Block{
 					world.setBlockState(otherPos.get(i), Blocks.GRASS.getDefaultState());
 					world.setBlockState(otherPos.get(i).up(), Blocks.SNOW_LAYER.getDefaultState());
 				}
-				else if(biome.getTempCategory() == Biome.TempCategory.WARM){
+				else if(biome.getTempCategory() == Biome.TempCategory.WARM || biome == Biomes.BEACH){
 					//Prevents sand from falling and clogging up resources
 					if(world.isAirBlock(otherPos.get(i).down())){
 						world.setBlockState(otherPos.get(i), Blocks.SANDSTONE.getDefaultState());
