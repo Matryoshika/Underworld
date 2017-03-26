@@ -28,7 +28,7 @@ import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.RecipeManager;
 import se.Matryoshika.Underworld.Content.TileRegistry;
 import se.Matryoshika.Underworld.Events.PlayerTicker;
-import se.Matryoshika.Underworld.Events.UnderworldLivingUpdateEventHandler;
+import se.Matryoshika.Underworld.Events.UnderworldEventHandler;
 import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
 import se.Matryoshika.Underworld.Integration.CraftTweaker.MTIntegration;
 import se.Matryoshika.Underworld.Utils.BiomeType;
@@ -94,7 +94,7 @@ public class Underworld {
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(INIT_MAP_GEN_EVENT_HANDLER);
 		MinecraftForge.EVENT_BUS.register(PLAYER_TICKER);
-		MinecraftForge.EVENT_BUS.register(new UnderworldLivingUpdateEventHandler());
+		MinecraftForge.EVENT_BUS.register(new UnderworldEventHandler());
 
 		UnderworldMetamorphicTableRecipes.init();
 		
