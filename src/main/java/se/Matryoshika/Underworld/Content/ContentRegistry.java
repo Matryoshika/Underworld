@@ -44,6 +44,7 @@ public class ContentRegistry {
 	public static Block BlockMossStone;
 	public static Block BlockGlowMossStone;
 	public static Block BlockSugarPile;
+	public static Block BlockLumeniteLantern;
 	
 	
 	public static List<Block>BlockList=new ArrayList<Block>();
@@ -61,6 +62,7 @@ public class ContentRegistry {
 		BlockList.add(BlockMossStone = new BlockMossStone());
 		BlockList.add(BlockGlowMossStone = new BlockGlowingMossStone().setLightLevel(5F));
 		BlockList.add(BlockSugarPile = new BlockSugarPile().setLightLevel(5F));
+		BlockList.add(BlockLumeniteLantern = new BlockLumeniteLantern().setLightLevel(15));
 
 	}
 	
@@ -122,6 +124,7 @@ public class ContentRegistry {
 	public static Item Sugarbeets;
 	public static Item FireflyShield;
 	public static Item Lumenite;
+	public static Item LumeniteIngot;
 	
 	
 	public static List<Item>ItemList=new ArrayList<Item>();
@@ -132,7 +135,8 @@ public class ContentRegistry {
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
 		//ItemList.add(FireflyShield = new ItemFireflyShield());
-		ItemList.add(Lumenite = new ItemLumenite());
+		ItemList.add(Lumenite = new ItemLumeniteNugget());
+		ItemList.add(LumeniteIngot = new ItemLumeniteIngot());
 		
 	}
 	

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "underworld:block_lumenite_lantern" },
+        "inventory": { "model": "underworld:block_lumenite_lantern" }
+    }
+} 
