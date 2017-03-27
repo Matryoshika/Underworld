@@ -43,9 +43,9 @@ public class ItemColourHandler {
 		public int getColorFromItemstack(ItemStack stack, int tintIndex) {
 			//Here, only affect parts of the model with tintIndex = 0
 			switch(tintIndex){
-			case 0: return Color.RED.getRGB();
+			case 0: return Color.WHITE.getRGB();
 			case 1: return Color.getHSBColor(((((System.currentTimeMillis()/20)+170) % 256) / 256f), 0.75f, 1f).getRGB();
-			default : return Color.RED.getRGB();
+			default : return Color.WHITE.getRGB();
 			}
 		}
 	}
