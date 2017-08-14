@@ -100,15 +100,6 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 		Constructor<?> constructor;
 		Entity entity;
 		try {
-			if(Loader.isModLoaded("roots")){
-				Class pe = possEntity.getClass();
-				while (pe != null) {
-					if(pe.getName().contains("elucent.roots.entity"))
-						return;
-					
-					pe = pe.getSuperclass();
-				}
-			}
 			constructor = possEntity.getConstructor(World.class);
 			entity = (Entity) constructor.newInstance(new Object[] { world });
 			if(!(entity instanceof EntityAnimal || entity instanceof EntityWaterMob) || world.isRemote)
@@ -126,12 +117,8 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 			}
 	        
 		} catch (SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-
-			if(System.currentTimeMillis() - sysTime > (1000 * 20)){
-				FMLLog.getLogger().error("Something went wrong when Underworld tried to spawn an Entity; This error should only appear max once every 20 seconds.");
-				e.printStackTrace();
-				sysTime = System.currentTimeMillis();
-			}
+			entity = null;
+			return;
 		}
 	}
 }
