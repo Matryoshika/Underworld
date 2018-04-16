@@ -5,6 +5,11 @@ Darkness. Stone all around you. You will never be able to reach the sun.
 This is the Overworld. Now Underworld.
 
 ---
+```diff
+ - A complete re-write of this mod is under construction; Further updates will be for 1.12.2.
+ - The update will bring a deeper cave-system, but also allow for proper worldgen above ground to add a semblance of cross-mod compatability.
+ ```
+---
 
 ### License
 
