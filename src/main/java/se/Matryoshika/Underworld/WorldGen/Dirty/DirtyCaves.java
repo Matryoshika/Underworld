@@ -28,7 +28,7 @@ public class DirtyCaves implements IWorldGenerator {
 			for (int z = 0; z < 16; z++) {
 				for (int y = cave.caveMax; y >= cave.caveMin; y--) {
 					BlockPos pos = new BlockPos((chunkX << 4) + x, y, (chunkZ << 4) + z);
-					if (!stillInChunk(cave, world, pos))
+					if (!stillInChunk(cave, pos))
 						continue;
 					if (cave.insideGiantCave(pos.getX(), pos.getY(), pos.getZ())) {
 
@@ -44,7 +44,7 @@ public class DirtyCaves implements IWorldGenerator {
 		}
 	}
 
-	public boolean stillInChunk(UWCave cave, World world, BlockPos pos) {
+	public boolean stillInChunk(UWCave cave, BlockPos pos) {
 		return cave.chunk.x == pos.getX() >> 4 && cave.chunk.z == pos.getZ() >> 4;
 	}
 
