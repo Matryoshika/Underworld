@@ -13,6 +13,7 @@ public class CustomWorldGenerators {
 	
 	public static void register(){
 		
+		/*
 		if(ConfigHandler.clayGen)
 			GameRegistry.registerWorldGenerator(new DirtyClayGen(), 49);
 		if(ConfigHandler.treeGen)
@@ -29,6 +30,7 @@ public class CustomWorldGenerators {
 			GameRegistry.registerWorldGenerator(new DirtySpawnerGen(), Integer.MAX_VALUE);
 		if(ConfigHandler.lilyPadGen)
 			GameRegistry.registerWorldGenerator(new DirtyLilypadGen(), 54);
+		*/
 		
 		GameRegistry.registerWorldGenerator(new DirtyCaves(), 65536);
 		
