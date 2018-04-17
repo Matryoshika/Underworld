@@ -24,12 +24,6 @@ public class ItemHandlerItem extends ItemHandlerNameable{
 		this.worldContainer = worldContainer;
 	}
 
-	public ItemHandlerItem(ItemStack[] stacks, ITextComponent defaultName, IWorldContainer worldContainer) {
-		super(stacks, defaultName);
-		this.worldContainer = worldContainer;
-	}
-
-
 	@Override
 	public NBTTagCompound serializeNBT() {
 		final NBTTagCompound tagCompound = super.serializeNBT();

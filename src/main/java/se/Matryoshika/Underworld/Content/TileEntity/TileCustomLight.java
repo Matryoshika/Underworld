@@ -5,34 +5,31 @@ import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
 
-public class TileCustomLight extends CustomTileClass implements ITickable{
-	
-	public TileCustomLight(){
+public class TileCustomLight extends CustomTileClass implements ITickable {
+
+	public TileCustomLight() {
 		this.setName("TileCustomLight");
 	}
 
 	@Override
 	public void update() {
-		World world = this.worldObj;
+		World world = this.world;
 		EntityPlayer player = world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 3D, false);
-		if(player == null){
+		if (player == null) {
 			world.setBlockToAir(pos);
-		}
-		else{
-			if(player.getHeldItemMainhand() != null)
-				if(player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern){
+		} else {
+			if (player.getHeldItemMainhand() != null)
+				if (player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern) {
 					return;
 				}
-					
-			
-			if(player.getHeldItemOffhand() != null)
-				if(player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern){
+
+			if (player.getHeldItemOffhand() != null)
+				if (player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern) {
 					return;
 				}
-					
-			
+
 			world.setBlockToAir(pos);
-			
+
 		}
 	}
 }

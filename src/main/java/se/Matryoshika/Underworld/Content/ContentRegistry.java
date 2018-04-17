@@ -1,36 +1,39 @@
 package se.Matryoshika.Underworld.Content;
 
-import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.Blocks.*;
-import se.Matryoshika.Underworld.Content.Items.*;
-import se.Matryoshika.Underworld.Content.Rendering.BlockRenderRegister;
-import se.Matryoshika.Underworld.Utils.ConfigHandler;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
-
-import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import se.Matryoshika.Underworld.Underworld;
+import se.Matryoshika.Underworld.Content.Blocks.BlockBrazierOff;
+import se.Matryoshika.Underworld.Content.Blocks.BlockBrazierOn;
+import se.Matryoshika.Underworld.Content.Blocks.BlockCustomEndPortal;
+import se.Matryoshika.Underworld.Content.Blocks.BlockCustomLight;
+import se.Matryoshika.Underworld.Content.Blocks.BlockGlowingMossStone;
+import se.Matryoshika.Underworld.Content.Blocks.BlockHangVine;
+import se.Matryoshika.Underworld.Content.Blocks.BlockInvisMobSpawner;
+import se.Matryoshika.Underworld.Content.Blocks.BlockLumeniteLantern;
+import se.Matryoshika.Underworld.Content.Blocks.BlockMetamorphicTable;
+import se.Matryoshika.Underworld.Content.Blocks.BlockMossStone;
+import se.Matryoshika.Underworld.Content.Blocks.BlockSugarPile;
+import se.Matryoshika.Underworld.Content.Blocks.BlockSugarbeet;
+import se.Matryoshika.Underworld.Content.Blocks.BlockUnderworldDirt;
+import se.Matryoshika.Underworld.Content.Items.ItemBlockShiny;
+import se.Matryoshika.Underworld.Content.Items.ItemDebugger;
+import se.Matryoshika.Underworld.Content.Items.ItemLantern;
+import se.Matryoshika.Underworld.Content.Items.ItemLumeniteIngot;
+import se.Matryoshika.Underworld.Content.Items.ItemLumeniteNugget;
+import se.Matryoshika.Underworld.Content.Items.ItemSugarbeet;
 
-
+@Mod.EventBusSubscriber(modid = Underworld.MODID)
 public class ContentRegistry {
-	
-	//Blocks-------------------------------------------------------------------------------------------
+
+	// Blocks-------------------------------------------------------------------------------------------
 
 	public static Block BlockHangVine;
 	public static Block BlockDirt;
@@ -45,11 +48,10 @@ public class ContentRegistry {
 	public static Block BlockGlowMossStone;
 	public static Block BlockSugarPile;
 	public static Block BlockLumeniteLantern;
-	
-	
-	public static List<Block>BlockList=new ArrayList<Block>();
-	
-	public static void prepareBlocks(){
+
+	public static List<Block> BlockList = new ArrayList<Block>();
+
+	public static void prepareBlocks() {
 		BlockList.add(BlockHangVine = new BlockHangVine());
 		BlockList.add(BlockDirt = new BlockUnderworldDirt());
 		BlockList.add(BlockBrazierOff = new BlockBrazierOff());
@@ -65,79 +67,50 @@ public class ContentRegistry {
 		BlockList.add(BlockLumeniteLantern = new BlockLumeniteLantern().setLightLevel(15));
 
 	}
-	
-	
-	
-	@Mod.EventBusSubscriber
-    public static class register{
-        @SubscribeEvent
-        public static void addBlocks(RegistryEvent.Register<Block> evt){
-        	Underworld.mainConfig = new Configuration(new File("config/"+ Underworld.MODID+"/main.cfg"));
-        	Underworld.itemConfig = new Configuration(new File("config/"+ Underworld.MODID+"/items.cfg"));
-        	Underworld.blockConfig = new Configuration(new File("config/"+ Underworld.MODID+"/blocks.cfg"));
-        	Underworld.genConfig = new Configuration(new File("config/"+ Underworld.MODID+"/worldGen.cfg"));
-        	ConfigHandler.readMain();
-        	prepareBlocks();
-        	prepareItems();
-        	ConfigHandler.setItemAndBlockConfigs();
-        	for(Block block : BlockList){
-        		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString())))
-    				continue;
-    			
-        		evt.getRegistry().register(
-            		block
-            	);
-        	}
-        }
-        
-        @SubscribeEvent
-        public static void addItems(RegistryEvent.Register<Item> evt){
-        	for(Item item : ItemList){
-        		if(!((Boolean) ConfigHandler.isItemEnabledMap.get(item.getRegistryName().toString())))
-        			continue;
-        	
-                evt.getRegistry().registerAll(
-                	item
-                );
-        	}
-        	
-        	for(Block block : BlockList){
-        		if(!((Boolean) ConfigHandler.isBlockEnabledMap.get(block.getRegistryName().toString())))
-        			continue;
-        		ItemBlock iblock;
-    			if(block == ContentRegistry.BlockCustomEndPortal)
-    				iblock = new ItemBlockShiny(block);
-    			else
-    				iblock= new ItemBlock(block);
-    			
-                evt.getRegistry().registerAll(
-                	iblock.setRegistryName(block.getRegistryName())
-                );
-        	}
-        }
+
+	@SubscribeEvent
+	public static void addBlocks(Register<Block> evt) {
+		prepareBlocks();
+		prepareItems();
+		Underworld.log.error("Registered blocks ###########################################################################");
+		BlockList.forEach(evt.getRegistry()::register);
 	}
-	
-	//Items--------------------------------------------------------------------------------------------
-	
+
+	@SubscribeEvent
+	public static void addItems(Register<Item> evt) {
+		ItemList.forEach(evt.getRegistry()::register);
+
+		for (Block block : BlockList) {
+			ItemBlock iblock;
+			if (block == ContentRegistry.BlockCustomEndPortal)
+				iblock = new ItemBlockShiny(block);
+			else
+				iblock = new ItemBlock(block);
+
+			evt.getRegistry().registerAll(iblock.setRegistryName(block.getRegistryName()));
+		}
+	}
+
+	// Items--------------------------------------------------------------------------------------------
+
 	public static Item Debugger;
 	public static Item Lantern;
 	public static Item Sugarbeets;
 	public static Item FireflyShield;
 	public static Item Lumenite;
 	public static Item LumeniteIngot;
-	
-	
-	public static List<Item>ItemList=new ArrayList<Item>();
-	
+
+	public static List<Item> ItemList = new ArrayList<Item>();
+
 	public static void prepareItems() {
-		
+
 		ItemList.add(Debugger = new ItemDebugger());
 		ItemList.add(Lantern = new ItemLantern());
 		ItemList.add(Sugarbeets = new ItemSugarbeet());
-		//ItemList.add(FireflyShield = new ItemFireflyShield());
+		// ItemList.add(FireflyShield = new ItemFireflyShield());
 		ItemList.add(Lumenite = new ItemLumeniteNugget());
 		ItemList.add(LumeniteIngot = new ItemLumeniteIngot());
-		
+
 	}
-	
+
 }

@@ -1,7 +1,8 @@
 package se.Matryoshika.Underworld;
 
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
@@ -10,7 +11,6 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -20,8 +20,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import se.Matryoshika.Underworld.API.UnderworldMetamorphicTableRecipes;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
@@ -30,7 +28,6 @@ import se.Matryoshika.Underworld.Content.TileRegistry;
 import se.Matryoshika.Underworld.Events.PlayerTicker;
 import se.Matryoshika.Underworld.Events.UnderworldEventHandler;
 import se.Matryoshika.Underworld.Events.UnderworldMapEventHandler;
-import se.Matryoshika.Underworld.Integration.CraftTweaker.MTIntegration;
 import se.Matryoshika.Underworld.Utils.BiomeType;
 import se.Matryoshika.Underworld.Utils.ConfigHandler;
 import se.Matryoshika.Underworld.Utils.CreativeTabUnderworld;
@@ -50,7 +47,7 @@ public class Underworld {
 	public static Configuration itemConfig;
 	public static Configuration blockConfig;
 	public static Configuration genConfig;
-	
+
 	public static String pathName;
 
 	static WorldType CAVES;
@@ -59,14 +56,9 @@ public class Underworld {
 	private final UnderworldMapEventHandler INIT_MAP_GEN_EVENT_HANDLER = new UnderworldMapEventHandler();
 	private final PlayerTicker PLAYER_TICKER = new PlayerTicker();
 	private final ContentRegistry REGISTRY = new ContentRegistry();
+	public static Logger log;
 
-	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld") {
-		@Override
-		@SideOnly(Side.CLIENT)
-		public Item getTabIconItem() {
-			return new ItemStack(ContentRegistry.Lantern).getItem();
-		}
-	};
+	public static final CreativeTabUnderworld UnderworldTab = new CreativeTabUnderworld("Underworld");
 
 	@EventHandler
 	public void serverStarting(FMLServerAboutToStartEvent event) {
@@ -81,12 +73,13 @@ public class Underworld {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		log = event.getModLog();
 
-		ConfigHandler.readMain();
+		//ConfigHandler.readMain();
 
 		TileRegistry.registerTiles();
 
-		ConfigHandler.setItemAndBlockConfigs();
+		//ConfigHandler.setItemAndBlockConfigs();
 
 		BiomeType.init();
 		proxy.preInit(event);
@@ -97,10 +90,7 @@ public class Underworld {
 		MinecraftForge.EVENT_BUS.register(new UnderworldEventHandler());
 
 		UnderworldMetamorphicTableRecipes.init();
-		
-		if(Loader.isModLoaded("MineTweaker3"))
-			MTIntegration.onInit();
-		
+
 	}
 
 	@EventHandler
@@ -141,16 +131,15 @@ public class Underworld {
 		if (event.getItemStack() != null && event.getItemStack().getItem() == Items.SUGAR) {
 
 			for (BlockPos pos : BlockPos.getAllInBox(event.getPos().add(-5, -3, -5), event.getPos().add(5, 3, 5))) {
-				if (event.getEntityPlayer().worldObj.getBlockState(pos).getBlock() == ContentRegistry.BlockSugarPile) {
+				if (event.getEntityPlayer().world.getBlockState(pos).getBlock() == ContentRegistry.BlockSugarPile) {
 					return;
 				}
 			}
-			if (!event.getEntityPlayer().worldObj.isAirBlock(event.getPos())) {
-				event.getEntityPlayer().worldObj.setBlockState(event.getPos().up(),
-						ContentRegistry.BlockSugarPile.getDefaultState());
+			if (!event.getEntityPlayer().world.isAirBlock(event.getPos())) {
+				event.getEntityPlayer().world.setBlockState(event.getPos().up(), ContentRegistry.BlockSugarPile.getDefaultState());
 				if (!event.getEntityPlayer().capabilities.isCreativeMode)
-					event.getItemStack().stackSize--;
-				SugarPileList.addSugarPile(event.getEntityPlayer().worldObj, event.getPos().up());
+					event.getItemStack().shrink(1);
+				SugarPileList.addSugarPile(event.getEntityPlayer().world, event.getPos().up());
 			}
 		}
 	}

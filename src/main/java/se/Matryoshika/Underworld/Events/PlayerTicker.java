@@ -31,7 +31,7 @@ public class PlayerTicker {
 		Random rand = new Random();
 		if(rand.nextInt(10) == 0)
 			if((player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == ContentRegistry.Lantern) || (player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() == ContentRegistry.Lantern))
-				Underworld.proxy.spawnCustomParticle("firefly", player.worldObj, player.posX, player.posY, player.posZ, 0, 0, 0, 1, 1, 1, 1, true);
+				Underworld.proxy.spawnCustomParticle("firefly", player.world, player.posX, player.posY, player.posZ, 0, 0, 0, 1, 1, 1, 1, true);
 		
 	}
 	
@@ -44,13 +44,13 @@ public class PlayerTicker {
 					BlockPos scannedBlock = new BlockPos(pos.getX()+x, pos.getY()+y, pos.getZ()+z); 
 					
 					//If the scan finds a single Light-block, stop this update.
-					if(player.worldObj.getBlockState(scannedBlock) == ContentRegistry.Light.getDefaultState()){
+					if(player.world.getBlockState(scannedBlock) == ContentRegistry.Light.getDefaultState()){
 						return;
 					}
 					//Else place a new light.
 					else{
-						if(player.worldObj.isAirBlock(pos))
-							player.worldObj.setBlockState(pos, ContentRegistry.Light.getDefaultState());
+						if(player.world.isAirBlock(pos))
+							player.world.setBlockState(pos, ContentRegistry.Light.getDefaultState());
 					}
 				}
 			}

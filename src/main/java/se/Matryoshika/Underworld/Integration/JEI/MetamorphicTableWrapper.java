@@ -1,5 +1,6 @@
 package se.Matryoshika.Underworld.Integration.JEI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -26,35 +27,7 @@ public class MetamorphicTableWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public List getInputs() {
-		return input;
-	}
-
-	@Override
-	public List<ItemStack> getOutputs() {
-		return ImmutableList.of(output);
-	}
-
-	@Override
-	public List<FluidStack> getFluidInputs() {
-		// TODO Auto-generated method stub
-		return ImmutableList.of();
-	}
-
-	@Override
-	public List<FluidStack> getFluidOutputs() {
-		// TODO Auto-generated method stub
-		return ImmutableList.of();
-	}
-
-	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void drawAnimations(Minecraft minecraft, int recipeWidth, int recipeHeight) {
 		// TODO Auto-generated method stub
 
 	}
@@ -70,9 +43,17 @@ public class MetamorphicTableWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public void getIngredients(IIngredients arg0) {
-		// TODO Auto-generated method stub
-		
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInput(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
+	}
+	
+	public List getInput() {
+		return new ArrayList(input);
+	}
+	
+	public ItemStack getOutput() {
+		return output.copy();
 	}
 
 }

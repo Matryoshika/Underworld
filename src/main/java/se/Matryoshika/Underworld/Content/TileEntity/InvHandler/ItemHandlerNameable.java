@@ -2,10 +2,12 @@ package se.Matryoshika.Underworld.Content.TileEntity.InvHandler;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldNameable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import scala.actors.threadpool.Arrays;
 
 public class ItemHandlerNameable extends ItemStackHandler implements IItemHandler, IWorldNameable{
 
@@ -22,11 +24,6 @@ public class ItemHandlerNameable extends ItemStackHandler implements IItemHandle
 
 	public ItemHandlerNameable(int size, ITextComponent defaultName) {
 		super(size);
-		this.defaultName = defaultName.createCopy();
-	}
-
-	public ItemHandlerNameable(ItemStack[] stacks, ITextComponent defaultName) {
-		super(stacks);
 		this.defaultName = defaultName.createCopy();
 	}
 

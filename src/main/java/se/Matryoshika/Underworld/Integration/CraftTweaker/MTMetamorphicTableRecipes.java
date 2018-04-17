@@ -1,14 +1,16 @@
 package se.Matryoshika.Underworld.Integration.CraftTweaker;
 
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.minecraft.MineTweakerMC;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import se.Matryoshika.Underworld.API.MetamorphicTableRecipes;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+@ZenRegister
 @ZenClass("mods.underworld.metamorphictable")
 public class MTMetamorphicTableRecipes {
 
@@ -27,12 +29,14 @@ public class MTMetamorphicTableRecipes {
 		@Override
 		protected void add() {
 			MetamorphicTableRecipes.registerTableRecipes(input, output, meta);
-			MineTweakerAPI.ijeiRecipeRegistry.addRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
+			// CraftTweakerAPI.ijeiRecipeRegistry.addRecipe(MetamorphicTableRecipes.getRecipe(input,
+			// output, meta));
 		}
 
 		@Override
 		protected void remove() {
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(MetamorphicTableRecipes.getRecipe(input, output, meta));
+			// CraftTweakerAPI.getIjeiRecipeRegistry().removeRecipe(MetamorphicTableRecipes.getRecipe(input,
+			// output, meta));
 			MetamorphicTableRecipes.removeTableRecipes(input, output, meta);
 		}
 
@@ -55,33 +59,28 @@ public class MTMetamorphicTableRecipes {
 		int meta = 0;
 
 		try {
-			output = MineTweakerMC.getItemStack(_output);
-			input = MineTweakerMC.getItemStack(_input);
+			output = CraftTweakerMC.getItemStack(_output);
+			input = CraftTweakerMC.getItemStack(_input);
 			meta = _meta;
 		} catch (IllegalArgumentException e) {
-			MineTweakerAPI.logError("Invalid MetamorphicTable recipe: " + e.getMessage());
+			CraftTweakerAPI.logError("Invalid MetamorphicTable recipe: " + e.getMessage());
 		}
 
-		MineTweakerAPI.apply(new MetamorphicTableAction(input, output, meta).action_add);
+		CraftTweakerAPI.apply(new MetamorphicTableAction(input, output, meta).action_add);
 
 	}
 
 	@ZenMethod
 	static public void removeRecipe(IItemStack input, IItemStack output, int meta) {
-		if (!MetamorphicTableRecipes.recipeExists(MineTweakerMC.getItemStack(input), MineTweakerMC.getItemStack(output),
-				meta)) {
-			MineTweakerAPI.logWarning("Metamorphic Table recipe not found: "
-					+ MineTweakerMC.getItemStack(input).getItem().getRegistryName() + " -> "
-					+ MineTweakerMC.getItemStack(output).getItem().getRegistryName() + " with metadata of " + meta);
+		if (!MetamorphicTableRecipes.recipeExists(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(output), meta)) {
+			CraftTweakerAPI.logWarning("Metamorphic Table recipe not found: " + CraftTweakerMC.getItemStack(input).getItem().getRegistryName() + " -> " + CraftTweakerMC.getItemStack(output).getItem().getRegistryName() + " with metadata of " + meta);
 			return;
 		}
-		MineTweakerAPI.apply(new MetamorphicTableAction(MineTweakerMC.getItemStack(input),
-				MineTweakerMC.getItemStack(output), meta).action_remove);
+		CraftTweakerAPI.apply(new MetamorphicTableAction(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(output), meta).action_remove);
 	}
 
 	static public String getItemDescription(ItemStack stack) {
 		ResourceLocation item = stack.getItem().getRegistryName();
-		return String.format("I(%s:%s:%d,%d)", item.getResourceDomain(), item.getResourcePath(), stack.getItemDamage(),
-				stack.stackSize);
+		return String.format("I(%s:%s:%d,%d)", item.getResourceDomain(), item.getResourcePath(), stack.getItemDamage(), stack.getCount());
 	}
 }

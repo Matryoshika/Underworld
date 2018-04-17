@@ -37,7 +37,7 @@ public class TableRecipes {
 	}
 	
 	public int getOPStackSize(){
-		return output.stackSize;
+		return output.getCount();
 	}
 	
 	public ItemStack result(){

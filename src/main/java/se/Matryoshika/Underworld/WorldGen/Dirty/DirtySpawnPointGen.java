@@ -8,8 +8,8 @@ import java.util.Random;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Content.ContentRegistry;
@@ -19,8 +19,7 @@ import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 public class DirtySpawnPointGen implements IWorldGenerator {
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-			IChunkProvider chunkProvider) {
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!world.provider.isSurfaceWorld()) {
 			// System.out.println("NOT 0! IT IS
 			// "+world.provider.getDimension());
@@ -33,32 +32,31 @@ public class DirtySpawnPointGen implements IWorldGenerator {
 
 		if (chunkX == 0 && chunkZ == 0) {
 
-
 			int xRange = 24;
 			int zRange = 24;
 			int yRange = 0;
 
 			int yBottom = 50 - yRange;
-			
+
 			int repeats = 0;
 
-			for(int level = 64; level > 0; level--){
-				
+			for (int level = 64; level > 0; level--) {
+
 				repeats++;
-				
+
 				BlockPos center = new BlockPos(0, level, 0);
-				BlockPos start = new BlockPos(0 - (xRange+repeats) / 2, level, 0 - (zRange+repeats) / 2);
+				BlockPos start = new BlockPos(0 - (xRange + repeats) / 2, level, 0 - (zRange + repeats) / 2);
 
 				// the elliptic shape
-				Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange+repeats, zRange+repeats);
+				Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange + repeats, zRange + repeats);
 
 				// Basic shape
-				for (int x = 0; x <= xRange+repeats; x++) {
-					for (int z = 0; z <= zRange+repeats; z++) {
+				for (int x = 0; x <= xRange + repeats; x++) {
+					for (int z = 0; z <= zRange + repeats; z++) {
 						for (int y = 0; y <= yRange; y++) {
 							if (ellipse.contains(x, z)) {
-								
-								if(level > 50)
+
+								if (level > 50)
 									world.setBlockToAir(start.add(x, y, z));
 								else
 									world.setBlockState(start.add(x, y, z), Blocks.STONE.getDefaultState(), 2);
@@ -72,13 +70,12 @@ public class DirtySpawnPointGen implements IWorldGenerator {
 
 			/*
 			 * 
-			 * for(int dx = 0 - radius; dx < 0 + radius; dx++){ for(int dy = 50
-			 * - radius; dy < 50 + radius; dy++){ for(int dz = 0 - radius; dz <
-			 * 0 + radius; dz++){ int sqrt = ((dx)*(dx)) + ((dy-50)*(dy-50)) +
-			 * ((dz)*(dz)); if(sqrt <= (radius*radius)){ if(dy <= 50){
-			 * world.setBlockState(new BlockPos(dx, dy, dz),
-			 * Blocks.STONE.getDefaultState()); } else{ world.setBlockToAir(new
-			 * BlockPos(dx, dy, dz)); } } } } }
+			 * for(int dx = 0 - radius; dx < 0 + radius; dx++){ for(int dy = 50 - radius; dy
+			 * < 50 + radius; dy++){ for(int dz = 0 - radius; dz < 0 + radius; dz++){ int
+			 * sqrt = ((dx)*(dx)) + ((dy-50)*(dy-50)) + ((dz)*(dz)); if(sqrt <=
+			 * (radius*radius)){ if(dy <= 50){ world.setBlockState(new BlockPos(dx, dy, dz),
+			 * Blocks.STONE.getDefaultState()); } else{ world.setBlockToAir(new BlockPos(dx,
+			 * dy, dz)); } } } } }
 			 */
 			BlockPos poss1 = new BlockPos(5, 51, 5);
 			BlockPos poss2 = new BlockPos(5, 51, -5);

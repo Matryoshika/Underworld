@@ -8,11 +8,9 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import se.Matryoshika.Underworld.ClientProxy;
-import se.Matryoshika.Underworld.Underworld;
 
 public class FireflyFX extends Particle{
 	
@@ -102,7 +99,7 @@ public class FireflyFX extends Particle{
     		motionZ *= 0.01;
         }
         
-        if(worldObj.getLight(new BlockPos(this.posX, this.posY, this.posZ)) < 3){
+        if(world.getLight(new BlockPos(this.posX, this.posY, this.posZ)) < 3){
         	this.particleAge += 5;
         }
     }
@@ -113,7 +110,7 @@ public class FireflyFX extends Particle{
     }
 	
 	@Override
-	public void renderParticle(VertexBuffer wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;

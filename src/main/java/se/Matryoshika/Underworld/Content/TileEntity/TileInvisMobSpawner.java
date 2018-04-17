@@ -2,37 +2,27 @@ package se.Matryoshika.Underworld.Content.TileEntity;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.SpawnListEntry;
-import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry.EntityRegistration;
-import se.Matryoshika.Underworld.Utils.Print;
 
 public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 	
 	Biome biome;
-	List<String> allEntities;
+	List<ResourceLocation> allEntities;
 	int counter = 0;
 	int i = 0;
 	
@@ -44,14 +34,13 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 
 	@Override
 	public void update() {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 		
 		BlockPos pos = this.pos;
 		if(biome == null){
-			biome = this.worldObj.getBiomeForCoordsBody(pos);
-			allEntities= EntityList.getEntityNameList();
-			
+			biome = this.world.getBiomeForCoordsBody(pos);
+			allEntities = new ArrayList<ResourceLocation>(EntityList.getEntityNameList());
 		}
 		
 		
@@ -59,12 +48,12 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 		
 		if(counter >= 1){
 			
-			BlockPos possiblePos = getLocation(this.worldObj, pos);
-			if(isSuitable(possiblePos, this.worldObj)){
+			BlockPos possiblePos = getLocation(this.world, pos);
+			if(isSuitable(possiblePos, this.world)){
 				//System.out.println("WORKS BOSS");
-				Class<? extends Entity> entity = getCreature(this.worldObj, possiblePos);
+				Class<? extends Entity> entity = getCreature(this.world, possiblePos);
 				if(entity != null)
-				doSpawn(this.worldObj, entity, possiblePos);
+				doSpawn(this.world, entity, possiblePos);
 				counter = 0;
 			}
 		}
@@ -72,9 +61,9 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 
 	public Class<? extends Entity> getCreature(World world, BlockPos pos){
 		Random rand = new Random();
-		String name = allEntities.get(rand.nextInt(allEntities.size()));
+		ResourceLocation name = allEntities.get(rand.nextInt(allEntities.size()));
 		
-		return EntityList.NAME_TO_CLASS.get(name);
+		return EntityList.getClassFromName(name.toString());
 	}
 	
 	public BlockPos getLocation(World world, BlockPos pos){
@@ -112,7 +101,7 @@ public class TileInvisMobSpawner extends CustomTileClass implements ITickable{
 			if(world.getBiomeForCoordsBody(pos).getSpawnableList(EnumCreatureType.CREATURE).toString().contains(entity.getClass().getSimpleName())){
 				entity.setLocationAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.rand.nextFloat() * 360.0F, 0.0F);
 				//entity.setUniqueId(UUID.randomUUID());
-				world.spawnEntityInWorld(entity);
+				world.spawnEntity(entity);
 		        world.playEvent(2004, pos, 0);
 			}
 	        

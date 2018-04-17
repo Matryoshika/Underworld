@@ -1,31 +1,20 @@
 package se.Matryoshika.Underworld.Content.Rendering;
 
-import java.nio.FloatBuffer;
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.tileentity.TileEntityEndPortal;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.TRSRTransformation;
 import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.Content.ContentRegistry;
 import se.Matryoshika.Underworld.Content.TileEntity.TileUnderworldEnderPortal;
 
 public class TERenderEnderPortal extends TileEntitySpecialRenderer<TileUnderworldEnderPortal>{
@@ -49,7 +38,8 @@ public class TERenderEnderPortal extends TileEntitySpecialRenderer<TileUnderworl
         return bakedModelBall;
     }
 
-    public void renderTileEntityAt(TileUnderworldEnderPortal te, double x, double y, double z, float partialTicks, int destroyStage){
+    @Override
+    public void render(TileUnderworldEnderPortal te, double x, double y, double z, float partialTicks, int destroyStage, float alpha){
     	GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
     	GlStateManager.translate(x, y, z);

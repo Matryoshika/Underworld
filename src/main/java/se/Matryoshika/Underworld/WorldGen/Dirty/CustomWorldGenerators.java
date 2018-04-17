@@ -30,6 +30,8 @@ public class CustomWorldGenerators {
 		if(ConfigHandler.lilyPadGen)
 			GameRegistry.registerWorldGenerator(new DirtyLilypadGen(), 54);
 		
+		GameRegistry.registerWorldGenerator(new DirtyCaves(), 65536);
+		
 		
 	}
 

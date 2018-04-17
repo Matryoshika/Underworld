@@ -3,16 +3,14 @@ package se.Matryoshika.Underworld.WorldGen.Dirty;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import se.Matryoshika.Underworld.Utils.ConfigHandler;
-import se.Matryoshika.Underworld.Utils.Print;
 import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class DirtyClayGen implements IWorldGenerator {
@@ -47,8 +45,7 @@ public class DirtyClayGen implements IWorldGenerator {
 
 	public boolean canPlace(World world, BlockPos pos) {
 		if (world.getBlockState(pos) == Blocks.DIRT.getDefaultState()) {
-			if (world.getBlockState(pos.up()) == Blocks.WATER.getDefaultState()
-					&& world.getBlockState(pos.up(2)) == Blocks.WATER.getDefaultState()) {
+			if (world.getBlockState(pos.up()) == Blocks.WATER.getDefaultState() && world.getBlockState(pos.up(2)) == Blocks.WATER.getDefaultState()) {
 				return true;
 			}
 		}

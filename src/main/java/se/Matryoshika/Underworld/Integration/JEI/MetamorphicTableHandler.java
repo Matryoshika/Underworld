@@ -13,13 +13,8 @@ public class MetamorphicTableHandler implements IRecipeHandler<TableRecipes> {
 	}
 
 	@Override
-	public String getRecipeCategoryUid() {
-		return Underworld.MODID+".metamorphictable";
-	}
-
-	@Override
 	public String getRecipeCategoryUid(TableRecipes recipe) {
-		return getRecipeCategoryUid();
+		return Underworld.MODID+".metamorphictable";
 	}
 
 	@Override

@@ -14,10 +14,10 @@ public class UnderworldEventHandler {
 		if (event.getEntityLiving() instanceof EntityMob) {
 
 			EntityMob mob = (EntityMob) event.getEntityLiving();
-			if(mob.worldObj.isRemote || !mob.isNonBoss())
+			if(mob.world.isRemote || !mob.isNonBoss())
 				return;
 			
-			for (BlockPos pos : SugarPileList.getSugarPiles(mob.worldObj)) {
+			for (BlockPos pos : SugarPileList.getSugarPiles(mob.world)) {
 
 				if (mob.getDistance(pos.getX(), pos.getY(), pos.getZ()) <= 8) {
 					if(mob.hurtResistantTime > 0)

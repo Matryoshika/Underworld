@@ -1,58 +1,50 @@
 package se.Matryoshika.Underworld.Events;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import se.Matryoshika.Underworld.Underworld;
-import se.Matryoshika.Underworld.WorldGen.WorldProviderCaves;
-import se.Matryoshika.Underworld.WorldGen.WorldTypeCaves;
 
 public class UnderworldMapEventHandler {
-	
+
 	@SubscribeEvent(priority = EventPriority.LOW)
-	public void initializeMap(InitMapGenEvent event){
-		if(WorldProviderCaves.worldObject == null || WorldProviderCaves.worldObject.provider == null){
-			return;
-		}
-		
+	public void initializeMap(InitMapGenEvent event) {
+
 		switch (event.getType()) {
-		case OCEAN_MONUMENT:{
-			//event.setNewGen(new DirtyOceanMonument());
+		case OCEAN_MONUMENT: {
+			// event.setNewGen(new DirtyOceanMonument());
 			break;
 		}
-		case CAVE:{
+		case CAVE: {
 			break;
 		}
-		case CUSTOM:{
+		case CUSTOM: {
 			break;
 		}
-		case MINESHAFT:{
+		case MINESHAFT: {
 			break;
 		}
-		case NETHER_BRIDGE:{
+		case NETHER_BRIDGE: {
 			break;
 		}
-		case NETHER_CAVE:{
+		case NETHER_CAVE: {
 			break;
 		}
-		case RAVINE:{
+		case RAVINE: {
 			break;
 		}
-		case SCATTERED_FEATURE:{
+		case SCATTERED_FEATURE: {
 			break;
 		}
-		case STRONGHOLD:{
+		case STRONGHOLD: {
 			break;
 		}
-		case VILLAGE:{
+		case VILLAGE: {
 			break;
 		}
-		default:{
+		default: {
 			break;
 		}
 		}
 	}
-	
+
 }

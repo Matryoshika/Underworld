@@ -47,11 +47,6 @@ public class UWEventListener implements IWorldEventListener{
 	}
 
 	@Override
-	public void spawnParticle(int particleID, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
-		
-	}
-
-	@Override
 	public void onEntityAdded(Entity entityIn) {
 		
 	}
@@ -73,12 +68,22 @@ public class UWEventListener implements IWorldEventListener{
 		
 		if(type == 1031 && world.getBlockState(pos.down()).getBlock() == ContentRegistry.BlockGlowMossStone){
 			world.setBlockState(pos.down(), Blocks.MOSSY_COBBLESTONE.getDefaultState());
-			world.spawnEntityInWorld(new EntityItem(world, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, new ItemStack(ContentRegistry.Lumenite)));
+			world.spawnEntity(new EntityItem(world, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, new ItemStack(ContentRegistry.Lumenite)));
 		}
 	}
 
 	@Override
 	public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
+		
+	}
+
+	@Override
+	public void spawnParticle(int particleID, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
+		
+	}
+
+	@Override
+	public void spawnParticle(int id, boolean ignoreRange, boolean p_190570_3_, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
 		
 	}
 

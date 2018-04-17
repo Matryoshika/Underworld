@@ -46,7 +46,7 @@ public class BlockCustomLight extends BlockContainer{
 
 	@Override
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos){
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos){
         return NULL_AABB;
     }
 
